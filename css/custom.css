@@ -1,42 +1,115 @@
 :root {
-  --bg-color: var(--color--tk-light-white);
-  --text-color: var(--color--tk-black);
+    --bg-color: var(--color--tk-light-white);
+    --text-color: var(--color--tk-black);
+    --switch-width: 96px;
+    --switch-height: 44px;
+    --handle-size: 36px;
+    --glass-bg: rgba(255, 255, 255, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-highlight: rgba(255, 255, 255, 0.8);
+    --icon-dim: rgba(255, 255, 255, 0.4);
+    --icon-bright: rgba(255, 255, 255, 1);
 }
 
 [data-theme="dark"] {
-  --bg-color: var(--dark--tk-white);
-  --text-color: var(--dark--tk-black);
+    --bg-color: var(--dark--tk-white);
+    --text-color: var(--dark--tk-black);
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition-property: background-color, color;
-  transition-duration: 1s, 1s;
-  transition-delay: 0.5s, 1s;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition-property: background-color, color;
+    transition-duration: 1s, 1s;
+    transition-delay: 0.5s, 1s;
 }
 
 .fade-border {
-  border-width: 0 1px;
-  border-style: dashed;
-  border-image: linear-gradient(to bottom,
-      transparent,
-      #00d2ff 20%,
-      #00d2ff 80%,
-      transparent) 1 100%;
+    border-width: 0 1px;
+    border-style: dashed;
+    border-image: linear-gradient(to bottom,
+            transparent,
+            #00d2ff 20%,
+            #00d2ff 80%,
+            transparent) 1 100%;
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
-  padding: 2px;
+    width: 12px;
+    padding: 2px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #d2dde8;
+    background: #d2dde8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #fff;
-  border-radius: 4px;
-  border: #d2dde8 4px solid;
+    background: #fff;
+    border-radius: 4px;
+    border: #d2dde8 4px solid;
+}
+
+
+.frosted-switch-container {
+    display: inline-block;
+    /* Allows multiple side-by-side */
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+    margin: 10px;
+}
+
+.switch-input {
+    display: none;
+}
+
+.switch-label {
+    width: var(--switch-width);
+    height: var(--switch-height);
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+
+    /* Glass Styles */
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Generic Icon Wrappers */
+.icon {
+    width: 22px;
+    height: 22px;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Default State (Will be overridden by GSAP) */
+    color: var(--icon-dim);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.switch-handle {
+    width: var(--handle-size);
+    height: var(--handle-size);
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    z-index: 1;
+
+    /* Handle Glass Styles */
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--glass-highlight);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1),
+        inset 0 2px 3px rgba(255, 255, 255, 0.9),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.05);
 }

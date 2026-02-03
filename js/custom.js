@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const SETTLING_DELAY = isRepeatVisit ? 100 : 2000;
     console.log(
         isRepeatVisit
-            ? "🔄 Refresh detected. Skipping delay."
-            : "🆕 First visit. Using full delay.",
+            ? "Refresh detected. Skipping delay."
+            : "First visit. Using full delay.",
     );
 
     loader.style.opacity = "1";
@@ -54,9 +54,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }, SETTLING_DELAY);
 
             if (toggleTheme) {
-                toggleTheme.addEventListener("click", () => {
-                    isDark = !isDark;
-                    applyThemeToDOM(isDark, false);
+                toggleTheme.addEventListener("change", (event) => {
+                    if(event.target.checked){
+                        applyThemeToDOM(isDark, false);
+                    }
+                    else{
+                        applyThemeToDOM(isDark, true);
+                    }
                     app.setVariable("ThemeState", isDark);
                 });
             }
@@ -92,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
             body.setAttribute("data-theme", "dark");
             localStorage.setItem("theme", "dark");
             if (iconLight && iconDark) {
+                
             if (skipAnimation) {
                 gsap.set(iconLight, { y: -40 });
                 gsap.set(iconDark, { y: -20 });
@@ -195,3 +200,113 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+
+const themeToggle = new FrostedSwitch('theme-switch', {
+  initialState: false, // Start on 'Sun' (Left)
+  onToggle: (isActive) => {
+    if (isActive) {
+      console.log("Dark Mode Activated");
+      document.body.style.backgroundColor = "#2c3e50"; // Example logic
+    } else {
+      console.log("Light Mode Activated");
+      document.body.style.backgroundColor = "#a1c4fd"; // Example logic
+    }
+  }
+});
+
+
+const soundToggle = new FrostedSwitch('sound-switch', {
+  initialState: true, // Start on 'Sound On' (Right)
+  onToggle: (isActive) => {
+    if (isActive) {
+      console.log("Unmuted");
+      // videoElement.muted = false;
+    } else {
+      console.log("Muted");
+      // videoElement.muted = true;
+    }
+  }
+});
+
+class FrostedSwitch {
+  constructor(elementId, options = {}) {
+    // 1. Setup DOM Elements
+    this.container = document.getElementById(elementId);
+    if (!this.container) return console.error(`Switch not found: ${elementId}`);
+
+    this.label = this.container.querySelector('.switch-label');
+    this.handle = this.container.querySelector('.switch-handle');
+    this.iconLeft = this.container.querySelector('.icon-left');
+    this.iconRight = this.container.querySelector('.icon-right');
+    this.input = this.container.querySelector('input[type="checkbox"]');
+
+    // 2. Setup Configuration
+    this.isOn = options.initialState || false;
+    this.onToggle = options.onToggle || function() {}; // Empty function if none provided
+    
+    // Animation Config
+    this.width = 96;
+    this.handleSize = 36;
+    this.padding = 8;
+    this.travelDist = this.width - this.handleSize - this.padding;
+
+    // 3. Initialize State (Set initial positions without animation)
+    this.setVisualState(this.isOn, 0); 
+
+    // 4. Add Event Listener
+    this.label.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.toggle();
+    });
+  }
+
+  toggle(forceState) {
+    // Determine new state
+    const newState = (typeof forceState !== 'undefined') ? forceState : !this.isOn;
+    if (newState === this.isOn) return; // No change needed
+
+    this.isOn = newState;
+    
+    // 1. Update Input (for forms)
+    if(this.input) this.input.checked = this.isOn;
+
+    // 2. Run Logic Callback
+    this.onToggle(this.isOn);
+
+    // 3. Animate Visuals
+    this.setVisualState(this.isOn, 0.5);
+  }
+
+  setVisualState(active, duration) {
+    // Determine which icon is active based on state
+    // If ON: Handle moves Right, Right Icon glows.
+    // If OFF: Handle moves Left, Left Icon glows.
+    
+    const xPos = active ? this.travelDist : 0;
+    const activeIcon = active ? this.iconRight : this.iconLeft;
+    const inactiveIcon = active ? this.iconLeft : this.iconRight;
+
+    // Animate Handle
+    gsap.to(this.handle, {
+      x: xPos,
+      duration: duration,
+      ease: "back.out(1.7)"
+    });
+
+    // Animate Active Icon (Glow)
+    gsap.to(activeIcon, {
+      color: "rgba(255,255,255,1)",
+      filter: "drop-shadow(0 0 6px rgba(255,255,255,0.8))",
+      duration: 0.3,
+      delay: duration > 0 ? 0.1 : 0 // slight delay only if animating
+    });
+
+    // Animate Inactive Icon (Dim)
+    gsap.to(inactiveIcon, {
+      color: "rgba(255,255,255,0.4)",
+      filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.1))",
+      duration: 0.3
+    });
+  }
+}
