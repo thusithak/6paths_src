@@ -145,12 +145,14 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Dark Mode Activated");
             isDark = true;
             applyThemeToDOM(isDark, true);
+            
           } else {
             console.log("Light Mode Activated");
             isDark = true;
             applyThemeToDOM(isDark, true);
           }
           app.setVariable("ThemeState", isDark);
+          ensureSplineIsSynced(isDark);
         },
       });
     });
