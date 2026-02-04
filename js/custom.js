@@ -148,11 +148,10 @@ document.addEventListener("DOMContentLoaded", function () {
             
           } else {
             console.log("Light Mode Activated");
-            isDark = true;
-            applyThemeToDOM(isDark, true);
+            isDark = false;
+            applyThemeToDOM(isDark, false);
           }
           app.setVariable("ThemeState", isDark);
-          ensureSplineIsSynced(isDark);
         },
       });
     });
@@ -182,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function applyThemeToDOM(darkModeActive, skipAnimation = false) {
+  function applyThemeToDOM(darkModeActive) {
     if (darkModeActive) {
       body.setAttribute("data-theme", "dark");
       localStorage.setItem("theme", "dark");
