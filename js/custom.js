@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   //Sound
-  const toggleSound = document.getElementById("toggle-sound");
+  
   if (window.Howler) {
     window.Howler.mute(true);
     console.log("Site Started Muted");
@@ -186,8 +186,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  soundToggle.toggle(true);
-  
   const soundToggle = new FrostedSwitch('sound-switch', {
     initialState: false,
     onToggle: (isActive) => {
@@ -201,6 +199,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  soundToggle.toggle(true);
+
+  
   const hoverElements = document.querySelectorAll('[data-sound="hover"]');
   const clickElements = document.querySelectorAll('[data-sound-2="click"]');
   const switchElements = document.querySelectorAll('[data-sound-3="switch"]');
