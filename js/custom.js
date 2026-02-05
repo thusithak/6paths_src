@@ -1,6 +1,4 @@
 import { Application } from "https://unpkg.com/@splinetool/runtime";
-
-
 class FrostedSwitch {
   constructor(elementId, options = {}) {
     // 1. Setup DOM Elements
@@ -88,35 +86,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("canvas3d");
   const app = new Application(canvas);
   const loader = document.getElementById("loader-overlay");
-  loader.addEventListener("click", () => {
-    enableAudio();
-  });
-  const toggleTheme = document.getElementById("toggle-theme");
-  const iconLight = toggleTheme
-    ? toggleTheme.querySelector(".icon-light")
-    : null;
-  const iconDark = toggleTheme ? toggleTheme.querySelector(".icon-dark") : null;
+  loader.addEventListener("click", () => { enableAudio();});
   const body = document.body;
   let sceneRevealed = false;
   const savedTheme = localStorage.getItem("theme");
-  const systemPrefersDark = window.matchMedia(
-    "(prefers-color-scheme: dark)",
-  ).matches;
+  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)",).matches;
   let isDark = savedTheme ? savedTheme === "dark" : systemPrefersDark;
   const isRepeatVisit = sessionStorage.getItem("splineSceneLoaded") === "true";
   const SETTLING_DELAY = isRepeatVisit ? 100 : 2000;
-  console.log(
-    isRepeatVisit
-      ? "Refresh detected. Skipping delay."
-      : "First visit. Using full delay.",
-  );
+  console.log(isRepeatVisit? "Refresh detected. Skipping delay.": "First visit. Using full delay.",);
 
   loader.style.opacity = "1";
-  applyThemeToDOM(isDark, true);
+  applyThemeToDOM(isDark);
 
   app
     .load("https://prod.spline.design/At-lvMDyYgqgQz2B/scene.splinecode")
     .then(() => {
+      sessionStorage.setItem("splineSceneLoaded", "true");
       ensureSplineIsSynced(isDark);
       setTimeout(() => {
         canvas.style.opacity = "1";
@@ -142,15 +128,11 @@ document.addEventListener("DOMContentLoaded", function () {
         initialState: false, // Start on 'Sun' (Left)
         onToggle: (isActive) => {
           if (isActive) {
-            console.log("Dark Mode Activated");
             isDark = true;
-            applyThemeToDOM(isDark, true);
-            
           } else {
-            console.log("Light Mode Activated");
             isDark = false;
-            applyThemeToDOM(isDark, false);
           }
+          applyThemeToDOM(isDark);
           app.setVariable("ThemeState", isDark);
         },
       });
@@ -195,15 +177,29 @@ document.addEventListener("DOMContentLoaded", function () {
   const toggleSound = document.getElementById("toggle-sound");
   if (window.Howler) {
     window.Howler.mute(true);
+    console.log("Site Started Muted");
   }
   const enableAudio = () => {
     if (window.Howler) {
       window.Howler.mute(false);
       console.log("Site Unmuted");
     }
-    toggleSound.removeEventListener("click", enableAudio);
   };
-  toggleSound.addEventListener("click", enableAudio);
+
+  soundToggle.toggle(true);
+  
+  const soundToggle = new FrostedSwitch('sound-switch', {
+    initialState: false,
+    onToggle: (isActive) => {
+      if (isActive) {
+        console.log("Unmuted");
+        window.Howler.mute(false);
+      } else {
+        console.log("Muted");
+        window.Howler.mute(true);
+      }
+    }
+  });
 
   const hoverElements = document.querySelectorAll('[data-sound="hover"]');
   const clickElements = document.querySelectorAll('[data-sound-2="click"]');
