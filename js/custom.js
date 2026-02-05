@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }, SETTLING_DELAY);
 
       const themeToggle = new FrostedSwitch("theme-switch", {
-        initialState: false, // Start on 'Sun' (Left)
+        //initialState: false,
         onToggle: (isActive) => {
           if (isActive) {
             isDark = true;
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   const soundToggle = new FrostedSwitch('sound-switch', {
-    initialState: false,
+    //initialState: false,
     onToggle: (isActive) => {
       if (isActive) {
         console.log("Unmuted");
