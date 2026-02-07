@@ -5,6 +5,10 @@ export class AudioManager {
   constructor() {
     this.library = {};
     this.isMuted = true;
+    // scroll fade controls
+    this.bgScrollFaded = false;
+    this.scrollThreshold = 0.2; // 20% of viewport
+    this.scrollFadeVolume = 0.15; // target volume when scrolled down
     this.setupAudioLibrary();
     this.setupEventListeners();
   }
@@ -100,6 +104,43 @@ export class AudioManager {
     this.attachSoundToElements('[data-sound="hover"]', "hover", "mouseenter");
     this.attachSoundToElements('[data-sound-2="click"]', "click", "click");
     this.attachSoundToElements('[data-sound-3="switch"]', "switch", "click");
+    // Fade background based on scroll position
+    try {
+      window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
+    } catch (e) {}
+  }
+
+  /**
+   * Handle window scroll to fade background when past threshold
+   */
+  handleScroll() {
+    const bg = this.library.background;
+    if (!bg) return;
+    // If site is muted, background should remain muted
+    if (this.isMuted) return;
+
+    const scrollRatio = (window.scrollY || window.pageYOffset) / (window.innerHeight || document.documentElement.clientHeight || 1);
+    const fadeDuration = 600;
+
+    if (scrollRatio >= this.scrollThreshold && !this.bgScrollFaded) {
+      // fade down to low volume
+      try {
+        const current = (typeof bg.volume === 'function') ? bg.volume() : (this.backgroundVolume || 1.0);
+        bg.fade(current, this.scrollFadeVolume, fadeDuration);
+      } catch (e) {
+        try { bg.volume(this.scrollFadeVolume); } catch (err) {}
+      }
+      this.bgScrollFaded = true;
+    } else if (scrollRatio < this.scrollThreshold && this.bgScrollFaded) {
+      // fade back up to intended background volume
+      try {
+        const current = (typeof bg.volume === 'function') ? bg.volume() : this.scrollFadeVolume;
+        bg.fade(current, (this.backgroundVolume || 1.0), fadeDuration);
+      } catch (e) {
+        try { bg.volume(this.backgroundVolume || 1.0); } catch (err) {}
+      }
+      this.bgScrollFaded = false;
+    }
   }
 
   /**
