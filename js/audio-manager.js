@@ -9,9 +9,8 @@ export class AudioManager {
     this.bgScrollFaded = false;
     this.scrollThreshold = 0.2; // 20% of viewport
     this.scrollFadeVolume = 0.0; // target volume when scrolled down
-    // theme sound tracking
     this.themeActive = false;
-    this.themeFadeDuration = 800; // ms
+    this.themeFadeDuration = 1000; // ms
     this.setupAudioLibrary();
     this.setupEventListeners();
   }
@@ -101,7 +100,7 @@ export class AudioManager {
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/698774558bef78c27921d312_crickets.mp3",
         loop: true,
         autoplay: false,
-        volume: 0.8,
+        volume: 0.5,
         preload: true,
       },
     ];
