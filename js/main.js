@@ -74,6 +74,13 @@ class Application {
       onToggle: (isActive) => {
         this.themeManager.applyTheme(isActive);
         this.splineManager.setVariable("ThemeState", isActive);
+        
+        // Fade theme sound in/out based on dark theme state
+        if (isActive) {
+          this.audioManager.fadeInThemeSound();
+        } else {
+          this.audioManager.fadeOutThemeSound();
+        }
       },
     });
 

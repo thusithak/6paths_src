@@ -9,6 +9,9 @@ export class AudioManager {
     this.bgScrollFaded = false;
     this.scrollThreshold = 0.2; // 20% of viewport
     this.scrollFadeVolume = 0.0; // target volume when scrolled down
+    // theme sound tracking
+    this.themeActive = false;
+    this.themeFadeDuration = 800; // ms
     this.setupAudioLibrary();
     this.setupEventListeners();
   }
@@ -85,13 +88,20 @@ export class AudioManager {
         name: "switch",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6943e874813e23b235b00634_btn_switch.mp3",
       },
-      // Background ambient loop — replace the `src` URL with your ambient loop file.
       {
         name: "background",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6986e4704028b0a7490363fe_wind-blowing.mp3",
         loop: true,
         autoplay: false,
         volume: 1.0,
+        preload: true,
+      },
+      {
+        name: "theme",
+        src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/698774558bef78c27921d312_crickets.mp3",
+        loop: true,
+        autoplay: false,
+        volume: 0.8,
         preload: true,
       },
     ];
@@ -165,7 +175,7 @@ export class AudioManager {
     Object.keys(this.library).forEach((key) => {
       const sound = this.library[key];
       if (!sound) return;
-      if (key === "background") return; // handled separately below
+      if (key === "background" || key === "theme") return; // handled separately below
       try {
         sound.mute(isMuted);
       } catch (e) {
@@ -192,6 +202,11 @@ export class AudioManager {
       }
     }
 
+    // Fade out theme sound if site is muted
+    if (isMuted && this.themeActive) {
+      this.fadeOutThemeSound();
+    }
+
     console.log(isMuted ? "Site Started Muted" : "Site Unmuted");
   }
 
@@ -201,6 +216,55 @@ export class AudioManager {
   toggleMute() {
     this.setMute(!this.isMuted);
     return !this.isMuted;
+  }
+
+  /**
+   * Fade in theme sound when dark theme activates
+   */
+  fadeInThemeSound() {
+    const theme = this.library.theme;
+    if (!theme || this.isMuted) return;
+
+    this.themeActive = true;
+
+    try {
+      // Ensure theme sound is playing
+      if (!theme.playing()) {
+        theme.play();
+      }
+
+      // Fade in from 0 to target volume
+      const targetVolume = 0.8;
+      theme.fade(0, targetVolume, this.themeFadeDuration);
+    } catch (e) {
+      console.warn("Error fading in theme sound:", e);
+    }
+  }
+
+  /**
+   * Fade out theme sound when dark theme deactivates
+   */
+  fadeOutThemeSound() {
+    const theme = this.library.theme;
+    if (!theme) return;
+
+    this.themeActive = false;
+
+    try {
+      const currentVol = typeof theme.volume === 'function' ? theme.volume() : 0.8;
+      theme.fade(currentVol, 0, this.themeFadeDuration);
+
+      // Stop playing after fade completes
+      setTimeout(() => {
+        if (!this.themeActive) {
+          try {
+            theme.stop();
+          } catch (e) {}
+        }
+      }, this.themeFadeDuration);
+    } catch (e) {
+      console.warn("Error fading out theme sound:", e);
+    }
   }
 
   /**
