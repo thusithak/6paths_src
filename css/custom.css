@@ -1,7 +1,7 @@
 :root {
     --bg-color: var(--color--tk-light-white);
     --text-color: var(--color--tk-black);
-    --switch-width: 96px;
+    --switch-width: 90px;
     --switch-height: 44px;
     --handle-size: 36px;
     --glass-bg: rgba(255, 255, 255, 0.2);
@@ -69,7 +69,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 14px;
+    padding: 0 10px;
     margin-bottom: 0px;
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
@@ -97,8 +97,8 @@ body {
     height: var(--handle-size);
     border-radius: 50%;
     position: absolute;
-    top: 3px;
-    left: 3px;
+    top: 4px;
+    left: 7px;
     z-index: 1;
 
     /* Handle Glass Styles */

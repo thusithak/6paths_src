@@ -16,8 +16,8 @@ class FrostedSwitch {
     this.onToggle = options.onToggle || function () {}; // Empty function if none provided
 
     // Animation Config
-    this.width = 96;
-    this.handleSize = 36;
+    this.width = 90;
+    this.handleSize = 34;
     this.padding = 8;
     this.travelDist = this.width - this.handleSize - this.padding;
 
