@@ -20,6 +20,7 @@ class FrostedSwitch {
     this.handleSize = 34;
     this.padding = 8;
     this.travelDist = this.width - this.handleSize - this.padding;
+    console.log(this.travelDist);
 
     // 3. Initialize State (Set initial positions without animation)
     this.setVisualState(this.isOn, 0);
