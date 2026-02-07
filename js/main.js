@@ -37,6 +37,10 @@ class Application {
     this.sceneLoader.onLoaderClick(() => {
       this.audioManager.setMute(false);
       this.audioManager.playWithDelay("background", 500);
+      // If switches are initialized, reflect the change in the UI
+      try {
+        if (this.soundSwitch) this.soundSwitch.toggle(true);
+      } catch (e) {}
     });
   }
 
@@ -81,7 +85,8 @@ class Application {
     });
 
     // Initialize sound switch to off
-    this.soundSwitch.toggle(false);
+    // Initialize sound switch to reflect current audio state
+    this.soundSwitch.toggle(!this.audioManager.isMuted);
   }
 
   /**

@@ -8,7 +8,7 @@ export class AudioManager {
     // scroll fade controls
     this.bgScrollFaded = false;
     this.scrollThreshold = 0.2; // 20% of viewport
-    this.scrollFadeVolume = 0.15; // target volume when scrolled down
+    this.scrollFadeVolume = 0.0; // target volume when scrolled down
     this.setupAudioLibrary();
     this.setupEventListeners();
   }
