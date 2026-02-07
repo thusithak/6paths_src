@@ -87,7 +87,7 @@ export class AudioManager {
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6986e4704028b0a7490363fe_wind-blowing.mp3",
         loop: true,
         autoplay: true,
-        volume: .8,
+        volume: 1.0,
         preload: true,
       },
     ];
