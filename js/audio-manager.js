@@ -120,10 +120,11 @@ export class AudioManager {
   }
 
   /**
-   * Handle window scroll to fade background when past threshold
+   * Handle window scroll to fade background and theme when past threshold
    */
   handleScroll() {
     const bg = this.library.background;
+    const theme = this.library.theme;
     if (!bg) return;
     // If site is muted, background should remain muted
     if (this.isMuted) return;
@@ -139,6 +140,17 @@ export class AudioManager {
       } catch (e) {
         try { bg.volume(this.scrollFadeVolume); } catch (err) {}
       }
+      
+      // Also fade out theme sound during scroll
+      if (theme && this.themeActive) {
+        try {
+          const currentVol = typeof theme.volume === 'function' ? theme.volume() : 0.2;
+          theme.fade(currentVol, this.scrollFadeVolume, fadeDuration);
+        } catch (e) {
+          try { theme.volume(this.scrollFadeVolume); } catch (err) {}
+        }
+      }
+      
       this.bgScrollFaded = true;
     } else if (scrollRatio < this.scrollThreshold && this.bgScrollFaded) {
       // fade back up to intended background volume
@@ -148,6 +160,17 @@ export class AudioManager {
       } catch (e) {
         try { bg.volume(this.backgroundVolume || 1.0); } catch (err) {}
       }
+      
+      // Also fade back in theme sound when scrolling back up
+      if (theme && this.themeActive) {
+        try {
+          const current = (typeof theme.volume === 'function') ? theme.volume() : this.scrollFadeVolume;
+          theme.fade(current, 0.2, fadeDuration);
+        } catch (e) {
+          try { theme.volume(0.2); } catch (err) {}
+        }
+      }
+      
       this.bgScrollFaded = false;
     }
   }
@@ -170,11 +193,11 @@ export class AudioManager {
   setMute(isMuted) {
     this.isMuted = isMuted;
     if (!window.Howler) return;
-    // Mute/unmute all non-background sounds per-instance so we can fade background independently
+    
+    // Mute all sounds including background and theme
     Object.keys(this.library).forEach((key) => {
       const sound = this.library[key];
       if (!sound) return;
-      if (key === "background" || key === "theme") return; // handled separately below
       try {
         sound.mute(isMuted);
       } catch (e) {
@@ -182,7 +205,7 @@ export class AudioManager {
       }
     });
 
-    // Fade background in/out rather than hard mute
+    // Fade background in/out for smoother muting experience
     const bg = this.library.background;
     const fadeDuration = 800; // ms
     if (bg) {
