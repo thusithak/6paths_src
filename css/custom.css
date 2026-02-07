@@ -52,8 +52,7 @@ body {
 
 .frosted-switch-container {
     display: inline-block;
-    /* Allows multiple side-by-side */
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
     margin: 10px;
 }
 
@@ -71,8 +70,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 14px;
-
-    /* Glass Styles */
+    margin-bottom: 0px;
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
