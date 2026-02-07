@@ -100,7 +100,7 @@ export class AudioManager {
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/698774558bef78c27921d312_crickets.mp3",
         loop: true,
         autoplay: false,
-        volume: 0.5,
+        volume: 0.2,
         preload: true,
       },
     ];
@@ -227,13 +227,17 @@ export class AudioManager {
     this.themeActive = true;
 
     try {
+      // Randomize playback rate (time signature) between 0.8 and 1.2
+      const randomRate = 0.8 + Math.random() * 0.4;
+      theme.rate(randomRate);
+
       // Ensure theme sound is playing
       if (!theme.playing()) {
         theme.play();
       }
 
-      // Fade in from 0 to target volume
-      const targetVolume = 0.8;
+      // Fade in from 0 to target volume (0.2)
+      const targetVolume = 0.2;
       theme.fade(0, targetVolume, this.themeFadeDuration);
     } catch (e) {
       console.warn("Error fading in theme sound:", e);
