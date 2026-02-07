@@ -81,7 +81,7 @@ class Application {
     });
 
     // Initialize sound switch to off
-    this.soundSwitch.toggle(true);
+    this.soundSwitch.toggle(false);
   }
 
   /**
