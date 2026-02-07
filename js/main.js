@@ -36,6 +36,7 @@ class Application {
     this.themeManager.applyTheme(this.themeManager.getIsDark());
     this.sceneLoader.onLoaderClick(() => {
       this.audioManager.setMute(false);
+      this.audioManager.playWithDelay("background", 500);
     });
   }
 
@@ -79,7 +80,7 @@ class Application {
       },
     });
 
-    // Initialize sound switch to on
+    // Initialize sound switch to off
     this.soundSwitch.toggle(true);
   }
 
