@@ -1,18 +1,32 @@
 /**
  * AudioManager - Handles audio setup and playback
+ * Dependencies: Howler.js library, CONFIG, utils
  */
+
+import { CONFIG } from "./config.js";
+import {
+  fadeAudio,
+  safeCall,
+  isAudioPlaying,
+  playAudio,
+  stopAudio,
+  setAudioMute,
+  attachEventListeners,
+  getAudioVolume,
+  setAudioRate,
+  randomInRange,
+} from "./utils.js";
+
 export class AudioManager {
-  constructor() {
+  constructor(config = CONFIG) {
+    this.config = config;
     this.library = {};
     this.isMuted = true; // SOURCE OF TRUTH for mute state
-    this.backgroundVolume = 1.0; // SOURCE OF TRUTH for intended background volume
-    this.themeVolume = 0.2; // SOURCE OF TRUTH for intended theme volume
+    this.backgroundVolume = this.config.AUDIO.VOLUMES.background; // SOURCE OF TRUTH for intended background volume
+    this.themeVolume = this.config.AUDIO.VOLUMES.theme; // SOURCE OF TRUTH for intended theme volume
     // scroll fade controls
     this.bgScrollFaded = false;
-    this.scrollThreshold = 0.2; // 20% of viewport
-    this.scrollFadeVolume = 0.0; // target volume when scrolled down
     this.themeActive = false;
-    this.themeFadeDuration = 1000; // ms
     this.setupAudioLibrary();
     this.setupEventListeners();
   }
@@ -26,12 +40,8 @@ export class AudioManager {
       return;
     }
 
-    const audioFiles = this.getAudioConfig();
-    const globalDefaults = {
-      autoplay: false,
-      volume: 2.0,
-      preload: true,
-    };
+    const audioFiles = this.config.getAudioFilesArray();
+    const globalDefaults = this.config.AUDIO.GLOBAL_DEFAULTS;
 
     audioFiles.forEach((file) => {
       this.library[file.name] = new Howl({
@@ -44,26 +54,19 @@ export class AudioManager {
     if (this.library.background) {
       const bg = this.library.background;
       // Restore intended background volume from config (source of truth)
-      const bgConfig = audioFiles.find(f => f.name === 'background');
-      this.backgroundVolume = bgConfig?.volume || 1.0;
+      this.backgroundVolume = this.config.AUDIO.VOLUMES.background;
       // ensure loop is enabled on the background track
-      try {
+      safeCall(() => {
         bg.loop(true);
-      } catch (e) {
-        // ignore if loop not supported
-      }
+      });
       // Try to play the background immediately (browsers may block autoplay until user interaction)
-      try {
+      safeCall(() => {
         bg.play();
-      } catch (e) {
-        // play may be blocked by browser; that's fine
-      }
+      });
       // set initial background volume according to current mute state
-      try {
+      safeCall(() => {
         bg.volume(this.isMuted ? 0 : this.backgroundVolume);
-      } catch (e) {
-        // ignore
-      }
+      });
     }
 
     // Start muted
@@ -71,55 +74,25 @@ export class AudioManager {
   }
 
   /**
-   * Get audio file configuration
-   */
-  getAudioConfig() {
-    return [
-      {
-        name: "hover",
-        src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6943e874ff9f50d638a6cd33_7a01168271dbc7b91c0ee8c4ba7bdd70_btn_hover.mp3",
-        volume: 3.0,
-      },
-      {
-        name: "click",
-        src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6944045763acbfc93eba703d_menu_item_hover.mp3",
-        volume: 0.5,
-        rate: 2.0,
-      },
-      {
-        name: "switch",
-        src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6943e874813e23b235b00634_btn_switch.mp3",
-      },
-      {
-        name: "background",
-        src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6986e4704028b0a7490363fe_wind-blowing.mp3",
-        loop: true,
-        autoplay: false,
-        volume: 1.0,
-        preload: true,
-      },
-      {
-        name: "theme",
-        src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/698774558bef78c27921d312_crickets.mp3",
-        loop: true,
-        autoplay: false,
-        volume: 0.2,
-        preload: true,
-      },
-    ];
-  }
-
-  /**
    * Attach event listeners to audio-triggered elements
    */
   setupEventListeners() {
-    this.attachSoundToElements('[data-sound="hover"]', "hover", "mouseenter");
-    this.attachSoundToElements('[data-sound-2="click"]', "click", "click");
-    this.attachSoundToElements('[data-sound-3="switch"]', "switch", "click");
+    const selectors = this.config.DOM.EVENT_SELECTORS;
+    attachEventListeners(selectors.hover, "mouseenter", () => this.play("hover"));
+    attachEventListeners(selectors.click, "click", () => this.play("click"));
+    attachEventListeners(selectors.switch, "click", () => this.play("switch"));
+    
     // Fade background based on scroll position
-    try {
+    safeCall(() => {
       window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
-    } catch (e) {}
+    });
+  }
+
+  /**
+   * Get audio file configuration
+   */
+  getAudioConfig() {
+    return this.config.getAudioFilesArray();
   }
 
   /**
@@ -133,45 +106,29 @@ export class AudioManager {
     if (this.isMuted) return;
 
     const scrollRatio = (window.scrollY || window.pageYOffset) / (window.innerHeight || document.documentElement.clientHeight || 1);
-    const fadeDuration = 600;
+    const { threshold, fadeTarget, fadeDuration } = this.config.AUDIO.SCROLL;
 
-    if (scrollRatio >= this.scrollThreshold && !this.bgScrollFaded) {
+    if (scrollRatio >= threshold && !this.bgScrollFaded) {
       // fade down to low volume
-      try {
-        const current = (typeof bg.volume === 'function') ? bg.volume() : (this.backgroundVolume || 1.0);
-        bg.fade(current, this.scrollFadeVolume, fadeDuration);
-      } catch (e) {
-        try { bg.volume(this.scrollFadeVolume); } catch (err) {}
-      }
+      const current = getAudioVolume(bg, this.backgroundVolume);
+      fadeAudio(bg, current, fadeTarget, fadeDuration);
       
       // Also fade out theme sound during scroll
       if (theme && this.themeActive) {
-        try {
-          const currentVol = typeof theme.volume === 'function' ? theme.volume() : this.themeVolume;
-          theme.fade(currentVol, this.scrollFadeVolume, fadeDuration);
-        } catch (e) {
-          try { theme.volume(this.scrollFadeVolume); } catch (err) {}
-        }
+        const currentThemeVol = getAudioVolume(theme, this.themeVolume);
+        fadeAudio(theme, currentThemeVol, fadeTarget, fadeDuration);
       }
       
       this.bgScrollFaded = true;
-    } else if (scrollRatio < this.scrollThreshold && this.bgScrollFaded) {
+    } else if (scrollRatio < threshold && this.bgScrollFaded) {
       // fade back up to intended background volume
-      try {
-        const current = (typeof bg.volume === 'function') ? bg.volume() : this.scrollFadeVolume;
-        bg.fade(current, (this.backgroundVolume || 1.0), fadeDuration);
-      } catch (e) {
-        try { bg.volume(this.backgroundVolume || 1.0); } catch (err) {}
-      }
+      const current = getAudioVolume(bg, fadeTarget);
+      fadeAudio(bg, current, this.backgroundVolume, fadeDuration);
       
       // Also fade back in theme sound when scrolling back up
       if (theme && this.themeActive) {
-        try {
-          const current = (typeof theme.volume === 'function') ? theme.volume() : this.scrollFadeVolume;
-          theme.fade(current, this.themeVolume, fadeDuration);
-        } catch (e) {
-          try { theme.volume(this.themeVolume); } catch (err) {}
-        }
+        const current = getAudioVolume(theme, fadeTarget);
+        fadeAudio(theme, current, this.themeVolume, fadeDuration);
       }
       
       this.bgScrollFaded = false;
@@ -182,12 +139,7 @@ export class AudioManager {
    * Attach sound to elements with event
    */
   attachSoundToElements(selector, soundName, eventType) {
-    const elements = document.querySelectorAll(selector);
-    elements.forEach((el) => {
-      el.addEventListener(eventType, () => {
-        this.play(soundName);
-      });
-    });
+    attachEventListeners(selector, eventType, () => this.play(soundName));
   }
 
   /**
@@ -201,30 +153,19 @@ export class AudioManager {
     Object.keys(this.library).forEach((key) => {
       const sound = this.library[key];
       if (!sound) return;
-      try {
-        sound.mute(isMuted);
-      } catch (e) {
-        // ignore
-      }
+      setAudioMute(sound, isMuted);
     });
 
     // Fade background in/out for smoother muting experience
     const bg = this.library.background;
-    const fadeDuration = 800; // ms
+    const { fadeDuration } = this.config.AUDIO.MUTE;
     if (bg) {
       // ensure playing so fade is audible
-      try {
-        if (!bg.playing()) bg.play();
-      } catch (e) {}
+      playAudio(bg);
 
       const target = isMuted ? 0 : (this.backgroundVolume || 1.0);
-      try {
-        const currentVol = typeof bg.volume === 'function' ? bg.volume() : 0;
-        bg.fade(currentVol, target, fadeDuration);
-      } catch (e) {
-        // fallback to immediate set
-        try { bg.volume(target); } catch (err) {}
-      }
+      const currentVol = getAudioVolume(bg, 0);
+      fadeAudio(bg, currentVol, target, fadeDuration);
     }
 
     // Fade out theme sound if site is muted
@@ -252,21 +193,19 @@ export class AudioManager {
 
     this.themeActive = true;
 
-    try {
-      // Randomize playback rate (time signature) between 0.8 and 1.2
-      const randomRate = 0.8 + Math.random() * 0.4;
-      theme.rate(randomRate);
+    safeCall(() => {
+      // Randomize playback rate (time signature) within configured range
+      const [minRate, maxRate] = this.config.AUDIO.THEME_SOUND.rateRange;
+      const randomRate = randomInRange(minRate, maxRate);
+      setAudioRate(theme, randomRate);
 
       // Ensure theme sound is playing
-      if (!theme.playing()) {
-        theme.play();
-      }
+      playAudio(theme);
 
       // Fade in from 0 to stored target volume (this.themeVolume is source of truth)
-      theme.fade(0, this.themeVolume, this.themeFadeDuration);
-    } catch (e) {
-      console.warn("Error fading in theme sound:", e);
-    }
+      const { fadeDuration } = this.config.AUDIO.THEME_SOUND;
+      fadeAudio(theme, 0, this.themeVolume, fadeDuration);
+    });
   }
 
   /**
@@ -278,19 +217,18 @@ export class AudioManager {
 
     this.themeActive = false;
 
-    try {
+    safeCall(() => {
       // Get current volume or use stored target volume
-      const currentVol = typeof theme.volume === 'function' ? theme.volume() : this.themeVolume;
-      theme.fade(currentVol, 0, this.themeFadeDuration);
+      const currentVol = getAudioVolume(theme, this.themeVolume);
+      const { fadeDuration } = this.config.AUDIO.THEME_SOUND;
+      fadeAudio(theme, currentVol, 0, fadeDuration);
 
       // Stop playing after fade completes
       setTimeout(() => {
-        if (theme && !theme.playing()) return;
-        try { theme.stop(); } catch (e) {}
-      }, this.themeFadeDuration);
-    } catch (e) {
-      console.warn("Error fading out theme sound:", e);
-    }
+        if (theme && !isAudioPlaying(theme)) return;
+        stopAudio(theme);
+      }, this.config.AUDIO.THEME_SOUND.fadeDuration);
+    });
   }
 
   /**

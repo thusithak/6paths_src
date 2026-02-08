@@ -1,25 +1,30 @@
 /**
  * SplineManager - Handles Spline 3D scene loading and management
+ * Enables synchronization between app state and Spline scene variables
+ * Dependencies: CONFIG, utils
  */
+
+import { CONFIG } from "./config.js";
+import { safeCall, validateDOM } from "./utils.js";
+
 export class SplineManager {
-  constructor(canvasId) {
-    this.canvas = document.getElementById(canvasId);
+  constructor(canvasId, config = CONFIG) {
+    this.config = config;
+    this.canvas = validateDOM(canvasId) || document.getElementById(canvasId);
     this.app = null;
     this.isLoaded = false;
   }
 
   /**
-   * Load Spline scene
+   * Load Spline scene from configuration
    */
-  async load(sceneUrl) {
+  async load(sceneUrl = this.config.SPLINE.SCENE_URL) {
     try {
-      const { Application } = await import(
-        "https://unpkg.com/@splinetool/runtime"
-      );
+      const { Application } = await import(this.config.SPLINE.RUNTIME_URL);
       this.app = new Application(this.canvas);
       await this.app.load(sceneUrl);
       this.isLoaded = true;
-      sessionStorage.setItem("splineSceneLoaded", "true");
+      sessionStorage.setItem(this.config.STORAGE.SCENE_LOADED_KEY, "true");
       return this.app;
     } catch (error) {
       console.error("Failed to load Spline scene:", error);
@@ -53,21 +58,21 @@ export class SplineManager {
   /**
    * Ensure Spline scene is synced with target state
    */
-  ensureSync(targetState, variableName = "ThemeState") {
+  ensureSync(targetState, variableName = null) {
+    const varName = variableName || this.config.SPLINE.THEME_STATE_VAR;
+    
     if (!this.app) return;
 
     const variables = this.app.getVariables();
     if (!variables) return;
 
-    let currentValue = this.getVariableValue(variables, variableName);
+    let currentValue = this.getVariableValue(variables, varName);
 
     if (currentValue !== undefined && currentValue !== targetState) {
-      this.setVariable(variableName, targetState);
-      console.log(`Spline variable '${variableName}' set to:`, targetState);
+      this.setVariable(varName, targetState);
+      console.log(`Spline variable '${varName}' set to:`, targetState);
     } else if (currentValue === undefined) {
-      console.warn(
-        `Variable '${variableName}' not found in Spline scene.`
-      );
+      console.warn(`Variable '${varName}' not found in Spline scene.`);
     }
   }
 

@@ -1,9 +1,15 @@
 /**
  * FrostedSwitch - An animated toggle switch component
- * Handles state management and smooth animations
+ * Handles state management and smooth GSAP animations
+ * Dependencies: CONFIG, utils
  */
+
+import { CONFIG } from "./config.js";
+import { animateGSAP, safeCall } from "./utils.js";
+
 export class FrostedSwitch {
-  constructor(elementId, options = {}) {
+  constructor(elementId, options = {}, config = CONFIG) {
+    this.config = config;
     this.initializeElements(elementId);
     if (!this.container) {
       console.error(`Switch not found: ${elementId}`);
@@ -39,13 +45,14 @@ export class FrostedSwitch {
   }
 
   /**
-   * Configure animation parameters
+   * Configure animation parameters from CONFIG
    */
   configureAnimation() {
-    this.width = 80;
-    this.handleSize = 32;
-    this.padding = 0;
-    this.travelDist = this.width - this.handleSize - 10;
+    const switchConfig = this.config.ANIMATION.SWITCH;
+    this.width = switchConfig.width;
+    this.handleSize = switchConfig.handleSize;
+    this.padding = switchConfig.handlePadding;
+    this.travelDist = switchConfig.travelDistance;
   }
 
   /**
@@ -109,11 +116,8 @@ export class FrostedSwitch {
    */
   animateHandle(xPos, duration) {
     if (window.gsap && this.handle) {
-      gsap.to(this.handle, {
-        x: xPos,
-        duration: duration,
-        ease: "back.out(0.8)",
-      });
+      const { ease } = this.config.ANIMATION.SWITCH.toggle;
+      animateGSAP(this.handle, duration, ease, { x: xPos });
     }
   }
 
@@ -122,11 +126,16 @@ export class FrostedSwitch {
    */
   animateActiveIcon(icon, duration) {
     if (window.gsap && icon) {
-      gsap.to(icon, {
+      const { duration: iconDuration, delay } = this.config.ANIMATION.SWITCH.icon;
+      animateGSAP(icon, iconDuration, "power1.inOut", {
         color: "rgba(255,255,255,1)",
         filter: "drop-shadow(0 0 6px rgba(255,255,255,0.8))",
-        duration: 0.3,
-        delay: duration > 0 ? 0.1 : 0,
+      }, {
+        onStart: () => {
+          if (duration > 0) {
+            icon.style.transitionDelay = `${delay}s`;
+          }
+        },
       });
     }
   }
@@ -136,10 +145,10 @@ export class FrostedSwitch {
    */
   animateInactiveIcon(icon, duration) {
     if (window.gsap && icon) {
-      gsap.to(icon, {
+      const { duration: iconDuration } = this.config.ANIMATION.SWITCH.icon;
+      animateGSAP(icon, iconDuration, "power1.inOut", {
         color: "rgba(255,255,255,0.4)",
         filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.1))",
-        duration: 0.3,
       });
     }
   }

@@ -1,10 +1,17 @@
 /**
  * ThemeManager - Handles theme persistence and application
+ * Supports dark and light themes with persistent storage
+ * Dependencies: CONFIG, utils
  */
+
+import { CONFIG } from "./config.js";
+import { animateGSAP, fadeElement, safeCall } from "./utils.js";
+
 export class ThemeManager {
-  constructor() {
+  constructor(config = CONFIG) {
+    this.config = config;
     this.body = document.body;
-    this.savedTheme = localStorage.getItem("theme");
+    this.savedTheme = localStorage.getItem(this.config.STORAGE.THEME_KEY);
     this.systemPrefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
@@ -29,7 +36,7 @@ export class ThemeManager {
     this.isDark = darkModeActive;
     const theme = darkModeActive ? "dark" : "light";
     this.body.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
+    localStorage.setItem(this.config.STORAGE.THEME_KEY, theme);
     this.updateLogos(darkModeActive);
   }
 
@@ -39,42 +46,42 @@ export class ThemeManager {
    * - When dark: fade in `.logo-img-blue` and fade out `.logo-img-black`
    */
   updateLogos(dark) {
-    const blackLogos = document.querySelectorAll('.logo-img-black');
-    const blueLogos = document.querySelectorAll('.logo-img-blue');
+    const logoSelectors = this.config.DOM.LOGO_SELECTORS;
+    const darkLogos = document.querySelectorAll(logoSelectors.dark);
+    const lightLogos = document.querySelectorAll(logoSelectors.light);
 
-    const duration = 0.24;
+    const { duration, ease } = this.config.ANIMATION.LOGO;
 
     if (window.gsap) {
       const show = (el) => {
         if (!el) return;
         gsap.killTweensOf(el);
         gsap.set(el, { display: 'inline-block', opacity: 0 });
-        gsap.to(el, { duration, opacity: 1, ease: 'power1.out' });
+        animateGSAP(el, duration, ease, { opacity: 1 });
       };
 
       const hide = (el) => {
         if (!el) return;
         gsap.killTweensOf(el);
-        gsap.to(el, {
-          duration,
-          opacity: 0,
-          ease: 'power1.out',
+        animateGSAP(el, duration, ease, { opacity: 0 }, {
           onComplete: () => gsap.set(el, { display: 'none' }),
         });
       };
 
       if (dark) {
-        blueLogos.forEach((el) => show(el));
-        blackLogos.forEach((el) => hide(el));
+        darkLogos.forEach((el) => show(el));
+        lightLogos.forEach((el) => hide(el));
       } else {
-        blackLogos.forEach((el) => show(el));
-        blueLogos.forEach((el) => hide(el));
+        lightLogos.forEach((el) => show(el));
+        darkLogos.forEach((el) => hide(el));
       }
     } else {
       // Fallback to CSS-based transitions if GSAP isn't available
+      const durationMs = duration * 1000;
+      
       const fadeIn = (el) => {
         if (!el) return;
-        el.style.transition = `opacity ${duration * 1000}ms ease`;
+        el.style.transition = `opacity ${durationMs}ms ease`;
         el.style.display = 'inline-block';
         el.style.opacity = '0';
         requestAnimationFrame(() => (el.style.opacity = '1'));
@@ -83,7 +90,7 @@ export class ThemeManager {
       const fadeOut = (el) => {
         if (!el) return;
         if (getComputedStyle(el).display === 'none') return;
-        el.style.transition = `opacity ${duration * 1000}ms ease`;
+        el.style.transition = `opacity ${durationMs}ms ease`;
         el.style.opacity = '0';
         const onEnd = () => {
           el.style.display = 'none';
@@ -93,11 +100,11 @@ export class ThemeManager {
       };
 
       if (dark) {
-        blueLogos.forEach((el) => fadeIn(el));
-        blackLogos.forEach((el) => fadeOut(el));
+        darkLogos.forEach((el) => fadeIn(el));
+        lightLogos.forEach((el) => fadeOut(el));
       } else {
-        blackLogos.forEach((el) => fadeIn(el));
-        blueLogos.forEach((el) => fadeOut(el));
+        lightLogos.forEach((el) => fadeIn(el));
+        darkLogos.forEach((el) => fadeOut(el));
       }
     }
   }

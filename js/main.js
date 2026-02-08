@@ -1,8 +1,10 @@
 /**
  * Main Entry Point - Orchestrates all modules
- * Handles initialization and coordination between components
+ * Coordinates initialization and inter-module communication
+ * Dependencies: CONFIG, all managers
  */
 
+import { CONFIG } from "./config.js";
 import { FrostedSwitch } from "./frosted-switch.js";
 import { ThemeManager } from "./theme-manager.js";
 import { AudioManager } from "./audio-manager.js";
@@ -10,11 +12,12 @@ import { SplineManager } from "./spline-manager.js";
 import { SceneLoader } from "./scene-loader.js";
 
 class Application {
-  constructor() {
-    this.themeManager = new ThemeManager();
-    this.audioManager = new AudioManager();
-    this.sceneLoader = new SceneLoader("canvas3d", "loader-overlay");
-    this.splineManager = new SplineManager("canvas3d");
+  constructor(config = CONFIG) {
+    this.config = config;
+    this.themeManager = new ThemeManager(config);
+    this.audioManager = new AudioManager(config);
+    this.sceneLoader = new SceneLoader(config.DOM.CANVAS_ID, config.DOM.LOADER_ID, config);
+    this.splineManager = new SplineManager(config.DOM.CANVAS_ID, config);
     this.themeSwitch = null;
     this.soundSwitch = null;
   }
@@ -49,12 +52,10 @@ class Application {
    */
   async loadScene() {
     try {
-      const SCENE_URL =
-        "https://prod.spline.design/At-lvMDyYgqgQz2B/scene.splinecode";
-      await this.splineManager.load(SCENE_URL);
+      await this.splineManager.load(this.config.SPLINE.SCENE_URL);
 
-      // Attempt to read `ThemeState` from the Spline scene and use it as the source of truth
-      const splineTheme = this.splineManager.getVariable("ThemeState");
+      // Attempt to read theme state from the Spline scene and use it as the source of truth
+      const splineTheme = this.splineManager.getVariable(this.config.SPLINE.THEME_STATE_VAR);
       if (typeof splineTheme !== 'undefined') {
         const isDarkFromSpline = Boolean(splineTheme);
         this.themeManager.applyTheme(isDarkFromSpline);
@@ -86,30 +87,38 @@ class Application {
    */
   setupSwitches() {
     // Theme switch: initialize to current theme state (isDark is source of truth)
-    this.themeSwitch = new FrostedSwitch("theme-switch", {
-      initialState: this.themeManager.getIsDark(),
-      onToggle: (isActive) => {
-        this.themeManager.applyTheme(isActive);
-        this.splineManager.setVariable("ThemeState", isActive);
-        
-        // Fade theme sound in/out based on dark theme state
-        if (isActive) {
-          this.audioManager.fadeInThemeSound();
-        } else {
-          this.audioManager.fadeOutThemeSound();
-        }
+    this.themeSwitch = new FrostedSwitch(
+      this.config.DOM.SWITCH_IDS.theme,
+      {
+        initialState: this.themeManager.getIsDark(),
+        onToggle: (isActive) => {
+          this.themeManager.applyTheme(isActive);
+          this.splineManager.setVariable(this.config.SPLINE.THEME_STATE_VAR, isActive);
+          
+          // Fade theme sound in/out based on dark theme state
+          if (isActive) {
+            this.audioManager.fadeInThemeSound();
+          } else {
+            this.audioManager.fadeOutThemeSound();
+          }
+        },
       },
-    });
+      this.config
+    );
 
     // Sound switch: initialize to opposite of muted state (isMuted is source of truth)
     // Switch ON = audio unmuted, Switch OFF = audio muted
-    this.soundSwitch = new FrostedSwitch("sound-switch", {
-      initialState: !this.audioManager.isMuted,
-      onToggle: (isActive) => {
-        const isMuted = !isActive;
-        this.audioManager.setMute(isMuted);
+    this.soundSwitch = new FrostedSwitch(
+      this.config.DOM.SWITCH_IDS.sound,
+      {
+        initialState: !this.audioManager.isMuted,
+        onToggle: (isActive) => {
+          const isMuted = !isActive;
+          this.audioManager.setMute(isMuted);
+        },
       },
-    });
+      this.config
+    );
   }
 
   /**
