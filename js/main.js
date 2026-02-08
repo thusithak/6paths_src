@@ -113,10 +113,18 @@ class Application {
 }
 
 // Initialize application when DOM is ready
-document.addEventListener("DOMContentLoaded", () => {
+function startApp() {
   const app = new Application();
-  app.initialize();
+  // Ensure we surface initialization errors
+  app.initialize().catch((err) => console.error("App initialization failed:", err));
 
   // Expose app for debugging if needed
   window.__app = app;
-});
+}
+
+// If the DOM is already ready, start immediately; otherwise wait for the event.
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", startApp);
+} else {
+  startApp();
+}
