@@ -63,6 +63,7 @@ export class SplineManager {
 
     if (currentValue !== undefined && currentValue !== targetState) {
       this.setVariable(variableName, targetState);
+      console.log(`Spline variable '${variableName}' set to:`, targetState);
     } else if (currentValue === undefined) {
       console.warn(
         `Variable '${variableName}' not found in Spline scene.`
