@@ -45,7 +45,7 @@ export class FrostedSwitch {
     this.width = 80;
     this.handleSize = 32;
     this.padding = 0;
-    this.travelDist = this.width - this.handleSize - this.padding - 2;
+    this.travelDist = this.width - this.handleSize - 10;
   }
 
   /**
@@ -112,7 +112,7 @@ export class FrostedSwitch {
       gsap.to(this.handle, {
         x: xPos,
         duration: duration,
-        ease: "back.out(1.7)",
+        ease: "back.out(0.8)",
       });
     }
   }
