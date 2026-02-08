@@ -4,7 +4,9 @@
 export class AudioManager {
   constructor() {
     this.library = {};
-    this.isMuted = true;
+    this.isMuted = true; // SOURCE OF TRUTH for mute state
+    this.backgroundVolume = 1.0; // SOURCE OF TRUTH for intended background volume
+    this.themeVolume = 0.2; // SOURCE OF TRUTH for intended theme volume
     // scroll fade controls
     this.bgScrollFaded = false;
     this.scrollThreshold = 0.2; // 20% of viewport
@@ -41,8 +43,9 @@ export class AudioManager {
     // If a background track exists, remember its configured volume and ensure it loops/plays
     if (this.library.background) {
       const bg = this.library.background;
-      // store intended background volume (fallback to 1.0)
-      this.backgroundVolume = (typeof bg._volume !== 'undefined') ? bg._volume : (audioFiles.find(f => f.name === 'background')?.volume || 1.0);
+      // Restore intended background volume from config (source of truth)
+      const bgConfig = audioFiles.find(f => f.name === 'background');
+      this.backgroundVolume = bgConfig?.volume || 1.0;
       // ensure loop is enabled on the background track
       try {
         bg.loop(true);
@@ -144,7 +147,7 @@ export class AudioManager {
       // Also fade out theme sound during scroll
       if (theme && this.themeActive) {
         try {
-          const currentVol = typeof theme.volume === 'function' ? theme.volume() : 0.2;
+          const currentVol = typeof theme.volume === 'function' ? theme.volume() : this.themeVolume;
           theme.fade(currentVol, this.scrollFadeVolume, fadeDuration);
         } catch (e) {
           try { theme.volume(this.scrollFadeVolume); } catch (err) {}
@@ -165,9 +168,9 @@ export class AudioManager {
       if (theme && this.themeActive) {
         try {
           const current = (typeof theme.volume === 'function') ? theme.volume() : this.scrollFadeVolume;
-          theme.fade(current, 0.2, fadeDuration);
+          theme.fade(current, this.themeVolume, fadeDuration);
         } catch (e) {
-          try { theme.volume(0.2); } catch (err) {}
+          try { theme.volume(this.themeVolume); } catch (err) {}
         }
       }
       
@@ -259,9 +262,8 @@ export class AudioManager {
         theme.play();
       }
 
-      // Fade in from 0 to target volume (0.2)
-      const targetVolume = 0.2;
-      theme.fade(0, targetVolume, this.themeFadeDuration);
+      // Fade in from 0 to stored target volume (this.themeVolume is source of truth)
+      theme.fade(0, this.themeVolume, this.themeFadeDuration);
     } catch (e) {
       console.warn("Error fading in theme sound:", e);
     }
@@ -277,16 +279,14 @@ export class AudioManager {
     this.themeActive = false;
 
     try {
-      const currentVol = typeof theme.volume === 'function' ? theme.volume() : 0.8;
+      // Get current volume or use stored target volume
+      const currentVol = typeof theme.volume === 'function' ? theme.volume() : this.themeVolume;
       theme.fade(currentVol, 0, this.themeFadeDuration);
 
       // Stop playing after fade completes
       setTimeout(() => {
-        if (!this.themeActive) {
-          try {
-            theme.stop();
-          } catch (e) {}
-        }
+        if (theme && !theme.playing()) return;
+        try { theme.stop(); } catch (e) {}
       }, this.themeFadeDuration);
     } catch (e) {
       console.warn("Error fading out theme sound:", e);

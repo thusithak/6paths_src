@@ -68,9 +68,12 @@ class Application {
 
   /**
    * Setup theme and sound toggle switches
+   * Initialize switches to reflect actual application state (single source of truth)
    */
   setupSwitches() {
+    // Theme switch: initialize to current theme state (isDark is source of truth)
     this.themeSwitch = new FrostedSwitch("theme-switch", {
+      initialState: this.themeManager.getIsDark(),
       onToggle: (isActive) => {
         this.themeManager.applyTheme(isActive);
         this.splineManager.setVariable("ThemeState", isActive);
@@ -84,16 +87,15 @@ class Application {
       },
     });
 
+    // Sound switch: initialize to opposite of muted state (isMuted is source of truth)
+    // Switch ON = audio unmuted, Switch OFF = audio muted
     this.soundSwitch = new FrostedSwitch("sound-switch", {
+      initialState: !this.audioManager.isMuted,
       onToggle: (isActive) => {
         const isMuted = !isActive;
         this.audioManager.setMute(isMuted);
       },
     });
-
-    // Initialize sound switch to off
-    // Initialize sound switch to reflect current audio state
-    this.soundSwitch.toggle(!this.audioManager.isMuted);
   }
 
   /**
