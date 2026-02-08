@@ -53,11 +53,24 @@ class Application {
         "https://prod.spline.design/At-lvMDyYgqgQz2B/scene.splinecode";
       await this.splineManager.load(SCENE_URL);
 
-      // Sync initial theme with Spline
-      this.splineManager.ensureSync(this.themeManager.getIsDark());
-      console.log("Scene loaded and synced with theme state.");
+      // Attempt to read `ThemeState` from the Spline scene and use it as the source of truth
+      const splineTheme = this.splineManager.getVariable("ThemeState");
+      if (typeof splineTheme !== 'undefined') {
+        const isDarkFromSpline = Boolean(splineTheme);
+        this.themeManager.applyTheme(isDarkFromSpline);
+        console.log("Scene provided ThemeState; applied theme from Spline:", isDarkFromSpline);
+        // Ensure audio theme matches the applied theme
+        if (isDarkFromSpline) this.audioManager.fadeInThemeSound();
+        else this.audioManager.fadeOutThemeSound();
+      } else {
+        // If Spline doesn't expose the variable, push app state into the scene
+        this.splineManager.ensureSync(this.themeManager.getIsDark());
+        console.log("Scene did not provide ThemeState; synced Spline to app theme state.");
+      }
+
       // Schedule scene reveal
       setTimeout(() => {
+        // Re-check/sync after settling delay
         this.splineManager.ensureSync(this.themeManager.getIsDark());
         console.log("Scene loaded and synced with theme state --- 2nd check.");
         this.sceneLoader.revealScene();

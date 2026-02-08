@@ -83,4 +83,19 @@ export class SplineManager {
     }
     return undefined;
   }
+
+  /**
+   * Read a variable value from the loaded Spline app runtime.
+   * Returns undefined when the app isn't loaded or the variable doesn't exist.
+   */
+  getVariable(variableName) {
+    if (!this.app || typeof this.app.getVariables !== 'function') return undefined;
+    try {
+      const vars = this.app.getVariables();
+      return this.getVariableValue(vars, variableName);
+    } catch (e) {
+      console.warn(`Failed to read variable '${variableName}' from Spline app:`, e);
+      return undefined;
+    }
+  }
 }
