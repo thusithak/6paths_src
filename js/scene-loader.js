@@ -1,9 +1,3 @@
-/**
- * SceneLoader - Handles 3D scene reveal and loading animation
- * Manages loader overlay and canvas transitions
- * Dependencies: CONFIG, utils
- */
-
 import { CONFIG } from "./config.js";
 import { validateDOM, safeCall } from "./utils.js";
 
@@ -19,18 +13,12 @@ export class SceneLoader {
       : this.config.ANIMATION.SCENE.firstVisitDelay;
   }
 
-  /**
-   * Initialize loader UI
-   */
   initializeLoader() {
     if (this.loader) {
       this.loader.style.opacity = "1";
     }
   }
 
-  /**
-   * Show canvas and hide loader with transition
-   */
   revealScene() {
     if (this.sceneRevealed || !this.canvas || !this.loader) return;
 
@@ -55,23 +43,14 @@ export class SceneLoader {
     });
   }
 
-  /**
-   * Get settling delay for scene initialization
-   */
   getSettlingDelay() {
     return this.SETTLING_DELAY;
   }
 
-  /**
-   * Check if this is a repeat visit
-   */
   getIsRepeatVisit() {
     return this.isRepeatVisit;
   }
 
-  /**
-   * Attach click listener to loader (enable audio)
-   */
   onLoaderClick(callback) {
     if (this.loader) {
       this.loader.addEventListener("click", callback);

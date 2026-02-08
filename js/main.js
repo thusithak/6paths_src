@@ -1,9 +1,3 @@
-/**
- * Main Entry Point - Orchestrates all modules
- * Coordinates initialization and inter-module communication
- * Dependencies: CONFIG, all managers
- */
-
 import { CONFIG } from "./config.js";
 import { FrostedSwitch } from "./frosted-switch.js";
 import { ThemeManager } from "./theme-manager.js";
@@ -22,18 +16,14 @@ class Application {
     this.soundSwitch = null;
   }
 
-  /**
-   * Initialize application when DOM is ready
-   */
   async initialize() {
     this.setupUI();
-    await this.loadScene();
+    // Initialize switches early so loader clicks can update their visuals
+    // even if the scene hasn't finished loading yet.
     this.setupSwitches();
+    await this.loadScene();
   }
 
-  /**
-   * Setup initial UI state
-   */
   setupUI() {
     this.sceneLoader.initializeLoader();
     this.themeManager.applyTheme(this.themeManager.getIsDark());
@@ -47,9 +37,6 @@ class Application {
     });
   }
 
-  /**
-   * Load Spline 3D scene
-   */
   async loadScene() {
     try {
       await this.splineManager.load(this.config.SPLINE.SCENE_URL);
@@ -81,10 +68,6 @@ class Application {
     }
   }
 
-  /**
-   * Setup theme and sound toggle switches
-   * Initialize switches to reflect actual application state (single source of truth)
-   */
   setupSwitches() {
     // Theme switch: initialize to current theme state (isDark is source of truth)
     this.themeSwitch = new FrostedSwitch(
@@ -121,9 +104,6 @@ class Application {
     );
   }
 
-  /**
-   * Get manager instances (for debugging/external access)
-   */
   getManagers() {
     return {
       theme: this.themeManager,

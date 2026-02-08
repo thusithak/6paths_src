@@ -1,27 +1,12 @@
-/**
- * config.js - Centralized Configuration
- * 
- * Single source of truth for all application settings including:
- * - Audio configuration (URLs, volumes, timings)
- * - Animation parameters (durations, eases)
- * - DOM selectors and IDs
- * - Storage keys
- * - External API endpoints
- */
-
 export const CONFIG = {
-  /**
-   * Audio Configuration
-   */
+  // Audio
   AUDIO: {
-    // Global defaults for all Howler.js sounds
     GLOBAL_DEFAULTS: {
       autoplay: false,
       volume: 2.0,
       preload: true,
     },
-    
-    // Sound file definitions with URLs and individual settings
+    // Sound file definitions
     SOUNDS: {
       hover: {
         name: "hover",
@@ -55,37 +40,30 @@ export const CONFIG = {
         preload: true,
       },
     },
-
-    // Volume control (source of truth for desired volumes)
+    // Volume configuration
     VOLUMES: {
       background: 1.0,  // Default background ambient sound volume
       theme: 0.2,       // Default theme (cricket) sounds volume
     },
-
-    // Scroll behavior configuration
+    // Scroll behavior
     SCROLL: {
       threshold: 0.2,         // Fade background at 20% scroll depth
       fadeTarget: 0.0,        // Target volume when scrolled past threshold
       fadeDuration: 600,      // Duration of scroll fade transition (ms)
     },
-
     // Mute behavior
     MUTE: {
       fadeDuration: 800,      // Duration of fade when muting/unmuting (ms)
     },
-
-    // Theme sound (cricket) fade behavior
+    // Theme sound (cricket) fade
     THEME_SOUND: {
       fadeDuration: 1000,     // Duration to fade in/out theme sound (ms)
       rateRange: [0.8, 1.2],  // Playback rate randomization for natural sound
     },
   },
-
-  /**
-   * Animation Configuration
-   */
+  // Animation
   ANIMATION: {
-    // Frosted switch toggle animation
+    // Switch toggle animation
     SWITCH: {
       // Dimensions (must match custom.css --switch-width, --switch-height, --handle-size)
       width: 80,              // Switch container width (pixels)
@@ -106,14 +84,12 @@ export const CONFIG = {
         delay: 0.1,           // Delay before icon animation starts (seconds)
       },
     },
-
-    // Logo fade transition (theme switching)
+    // Logo fade transition
     LOGO: {
       duration: 0.24,         // Logo crossfade duration (seconds)
       ease: "power1.out",     // GSAP easing function
     },
-
-    // Scene loading and reveal animation
+    // Scene loading animation
     SCENE: {
       firstVisitDelay: 2000,  // Initial settling delay for first-time visitors (ms)
       repeatVisitDelay: 100,  // Settling delay for repeat visitors (ms)
@@ -122,10 +98,7 @@ export const CONFIG = {
       loaderHideDelay: 500,   // Delay before starting loader fade (ms)
     },
   },
-
-  /**
-   * DOM Selectors and IDs
-   */
+  // DOM selectors
   DOM: {
     // Canvas and loader IDs
     CANVAS_ID: "canvas3d",
@@ -137,23 +110,20 @@ export const CONFIG = {
       sound: "sound-switch",
     },
 
-    // Event selectors for audio triggers
+    // Event selectors for audio
     EVENT_SELECTORS: {
       hover: '[data-sound="hover"]',      // Elements that trigger hover sound on mouseenter
       click: '[data-sound-2="click"]',    // Elements that trigger click sound on click
       switch: '[data-sound-3="switch"]',  // Elements that trigger switch sound on click
     },
 
-    // Logo image selectors
+    // Logo images
     LOGO_SELECTORS: {
       dark: ".logo-img-blue",             // Logo shown in dark theme
       light: ".logo-img-black",           // Logo shown in light theme
     },
   },
-
-  /**
-   * Browser Storage Configuration
-   */
+  // Storage
   STORAGE: {
     // localStorage keys
     THEME_KEY: "theme",                   // Stores "dark" or "light"
@@ -161,10 +131,7 @@ export const CONFIG = {
     // sessionStorage keys
     SCENE_LOADED_KEY: "splineSceneLoaded", // Marks scene as loaded for this session
   },
-
-  /**
-   * Spline 3D Scene Configuration
-   */
+  // Spline scene
   SPLINE: {
     // Spline scene URL - the main 3D environment
     SCENE_URL: "https://prod.spline.design/At-lvMDyYgqgQz2B/scene.splinecode",
@@ -175,10 +142,6 @@ export const CONFIG = {
     // Spline runtime import URL
     RUNTIME_URL: "https://unpkg.com/@splinetool/runtime",
   },
-
-  /**
-   * Utility function to get all audio file configs as array
-   */
   getAudioFilesArray() {
     return Object.values(this.AUDIO.SOUNDS);
   },

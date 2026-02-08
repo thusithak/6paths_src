@@ -1,9 +1,3 @@
-/**
- * ThemeManager - Handles theme persistence and application
- * Supports dark and light themes with persistent storage
- * Dependencies: CONFIG, utils
- */
-
 import { CONFIG } from "./config.js";
 import { animateGSAP, fadeElement, safeCall } from "./utils.js";
 
@@ -18,20 +12,13 @@ export class ThemeManager {
     this.isDark = this.savedTheme
       ? this.savedTheme === "dark"
       : this.systemPrefersDark;
-    // Apply the theme and update logos on initialization
     this.applyTheme(this.isDark);
   }
 
-  /**
-   * Get current theme state
-   */
   getIsDark() {
     return this.isDark;
   }
 
-  /**
-   * Apply theme to DOM and persist preference
-   */
   applyTheme(darkModeActive) {
     this.isDark = darkModeActive;
     const theme = darkModeActive ? "dark" : "light";
@@ -40,11 +27,6 @@ export class ThemeManager {
     this.updateLogos(darkModeActive);
   }
 
-  /**
-   * Update logos with fade transitions.
-   * - When light: fade in `.logo-img-black` (display -> inline-block)
-   * - When dark: fade in `.logo-img-blue` and fade out `.logo-img-black`
-   */
   updateLogos(dark) {
     const logoSelectors = this.config.DOM.LOGO_SELECTORS;
     const darkLogos = document.querySelectorAll(logoSelectors.dark);
@@ -76,8 +58,7 @@ export class ThemeManager {
         darkLogos.forEach((el) => hide(el));
       }
     } else {
-      // Fallback to CSS-based transitions if GSAP isn't available
-      const durationMs = duration * 1000;
+
       
       const fadeIn = (el) => {
         if (!el) return;
@@ -109,9 +90,6 @@ export class ThemeManager {
     }
   }
 
-  /**
-   * Toggle theme and return new state
-   */
   toggleTheme() {
     this.applyTheme(!this.isDark);
     return this.isDark;

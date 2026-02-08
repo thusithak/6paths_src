@@ -1,8 +1,3 @@
-/**
- * AudioManager - Handles audio setup and playback
- * Dependencies: Howler.js library, CONFIG, utils
- */
-
 import { CONFIG } from "./config.js";
 import {
   fadeAudio,
@@ -31,9 +26,6 @@ export class AudioManager {
     this.setupEventListeners();
   }
 
-  /**
-   * Initialize audio library with all sound files
-   */
   setupAudioLibrary() {
     if (!window.Howler) {
       console.warn("Howler.js not loaded");
@@ -73,9 +65,6 @@ export class AudioManager {
     this.setMute(true);
   }
 
-  /**
-   * Attach event listeners to audio-triggered elements
-   */
   setupEventListeners() {
     const selectors = this.config.DOM.EVENT_SELECTORS;
     attachEventListeners(selectors.hover, "mouseenter", () => this.play("hover"));
@@ -88,16 +77,10 @@ export class AudioManager {
     });
   }
 
-  /**
-   * Get audio file configuration
-   */
   getAudioConfig() {
     return this.config.getAudioFilesArray();
   }
 
-  /**
-   * Handle window scroll to fade background and theme when past threshold
-   */
   handleScroll() {
     const bg = this.library.background;
     const theme = this.library.theme;
@@ -135,16 +118,10 @@ export class AudioManager {
     }
   }
 
-  /**
-   * Attach sound to elements with event
-   */
   attachSoundToElements(selector, soundName, eventType) {
     attachEventListeners(selector, eventType, () => this.play(soundName));
   }
 
-  /**
-   * Set mute state
-   */
   setMute(isMuted) {
     this.isMuted = isMuted;
     if (!window.Howler) return;
@@ -176,17 +153,11 @@ export class AudioManager {
     console.log(isMuted ? "Site Started Muted" : "Site Unmuted");
   }
 
-  /**
-   * Toggle mute state
-   */
   toggleMute() {
     this.setMute(!this.isMuted);
     return !this.isMuted;
   }
 
-  /**
-   * Fade in theme sound when dark theme activates
-   */
   fadeInThemeSound() {
     const theme = this.library.theme;
     if (!theme || this.isMuted) return;
@@ -208,9 +179,6 @@ export class AudioManager {
     });
   }
 
-  /**
-   * Fade out theme sound when dark theme deactivates
-   */
   fadeOutThemeSound() {
     const theme = this.library.theme;
     if (!theme) return;
@@ -231,18 +199,12 @@ export class AudioManager {
     });
   }
 
-  /**
-   * Play a sound
-   */
   play(soundName) {
     if (this.library[soundName]) {
       this.library[soundName].stop().play();
     }
   }
 
-  /**
-   * Play sound with delay
-   */
   playWithDelay(soundName, ms) {
     setTimeout(() => {
       this.play(soundName);

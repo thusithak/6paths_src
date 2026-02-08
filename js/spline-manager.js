@@ -1,9 +1,3 @@
-/**
- * SplineManager - Handles Spline 3D scene loading and management
- * Enables synchronization between app state and Spline scene variables
- * Dependencies: CONFIG, utils
- */
-
 import { CONFIG } from "./config.js";
 import { safeCall, validateDOM } from "./utils.js";
 
@@ -15,9 +9,6 @@ export class SplineManager {
     this.isLoaded = false;
   }
 
-  /**
-   * Load Spline scene from configuration
-   */
   async load(sceneUrl = this.config.SPLINE.SCENE_URL) {
     try {
       const { Application } = await import(this.config.SPLINE.RUNTIME_URL);
@@ -32,32 +23,20 @@ export class SplineManager {
     }
   }
 
-  /**
-   * Get Spline app instance
-   */
   getApp() {
     return this.app;
   }
 
-  /**
-   * Check if scene is loaded
-   */
   isSceneLoaded() {
     return this.isLoaded;
   }
 
-  /**
-   * Set a variable in the Spline scene
-   */
   setVariable(name, value) {
     if (this.app) {
       this.app.setVariable(name, value);
     }
   }
 
-  /**
-   * Ensure Spline scene is synced with target state
-   */
   ensureSync(targetState, variableName = null) {
     const varName = variableName || this.config.SPLINE.THEME_STATE_VAR;
     
@@ -76,9 +55,6 @@ export class SplineManager {
     }
   }
 
-  /**
-   * Extract variable value from variables array or object
-   */
   getVariableValue(variables, variableName) {
     if (Array.isArray(variables)) {
       const v = variables.find((v) => v.name === variableName);
@@ -89,10 +65,6 @@ export class SplineManager {
     return undefined;
   }
 
-  /**
-   * Read a variable value from the loaded Spline app runtime.
-   * Returns undefined when the app isn't loaded or the variable doesn't exist.
-   */
   getVariable(variableName) {
     if (!this.app || typeof this.app.getVariables !== 'function') return undefined;
     try {

@@ -1,23 +1,7 @@
 /**
- * utils.js - Shared Utility Functions
- * 
- * Reusable helpers for:
- * - Audio fading and playback
- * - GSAP animations
- * - DOM event handling
- * - Error handling
- * - State management
+ * Shared utility functions for audio, GSAP, DOM, and state management.
  */
 
-/**
- * Safely fade audio from one volume to another using Howler.js
- * Falls back to immediate volume set if fade is unavailable
- * 
- * @param {Howl} audio - Howler.js audio instance
- * @param {number} fromVolume - Starting volume (0-1)
- * @param {number} toVolume - Target volume (0-1)
- * @param {number} duration - Fade duration in milliseconds
- */
 export function fadeAudio(audio, fromVolume, toVolume, duration) {
   if (!audio) return;
 
@@ -32,16 +16,6 @@ export function fadeAudio(audio, fromVolume, toVolume, duration) {
   });
 }
 
-/**
- * Safely fade DOM element from one opacity to another using GSAP
- * Falls back to CSS transitions if GSAP unavailable
- * 
- * @param {HTMLElement} element - DOM element to animate
- * @param {number} fromOpacity - Starting opacity (0-1)
- * @param {number} toOpacity - Target opacity (0-1)
- * @param {number} duration - Fade duration in seconds
- * @param {Object} options - Additional GSAP options
- */
 export function fadeElement(element, fromOpacity, toOpacity, duration, options = {}) {
   if (!element) return;
 
@@ -58,14 +32,6 @@ export function fadeElement(element, fromOpacity, toOpacity, duration, options =
   }
 }
 
-/**
- * Safely execute a function with error handling
- * Optionally execute a fallback function on error
- * 
- * @param {Function} fn - Primary function to execute
- * @param {Function} fallback - Optional fallback function if primary fails
- * @returns {*} Result of the executed function
- */
 export function safeCall(fn, fallback = null) {
   try {
     return fn();
@@ -74,7 +40,7 @@ export function safeCall(fn, fallback = null) {
       try {
         return fallback();
       } catch (fallbackError) {
-        // Silently fail if both fail
+    // Silently fail if both fail
       }
     }
     // Optionally log error for debugging (uncomment as needed):
@@ -82,25 +48,12 @@ export function safeCall(fn, fallback = null) {
   }
 }
 
-/**
- * Check if a Howler.js audio instance is currently playing
- * 
- * @param {Howl} audio - Howler.js audio instance
- * @returns {boolean} True if audio is actively playing, false otherwise
- */
 export function isAudioPlaying(audio) {
   if (!audio) return false;
   
   return safeCall(() => audio.playing(), () => false);
 }
 
-/**
- * Safely play a Howler.js audio instance
- * Ensures the sound isn't already playing before starting
- * 
- * @param {Howl} audio - Howler.js audio instance
- * @returns {boolean} True if audio was started, false if already playing or failed
- */
 export function playAudio(audio) {
   if (!audio) return false;
 
@@ -114,12 +67,6 @@ export function playAudio(audio) {
   }, () => false);
 }
 
-/**
- * Safely stop a Howler.js audio instance
- * 
- * @param {Howl} audio - Howler.js audio instance
- * @returns {boolean} True if stop was called, false if failed
- */
 export function stopAudio(audio) {
   if (!audio) return false;
 
@@ -129,13 +76,6 @@ export function stopAudio(audio) {
   }, () => false);
 }
 
-/**
- * Safely set mute state on a Howler.js audio instance
- * 
- * @param {Howl} audio - Howler.js audio instance
- * @param {boolean} shouldMute - True to mute, false to unmute
- * @returns {boolean} True if mute was set, false if failed
- */
 export function setAudioMute(audio, shouldMute) {
   if (!audio) return false;
 
@@ -145,16 +85,6 @@ export function setAudioMute(audio, shouldMute) {
   }, () => false);
 }
 
-/**
- * Attach event listeners to multiple DOM elements matching a selector
- * Useful for eliminating repeated query + forEach patterns
- * 
- * @param {string} selector - CSS selector for target elements
- * @param {string} eventType - Event type (e.g., "click", "mouseenter")
- * @param {Function} callback - Function to call when event fires
- * @param {Object} options - Event listener options (e.g., { passive: true })
- * @returns {number} Number of elements event listener was attached to
- */
 export function attachEventListeners(selector, eventType, callback, options = {}) {
   const elements = document.querySelectorAll(selector);
   let count = 0;
@@ -169,16 +99,6 @@ export function attachEventListeners(selector, eventType, callback, options = {}
   return count;
 }
 
-/**
- * Create a strongly-typed GSAP animation with consistent error handling
- * 
- * @param {HTMLElement} element - DOM element to animate
- * @param {number} duration - Animation duration in seconds
- * @param {string} ease - GSAP easing function (e.g., "power1.out")
- * @param {Object} properties - Animation properties (opacity, x, y, etc.)
- * @param {Object} callbacks - Optional callbacks ({ onStart, onComplete })
- * @returns {Object} GSAP tween object or null if failed
- */
 export function animateGSAP(element, duration, ease, properties, callbacks = {}) {
   if (!element || !window.gsap) return null;
 
@@ -200,14 +120,6 @@ export function animateGSAP(element, duration, ease, properties, callbacks = {})
   });
 }
 
-/**
- * Get the current volume from a Howler.js audio instance
- * Handles both function and property accessors
- * 
- * @param {Howl} audio - Howler.js audio instance
- * @param {number} defaultValue - Default if retrieval fails (default: 0)
- * @returns {number} Current volume (0-1) or default value
- */
 export function getAudioVolume(audio, defaultValue = 0) {
   if (!audio) return defaultValue;
 
@@ -217,13 +129,6 @@ export function getAudioVolume(audio, defaultValue = 0) {
   }, () => defaultValue);
 }
 
-/**
- * Safely set audio rate (playback speed) on a Howler.js instance
- * 
- * @param {Howl} audio - Howler.js audio instance
- * @param {number} rate - Playback rate (0.5 = half speed, 1.0 = normal, 2.0 = double)
- * @returns {boolean} True if rate was set, false if failed
- */
 export function setAudioRate(audio, rate) {
   if (!audio || typeof rate !== 'number') return false;
 
@@ -233,12 +138,6 @@ export function setAudioRate(audio, rate) {
   }, () => false);
 }
 
-/**
- * Validate DOM element exists and is connected to document
- * 
- * @param {string|HTMLElement} elementOrId - Element ID string or HTMLElement
- * @returns {HTMLElement|null} Element if valid, null otherwise
- */
 export function validateDOM(elementOrId) {
   let element;
 
@@ -251,14 +150,6 @@ export function validateDOM(elementOrId) {
   return (element && document.contains(element)) ? element : null;
 }
 
-/**
- * Debounce a function to prevent excessive calls
- * Useful for scroll, resize, and input events
- * 
- * @param {Function} fn - Function to debounce
- * @param {number} delay - Delay in milliseconds
- * @returns {Function} Debounced function
- */
 export function debounce(fn, delay = 300) {
   let timeoutId;
   
@@ -270,14 +161,6 @@ export function debounce(fn, delay = 300) {
   };
 }
 
-/**
- * Generate a random number within a range
- * Useful for randomizing audio playback rates, animation delays, etc.
- * 
- * @param {number} min - Minimum value (inclusive)
- * @param {number} max - Maximum value (inclusive)
- * @returns {number} Random number between min and max
- */
 export function randomInRange(min, max) {
   return min + Math.random() * (max - min);
 }

@@ -1,9 +1,3 @@
-/**
- * FrostedSwitch - An animated toggle switch component
- * Handles state management and smooth GSAP animations
- * Dependencies: CONFIG, utils
- */
-
 import { CONFIG } from "./config.js";
 import { animateGSAP, safeCall } from "./utils.js";
 
@@ -22,9 +16,6 @@ export class FrostedSwitch {
     this.setupEventListeners();
   }
 
-  /**
-   * Query and cache DOM elements
-   */
   initializeElements(elementId) {
     this.container = document.getElementById(elementId);
     if (!this.container) return;
@@ -36,17 +27,11 @@ export class FrostedSwitch {
     this.input = this.container.querySelector('input[type="checkbox"]');
   }
 
-  /**
-   * Set initial state and callback
-   */
   configureState(options) {
     this.isOn = options.initialState || false;
     this.onToggle = options.onToggle || (() => {});
   }
 
-  /**
-   * Configure animation parameters from CONFIG
-   */
   configureAnimation() {
     const switchConfig = this.config.ANIMATION.SWITCH;
     this.width = switchConfig.width;
@@ -55,16 +40,10 @@ export class FrostedSwitch {
     this.travelDist = switchConfig.travelDistance;
   }
 
-  /**
-   * Set initial visual state without animation
-   */
   initializeVisuals() {
     this.setVisualState(this.isOn, 0);
   }
 
-  /**
-   * Attach click listener to toggle
-   */
   setupEventListeners() {
     if (this.label) {
       this.label.addEventListener("click", (e) => {
@@ -74,9 +53,6 @@ export class FrostedSwitch {
     }
   }
 
-  /**
-   * Toggle the switch state
-   */
   toggle(forceState) {
     const newState =
       typeof forceState !== "undefined" ? forceState : !this.isOn;
@@ -89,18 +65,12 @@ export class FrostedSwitch {
     this.setVisualState(this.isOn, 0.5);
   }
 
-  /**
-   * Update associated input element
-   */
   syncInput() {
     if (this.input) {
       this.input.checked = this.isOn;
     }
   }
 
-  /**
-   * Animate handle and icons based on state
-   */
   setVisualState(active, duration) {
     const xPos = active ? this.travelDist : 0;
     const activeIcon = active ? this.iconRight : this.iconLeft;
@@ -111,9 +81,6 @@ export class FrostedSwitch {
     this.animateInactiveIcon(inactiveIcon, duration);
   }
 
-  /**
-   * Animate handle position
-   */
   animateHandle(xPos, duration) {
     if (window.gsap && this.handle) {
       const { ease } = this.config.ANIMATION.SWITCH.toggle;
@@ -121,9 +88,6 @@ export class FrostedSwitch {
     }
   }
 
-  /**
-   * Animate active icon (glow)
-   */
   animateActiveIcon(icon, duration) {
     if (window.gsap && icon) {
       const { duration: iconDuration, delay } = this.config.ANIMATION.SWITCH.icon;
@@ -140,9 +104,6 @@ export class FrostedSwitch {
     }
   }
 
-  /**
-   * Animate inactive icon (dim)
-   */
   animateInactiveIcon(icon, duration) {
     if (window.gsap && icon) {
       const { duration: iconDuration } = this.config.ANIMATION.SWITCH.icon;
