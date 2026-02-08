@@ -55,10 +55,11 @@ class Application {
 
       // Sync initial theme with Spline
       this.splineManager.ensureSync(this.themeManager.getIsDark());
-
+      console.log("Scene loaded and synced with theme state.");
       // Schedule scene reveal
       setTimeout(() => {
         this.splineManager.ensureSync(this.themeManager.getIsDark());
+        console.log("Scene loaded and synced with theme state --- 2nd check.");
         this.sceneLoader.revealScene();
       }, this.sceneLoader.getSettlingDelay());
     } catch (error) {
