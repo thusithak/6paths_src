@@ -42,9 +42,9 @@ export class FrostedSwitch {
    * Configure animation parameters
    */
   configureAnimation() {
-    this.width = 90;
-    this.handleSize = 34;
-    this.padding = 8;
+    this.width = 80;
+    this.handleSize = 32;
+    this.padding = 0;
     this.travelDist = this.width - this.handleSize - this.padding - 2;
   }
 
