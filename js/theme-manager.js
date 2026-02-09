@@ -33,61 +33,48 @@ export class ThemeManager {
     const lightLogos = document.querySelectorAll(logoSelectors.light);
 
     const { duration, ease } = this.config.ANIMATION.LOGO;
+    const toShow = dark ? darkLogos : lightLogos;
+    const toHide = dark ? lightLogos : darkLogos;
 
-    if (window.gsap) {
-      const show = (el) => {
-        if (!el) return;
-        gsap.killTweensOf(el);
-        gsap.set(el, { display: 'inline-block', opacity: 0 });
-        animateGSAP(el, duration, ease, { opacity: 1 });
-      };
+    // Record current state for FLIP animation
+    gsap.killTweensOf(toShow);
+    gsap.killTweensOf(toHide);
 
-      const hide = (el) => {
-        if (!el) return;
-        gsap.killTweensOf(el);
-        animateGSAP(el, duration, ease, { opacity: 0 }, {
-          onComplete: () => gsap.set(el, { display: 'none' }),
+    // Set up elements that will be shown
+    toShow.forEach((el) => {
+      gsap.set(el, { display: 'inline-block', opacity: 0 });
+    });
+
+    // Use FLIP plugin to smoothly animate layout changes
+    const flip = gsap.FLIP.getState([...toShow, ...toHide]);
+
+    // Update visibility in DOM
+    toHide.forEach((el) => {
+      el.style.visibility = 'hidden';
+    });
+
+    // Play FLIP animation with opacity transitions
+    gsap.FLIP.from(flip, {
+      duration: duration / 1000,
+      ease: ease,
+      onUpdate: () => {
+        toShow.forEach((el) => {
+          gsap.set(el, { opacity: 1 });
         });
-      };
+      },
+    });
 
-      if (dark) {
-        darkLogos.forEach((el) => show(el));
-        lightLogos.forEach((el) => hide(el));
-      } else {
-        lightLogos.forEach((el) => show(el));
-        darkLogos.forEach((el) => hide(el));
-      }
-    } else {
-
-      
-      const fadeIn = (el) => {
-        if (!el) return;
-        el.style.transition = `opacity ${durationMs}ms ease`;
-        el.style.display = 'inline-block';
-        el.style.opacity = '0';
-        requestAnimationFrame(() => (el.style.opacity = '1'));
-      };
-
-      const fadeOut = (el) => {
-        if (!el) return;
-        if (getComputedStyle(el).display === 'none') return;
-        el.style.transition = `opacity ${durationMs}ms ease`;
-        el.style.opacity = '0';
-        const onEnd = () => {
-          el.style.display = 'none';
-          el.removeEventListener('transitionend', onEnd);
-        };
-        el.addEventListener('transitionend', onEnd, { once: true });
-      };
-
-      if (dark) {
-        darkLogos.forEach((el) => fadeIn(el));
-        lightLogos.forEach((el) => fadeOut(el));
-      } else {
-        lightLogos.forEach((el) => fadeIn(el));
-        darkLogos.forEach((el) => fadeOut(el));
-      }
-    }
+    // Animate opacity for hidden elements
+    gsap.to(toHide, {
+      opacity: 0,
+      duration: duration / 1000,
+      ease: ease,
+      onComplete: () => {
+        toHide.forEach((el) => {
+          gsap.set(el, { display: 'none', visibility: 'visible' });
+        });
+      },
+    });
   }
 
   toggleTheme() {
