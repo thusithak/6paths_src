@@ -22,14 +22,13 @@
     --blur-frame-mask:linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%)
 }
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
+
 body, 
 body *, 
 body *::before, 
 body *::after {
+    background-color: var(--bg-color);
+    color: var(--text-color);
   transition-property: background-color, border-color, color, fill, stroke;
   transition-duration: var(--transition-duration);
   transition-delay: var(--transition-delay);
