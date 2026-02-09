@@ -57,18 +57,6 @@
 
 /* --- Global Functional Styles --- */
 
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color var(--transition-speed), color var(--transition-speed);
-}
-
-.navbar {
-  background-color: var(--surface-glass);
-  border-bottom: 1px solid var(--border-subtle);
-  backdrop-filter: blur(10px);
-}
-
 .menu-item-text {
   color: var(--text-secondary);
 }
