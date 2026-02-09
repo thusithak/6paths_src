@@ -22,17 +22,28 @@
     --blur-frame-mask:linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%)
 }
 
+html,
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 body, 
 body *, 
 body *::before, 
 body *::after {
-    background-color: var(--bg-color);
-    color: var(--text-color);
   transition-property: background-color, border-color, color, fill, stroke;
   transition-duration: var(--transition-duration);
   transition-delay: var(--transition-delay);
   transition-timing-function: ease;
+}
+
+h1, h2, h3, h4, h5, h6,
+p, span, div, li, a, 
+input, textarea, button, select {
+  color: inherit;
 }
 
 .fade-border {
