@@ -1,0 +1,100 @@
+/* --- Theme Variables and Global Styles --- */
+
+:root {
+  /* --- Light Theme (Default) --- */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  
+  --surface-glass: rgba(255, 255, 255, 0.7);
+  --edge-blur: #eef2f5; /* Matches your edge-blur-left inline style */
+  
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --divider-color: rgba(0, 0, 0, 0.05);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  --accent-primary: #0ea5e9;
+  --accent-secondary: #0284c7;
+  --accent-soft: rgba(14, 165, 233, 0.1);
+
+  /* Switch & Interaction */
+  --switch-bg: #e2e8f0;
+  --switch-handle: #ffffff;
+  --transition-speed: 0.3s;
+}
+
+[data-theme="dark"] {
+  /* --- Dark Theme Overrides --- */
+  --bg-primary: #0a0a0b;        /* Deepest layer */
+  --bg-secondary: #121214;      /* Navbar and sections */
+  --bg-tertiary: #1c1c1f;       /* Cards and Bento children */
+  
+  --surface-glass: rgba(10, 10, 11, 0.75);
+  --edge-blur: #0a0a0b;         /* For the logo carousel blurs */
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --divider-color: rgba(255, 255, 255, 0.06);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #0a0a0b;
+
+  --accent-primary: #0ea5e9;    /* Maintaining brand blue for glow */
+  --accent-secondary: #38bdf8;
+  --accent-soft: rgba(14, 165, 233, 0.15);
+
+  /* Switch & Interaction */
+  --switch-bg: #27272a;
+  --switch-handle: #ffffff;
+}
+
+/* --- Global Functional Styles --- */
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.navbar {
+  background-color: var(--surface-glass);
+  border-bottom: 1px solid var(--border-subtle);
+  backdrop-filter: blur(10px);
+}
+
+.menu-item-text {
+  color: var(--text-secondary);
+}
+
+.menu-item-btn:hover .menu-item-text {
+  color: var(--accent-primary);
+}
+
+.bento-child, .case-link {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+}
+
+.tag-pill {
+  background-color: var(--accent-soft);
+  color: var(--accent-primary);
+}
+
+.edge-blur-left {
+  background: linear-gradient(to right, var(--edge-blur), transparent) !important;
+}
+
+.edge-blur-right {
+  background: linear-gradient(to left, var(--edge-blur), transparent) !important;
+}
+
+/* Logo Swap Logic */
+[data-theme="dark"] .logo-img-blue { display: inline-block; }
+[data-theme="dark"] .logo-img-black { display: none; }
