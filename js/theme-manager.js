@@ -35,45 +35,42 @@ export class ThemeManager {
     const { duration, ease } = this.config.ANIMATION.LOGO;
     const toShow = dark ? darkLogos : lightLogos;
     const toHide = dark ? lightLogos : darkLogos;
+    const durationSeconds = duration / 1000;
 
-    // Record current state for FLIP animation
-    gsap.killTweensOf(toShow);
-    gsap.killTweensOf(toHide);
+    // Kill any existing animations
+    gsap.killTweensOf([...toShow, ...toHide]);
 
-    // Set up elements that will be shown
-    toShow.forEach((el) => {
-      gsap.set(el, { display: 'inline-block', opacity: 0 });
-    });
+    // Create timeline for coordinated animation
+    const tl = gsap.timeline();
 
-    // Use FLIP plugin to smoothly animate layout changes
-    const flip = gsap.FLIP.getState([...toShow, ...toHide]);
+    // Prepare elements to show (make them visible but invisible)
+    gsap.set(toShow, { display: 'inline-block', opacity: 0 });
 
-    // Update visibility in DOM
-    toHide.forEach((el) => {
-      el.style.visibility = 'hidden';
-    });
-
-    // Play FLIP animation with opacity transitions
-    gsap.FLIP.from(flip, {
-      duration: duration / 1000,
-      ease: ease,
-      onUpdate: () => {
-        toShow.forEach((el) => {
-          gsap.set(el, { opacity: 1 });
-        });
+    // Fade out and hide current logos
+    tl.to(
+      toHide,
+      {
+        opacity: 0,
+        duration: durationSeconds,
+        ease: ease,
       },
-    });
+      0
+    );
 
-    // Animate opacity for hidden elements
-    gsap.to(toHide, {
-      opacity: 0,
-      duration: duration / 1000,
-      ease: ease,
-      onComplete: () => {
-        toHide.forEach((el) => {
-          gsap.set(el, { display: 'none', visibility: 'visible' });
-        });
+    // Fade in new logos (runs in parallel)
+    tl.to(
+      toShow,
+      {
+        opacity: 1,
+        duration: durationSeconds,
+        ease: ease,
       },
+      0
+    );
+
+    // After animation completes, hide the old logos
+    tl.add(() => {
+      gsap.set(toHide, { display: 'none' });
     });
   }
 
