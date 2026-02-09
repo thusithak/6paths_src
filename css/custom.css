@@ -52,7 +52,6 @@ body {
 
 .frosted-switch-container {
     display: inline-block;
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
     margin: 10px;
 }
 
