@@ -135,7 +135,7 @@ input, textarea, button, select {
 }
 
 .blur-frame{
-    background: var(--glass-bg);
+    transition: none !important;
     background-image: var(--blur-frame-bg);
     -webkit-background-image: var(--blur-frame-bg);
     mask-image: var(--blur-frame-mask);
