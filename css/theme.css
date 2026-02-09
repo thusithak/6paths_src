@@ -82,7 +82,3 @@
 .edge-blur-right {
   background: linear-gradient(to left, var(--edge-blur), transparent) !important;
 }
-
-/* Logo Swap Logic */
-[data-theme="dark"] .logo-img-blue { display: inline-block; }
-[data-theme="dark"] .logo-img-black { display: none; }

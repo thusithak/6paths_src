@@ -9,12 +9,15 @@
     --glass-highlight: rgba(255, 255, 255, 0.8);
     --icon-dim: rgba(255, 255, 255, 0.4);
     --icon-bright: rgba(255, 255, 255, 1);
+    --blur-frame-bg: linear-gradient(to bottom, rgb(255, 255, 255) 25%, transparent 100%);
+    --blur-frame-mask: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 [data-theme="dark"] {
     --bg-color: var(--dark--tk-white);
     --text-color: var(--dark--tk-black);
-    
+    --blur-frame-bg: linear-gradient(to bottom, black 25%, transparent 100%);
+    --blur-frame-mask:linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%)
 }
 
 body {
@@ -114,6 +117,8 @@ body {
 }
 
 .blur-frame{
-    background-image: linear-gradient(#ffffffe6, #fff0);
-    mask-image: linear-gradient(#000 25%, #0000 100%);
+    background-image: var(--blur-frame-bg);
+    -webkit-background-image: var(--blur-frame-bg);
+    mask-image: var(--blur-frame-mask);
+    -webkit-mask-image: var(--blur-frame-mask);
 }
