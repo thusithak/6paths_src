@@ -34,7 +34,7 @@ body,
 body *, 
 body *::before, 
 body *::after {
-  transition-property: background-color, border-color, color, fill, stroke;
+  transition-property: background,background-color, border-color, color, fill, stroke;
   transition-duration: var(--transition-duration);
   transition-delay: var(--transition-delay);
   transition-timing-function: ease;
@@ -135,6 +135,7 @@ input, textarea, button, select {
 }
 
 .blur-frame{
+    background: var(--glass-bg);
     background-image: var(--blur-frame-bg);
     -webkit-background-image: var(--blur-frame-bg);
     mask-image: var(--blur-frame-mask);
