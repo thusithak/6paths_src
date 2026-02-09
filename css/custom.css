@@ -1,4 +1,6 @@
 :root {
+    --transition-delay: 0.5s;
+    --transition-duration: 1s;
     --bg-color: var(--color--tk-light-white);
     --text-color: var(--color--tk-black);
     --switch-width: 80px;
@@ -23,9 +25,15 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition-property: background-color, color;
-    transition-duration: 1s, 1s;
-    transition-delay: 0.5s, 1s;
+}
+body, 
+body *, 
+body *::before, 
+body *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: var(--transition-duration);
+  transition-delay: var(--transition-delay);
+  transition-timing-function: ease;
 }
 
 .fade-border {
@@ -121,4 +129,6 @@ body {
     -webkit-background-image: var(--blur-frame-bg);
     mask-image: var(--blur-frame-mask);
     -webkit-mask-image: var(--blur-frame-mask);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
