@@ -4,7 +4,7 @@ body {
 
 .character-container {
     position: relative;
-    width: 300px;
+    width: 266px;
     height: 400px;
     margin: 0 auto;
     transform-origin: center bottom;
@@ -12,11 +12,11 @@ body {
 
 .char-shadow {
     position: absolute;
-    bottom: 5px;
-    left: 50%;
+    bottom: 8px;
+    left: 51%;
     transform: translateX(-50%);
-    width: 140px;
-    height: 20px;
+    width: 100px;
+    height: 12px;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     filter: blur(8px);
