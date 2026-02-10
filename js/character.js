@@ -13,19 +13,24 @@ const CONFIG = {
 
 // Speech Texts Library
 const speechTexts = {
-  center: ["I see you.", "Waiting...", "Hmm?", "Hello!", "Watching..."],
-  left: ["What's left?", "Over there?", "Looking left.", "← That way?"],
-  right: ["Right side!", "What's that?", "→ Over here?", "Checking right."],
-  up: ["Up high!", "Ceiling?", "Sky looks nice.", "↑ Up!"],
-  down: ["Put me down!", "Whoa!", "Height!", "Falling?"],
+  center: ["I see you.", "Hi There...", "Hmm?", "Hello!", "What's Up?"],
+  left: ["What's there?", "Over there?", "Hmm... Looking", "That way?"],
+  right: ["Right!!!", "What's that?", "Over here?", "Checking..."],
+  up: ["Up high?", "Ceiling?", "The sky looks nice today", "Up Up Up!"],
+  down: ["Hmm..!", "This is it I guess!?", "What are you doing?", "Err..."],
   poke: ["Ouch!", "Hey!", "Cut it out!", "That hurts!"],
-  angry: ["STOP IT!", "I'M MAD!", "GRRR!", "NO MORE!"],
-  dizzy: ["Whoa...", "Spinning...", "Too fast...", "Sick..."],
+  angry: ["STOP IT!", "STOP!!!", "GRRR!", "THAT'S ENOUGH."],
+  dizzy: [
+    "Whoa... Do it again!",
+    "Wooo spinning...",
+    "Too fast...",
+    "I tihnk i'm going to be sick...",
+  ],
   messing: [
-    "Can't catch me!",
-    "Hehe!",
-    "Mouse gone?",
-    "Too slow!",
+    "Ahahah Can't poke me now!",
+    "Hehehehee!",
+    "Anything wrong?",
+    "Ha haa too slow!",
     "Try again!",
   ],
 };
