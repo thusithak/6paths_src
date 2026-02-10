@@ -2,35 +2,28 @@ body {
     transition: cursor 0.2s;
 }
 
-/* Container for the frames */
 .character-container {
     position: relative;
     width: 300px;
     height: 400px;
-    /* Center the container */
     margin: 0 auto;
-    /* Important for transforms */
     transform-origin: center bottom;
 }
 
-/* Shadow below character */
 .char-shadow {
     position: absolute;
     bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
-    /* Center horizontally */
     width: 140px;
     height: 20px;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     filter: blur(8px);
     z-index: 0;
-    /* Behind frames */
     pointer-events: none;
 }
 
-/* Common style for all frames (images) */
 .frame {
     position: absolute;
     top: 0;
@@ -38,23 +31,17 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* Ensure PNGs fit nicely */
     display: none;
-    /* Hidden by default */
     pointer-events: none;
-    /* Let clicks pass through to container */
     user-select: none;
     -webkit-user-drag: none;
     z-index: 1;
-    /* Above shadow */
 }
 
-/* The active frame is visible via JS logic */
 .frame.active {
     display: block;
 }
 
-/* Hitbox for mouse interaction */
 .interaction-zone {
     position: absolute;
     top: 0;
@@ -63,14 +50,12 @@ body {
     height: 100%;
     z-index: 10;
     cursor: grab;
-    /* Indicates draggable */
 }
 
 .interaction-zone:active {
     cursor: grabbing;
 }
 
-/* Utility to hide cursor */
 body.cursor-hidden {
     cursor: none !important;
 }
@@ -79,36 +64,21 @@ body.cursor-hidden {
     cursor: none !important;
 }
 
-/* Instructions */
-.instructions {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    text-align: center;
-    opacity: 0.6;
-    font-family: sans-serif;
-    pointer-events: none;
-}
-
-/* --- SPEECH BUBBLE STYLES --- */
 .speech-bubble {
     position: absolute;
     top: -30px;
     right: -70px;
-    /* Position to the right of the head */
     background: white;
     color: #333;
     padding: 12px 18px;
     border-radius: 18px;
     border-bottom-left-radius: 4px;
-    /* Tail effect */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 700;
     font-size: 14px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     max-width: 160px;
     z-index: 20;
-    /* Remove default opacity, handled by scale in JS now */
     transform: scale(0);
     transform-origin: bottom left;
     pointer-events: none;
@@ -116,14 +86,11 @@ body.cursor-hidden {
     border: 2px solid #000;
 }
 
-/* --- THUD EFFECT --- */
 .thud-effect {
     position: absolute;
     width: 100px;
-    /* Adjust size based on image */
     height: 80px;
     pointer-events: none;
-    /* Remove default opacity, handled by scale in JS now */
     transform: scale(0);
     z-index: 15;
     object-fit: contain;
