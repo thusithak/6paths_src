@@ -4,9 +4,9 @@ const CONFIG = {
   dragLimitX: 100, // Max horizontal drag
   dragLimitY: -100, // Max vertical drag (upwards)
   shakeThreshold: 30, // Pixels to register a shake
-  shakeCountTrigger: 5, // Shakes needed for dizzy
+  shakeCountTrigger: 4, // Shakes needed for dizzy
   spamClickLimit: 3, // Clicks before messing mode
-  messingDuration: 3000, // How long cursor stays hidden
+  messingDuration: 6000, // How long cursor stays hidden
   shadowMaxBlur: 8,
   shadowMinBlur: 2,
 };
@@ -21,16 +21,14 @@ const speechTexts = {
   poke: ["Ouch!", "Hey!", "Cut it out!", "That hurts!"],
   angry: ["STOP IT!", "STOP!!!", "GRRR!", "THAT'S ENOUGH."],
   dizzy: [
-    "Whoa... Do it again!",
-    "Wooo spinning...",
-    "Too fast...",
+    "Whoa... Don't do it again!",
+    "Ok, I'm spinning.",
     "I tihnk i'm going to be sick...",
   ],
   messing: [
     "Ahahah Can't poke me now!",
     "Hehehehee!",
     "Anything wrong?",
-    "Ha haa too slow!",
     "Try again!",
   ],
 };
