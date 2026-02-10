@@ -1,14 +1,39 @@
 body {
+    background-color: #1a1a1a;
+    color: white;
+    overflow: hidden;
+    /* Prevent scrolling */
     transition: cursor 0.2s;
+    user-select: none;
+    /* Prevent text selection while dragging */
 }
 
 /* Container for the frames */
 .character-container {
     position: relative;
-    width: 400px;
-    height: 600px;
+    width: 300px;
+    height: 400px;
     /* Center the container */
     margin: 0 auto;
+    /* Important for transforms */
+    transform-origin: center bottom;
+}
+
+/* Shadow below character */
+.char-shadow {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Center horizontally */
+    width: 140px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    filter: blur(8px);
+    z-index: 0;
+    /* Behind frames */
+    pointer-events: none;
 }
 
 /* Common style for all frames (images) */
@@ -26,6 +51,8 @@ body {
     /* Let clicks pass through to container */
     user-select: none;
     -webkit-user-drag: none;
+    z-index: 1;
+    /* Above shadow */
 }
 
 /* The active frame is visible via JS logic */
@@ -37,11 +64,12 @@ body {
 .interaction-zone {
     position: absolute;
     top: 0;
-    left: 30%;
-    width: 40%;
+    left: 0;
+    width: 100%;
     height: 100%;
     z-index: 10;
-    cursor: pointer;
+    cursor: grab;
+    /* Indicates draggable */
 }
 
 .interaction-zone:active {
@@ -71,19 +99,22 @@ body.cursor-hidden {
 /* --- SPEECH BUBBLE STYLES --- */
 .speech-bubble {
     position: absolute;
-    top: 0px;
-    right: -40px;
+    top: -30px;
+    right: -70px;
     /* Position to the right of the head */
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background: white;
+    color: #333;
     padding: 12px 18px;
     border-radius: 18px;
     border-bottom-left-radius: 4px;
     /* Tail effect */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
     font-size: 14px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    max-width: 250px;
+    max-width: 160px;
     z-index: 20;
+    /* Remove default opacity, handled by scale in JS now */
     transform: scale(0);
     transform-origin: bottom left;
     pointer-events: none;
@@ -94,12 +125,12 @@ body.cursor-hidden {
 /* --- THUD EFFECT --- */
 .thud-effect {
     position: absolute;
-    width: 100px;
+    width: 60px;
     /* Adjust size based on image */
-    height: 80px;
+    height: 60px;
     pointer-events: none;
-    opacity: 0;
-    /* Hidden by default */
+    /* Remove default opacity, handled by scale in JS now */
+    transform: scale(0);
     z-index: 15;
     object-fit: contain;
 }

@@ -1,4 +1,42 @@
-// --- CONFIGURATION ---
+// --- CONFIGURATION & CONSTANTS ---
+const CONFIG = {
+  frameRate: 200, // Speed of animation loop
+  dragLimitX: 100, // Max horizontal drag
+  dragLimitY: -100, // Max vertical drag (upwards)
+  shakeThreshold: 30, // Pixels to register a shake
+  shakeCountTrigger: 5, // Shakes needed for dizzy
+  spamClickLimit: 3, // Clicks before messing mode
+  messingDuration: 3000, // How long cursor stays hidden
+  shadowMaxBlur: 8,
+  shadowMinBlur: 2,
+};
+
+// Speech Texts Library
+const speechTexts = {
+  center: ["I see you.", "Waiting...", "Hmm?", "Hello!", "Watching..."],
+  left: ["What's left?", "Over there?", "Looking left.", "← That way?"],
+  right: ["Right side!", "What's that?", "→ Over here?", "Checking right."],
+  up: ["Up high!", "Ceiling?", "Sky looks nice.", "↑ Up!"],
+  down: ["Put me down!", "Whoa!", "Height!", "Falling?"],
+  poke: ["Ouch!", "Hey!", "Cut it out!", "That hurts!"],
+  angry: ["STOP IT!", "I'M MAD!", "GRRR!", "NO MORE!"],
+  dizzy: ["Whoa...", "Spinning...", "Too fast...", "Sick..."],
+  messing: [
+    "Can't catch me!",
+    "Hehe!",
+    "Mouse gone?",
+    "Too slow!",
+    "Try again!",
+  ],
+};
+
+// DOM Elements
+const container = document.getElementById("charContainer");
+const hitbox = document.getElementById("hitbox");
+const speechBubble = document.getElementById("speechBubble");
+const thudEffect = document.getElementById("thudEffect");
+const charShadow = document.getElementById("charShadow");
+
 // We scan the DOM for images with data-pose attributes to build our state map
 const poses = {};
 document.querySelectorAll(".frame").forEach((img) => {
@@ -7,82 +45,40 @@ document.querySelectorAll(".frame").forEach((img) => {
   poses[pose].push(img);
 });
 
-const container = document.getElementById("charContainer");
-const hitbox = document.getElementById("hitbox");
-const speechBubble = document.getElementById("speechBubble");
-const thudEffect = document.getElementById("thudEffect");
+// --- STATE VARIABLES ---
 
-// Speech Texts Library
-const speechTexts = {
-  center: ["I see you.", "Hi There...", "Hmm?", "Hello!", "What's Up?"],
-  left: ["What's there?", "Over there?", "Hmm... Looking", "That way?"],
-  right: ["Right!!!", "What's that?", "Over here?", "Checking..."],
-  up: ["Up high?", "Ceiling?", "The sky looks nice today", "Up Up Up!"],
-  down: ["Hmm..!", "This is it I guess!?", "What are you doing?", "Err..."],
-  poke: ["Ouch!", "Hey!", "Cut it out!", "That hurts!"],
-  angry: ["STOP IT!", "STOP!!!", "GRRR!", "THAT'S ENOUGH."],
-  dizzy: [
-    "Whoa... Do it again!",
-    "Wooo spinning...",
-    "Too fast...",
-    "I tihnk i'm going to be sick...",
-  ],
-  messing: [
-    "Ahahah Can't poke me now!",
-    "Hehehehee!",
-    "Anything wrong?",
-    "Too slow!",
-    "Try again!",
-  ],
-};
+// Character State
+let currentState = null;
+let currentlyVisibleFrame = null;
+let isInteracting = false;
 
-// State variables
-let currentState = "center";
-let isInteracting = false; // Locks gaze tracking during special animations
+// Timers
 let interactionTimer = null;
 let speechTimer = null;
+let spamResetTimer = null;
+let shakeTimer = null;
 
-// Animation Loop Variables
-const frameRate = 60; // ms per frame (speed of animation)
-let lastFrameTime = 10;
-let currentlyVisibleFrame = null;
-
-// Wave/Shake detection variables
+// Mouse & Input Tracking
 let lastMouseX = 0;
 let shakeCount = 0;
-let shakeTimer = null;
 let lastDirection = 0;
-
-// Click spam protection variables
 let spamClickCount = 0;
-let spamResetTimer = null;
 let isCursorHidden = false;
 
-// Dragging Variables
+// Dragging Logic
 let isDragging = false;
-let dragActive = false; // True only after moving > threshold
+let dragActive = false;
 let dragStart = { x: 0, y: 0 };
-let blockClick = false; // Prevents click event after a drag
+let blockClick = false;
 
-// --- ANIMATION LOOP ---
-function animateFrames(timestamp) {
-  if (!lastFrameTime) lastFrameTime = timestamp;
-  const elapsed = timestamp - lastFrameTime;
-
-  if (elapsed > frameRate) {
-    lastFrameTime = timestamp;
-    renderCurrentPose();
-  }
-
-  requestAnimationFrame(animateFrames);
-}
+// --- RENDER LOGIC ---
 
 function renderCurrentPose() {
   // Get all images for the current pose
   const frames = poses[currentState];
   if (!frames || frames.length === 0) return;
 
-  // Randomly select a frame index for jitter effect
+  // Randomly select a frame index ONCE when state changes
   const randomIndex = Math.floor(Math.random() * frames.length);
   const nextFrame = frames[randomIndex];
 
@@ -95,9 +91,6 @@ function renderCurrentPose() {
     currentlyVisibleFrame = nextFrame;
   }
 }
-
-// Start the loop
-requestAnimationFrame(animateFrames);
 
 // --- STATE MANAGEMENT ---
 
@@ -121,14 +114,7 @@ function setPose(poseName) {
   // Update Text
   updateSpeech(poseName);
 
-  // Small bounce on state change (skip if dragging to avoid jitter)
-  if (!isDragging) {
-    gsap.fromTo(
-      container,
-      { scale: 0.98 },
-      { scale: 1, duration: 0.2, ease: "back.out(2)" },
-    );
-  }
+  // NOTE: Removed the bouncing animation on container per request
 }
 
 function updateSpeech(poseName) {
@@ -136,19 +122,25 @@ function updateSpeech(poseName) {
   const text = texts[Math.floor(Math.random() * texts.length)];
   speechBubble.innerText = text;
 
+  // Random Reveal using Scale (No Opacity Fade)
   gsap.killTweensOf(speechBubble);
+
+  // Random start scale slightly to vary the pop
+  const startScale = Math.random() * 0.3;
+
   gsap.fromTo(
     speechBubble,
-    { scale: 0, opacity: 0 },
-    { scale: 1, opacity: 1, duration: 0.4, ease: "elastic.out(1, 0.5)" },
+    { scale: startScale },
+    { scale: 1, duration: 0.4, ease: "back.out(1.7)" },
   );
 
   clearTimeout(speechTimer);
   let duration = 2000;
   if (poseName === "messing") duration = 1500;
 
+  // Scale out to hide (No Opacity Fade)
   speechTimer = setTimeout(() => {
-    gsap.to(speechBubble, { scale: 0, opacity: 0, duration: 0.3 });
+    gsap.to(speechBubble, { scale: 0, duration: 0.25, ease: "back.in(1.7)" });
   }, duration);
 }
 
@@ -190,6 +182,15 @@ document.addEventListener("mouseup", () => {
       ease: "elastic.out(1, 0.5)",
     });
 
+    // Snap shadow back
+    gsap.to(charShadow, {
+      y: 0,
+      scale: 1,
+      opacity: 1,
+      duration: 0.6,
+      ease: "elastic.out(1, 0.5)",
+    });
+
     dragActive = false;
     isInteracting = false;
     setPose("center");
@@ -220,12 +221,36 @@ document.addEventListener("mousemove", (e) => {
     }
 
     if (dragActive) {
-      // Clamp Movement: -x, x, -y (about 100px)
-      // Restrict +y (downward drag) to 0
-      const clampedX = Math.max(-100, Math.min(100, dx));
-      const clampedY = Math.max(-100, Math.min(0, dy));
+      // Clamp Movement
+      const clampedX = Math.max(
+        -CONFIG.dragLimitX,
+        Math.min(CONFIG.dragLimitX, dx),
+      );
+      const clampedY = Math.max(CONFIG.dragLimitY, Math.min(0, dy)); // Negative goes up
 
       gsap.set(container, { x: clampedX, y: clampedY });
+
+      // Shadow Logic:
+      // 1. Shadow stays at y=0 (relative to parent), so if container goes UP (-Y), shadow goes DOWN (+Y) to compensate.
+      // 2. Shadow shrinks as container goes higher.
+
+      // Calculate height ratio (0 at ground, 1 at max height)
+      const heightRatio = Math.abs(clampedY) / Math.abs(CONFIG.dragLimitY);
+
+      // Shadow stays on "floor" by negating container movement
+      const shadowY = -clampedY;
+
+      // Scale shrinks from 1.0 down to 0.5
+      const shadowScale = 1 - heightRatio * 0.5;
+
+      // Opacity reduces slightly
+      const shadowOpacity = 1 - heightRatio * 0.4;
+
+      gsap.set(charShadow, {
+        y: shadowY,
+        scale: shadowScale,
+        opacity: shadowOpacity,
+      });
     }
     return; // Stop here if dragging
   }
@@ -263,7 +288,7 @@ function handleShakeDetection(currentX) {
   const dx = currentX - lastMouseX;
   const direction = Math.sign(dx);
 
-  if (direction !== lastDirection && Math.abs(dx) > 30) {
+  if (direction !== lastDirection && Math.abs(dx) > CONFIG.shakeThreshold) {
     shakeCount++;
     lastDirection = direction;
     clearTimeout(shakeTimer);
@@ -272,7 +297,7 @@ function handleShakeDetection(currentX) {
     }, 300);
   }
 
-  if (shakeCount > 5) {
+  if (shakeCount > CONFIG.shakeCountTrigger) {
     triggerDizzy();
     shakeCount = 0;
   }
@@ -301,10 +326,28 @@ function triggerThudEffect(x, y) {
   thudEffect.style.top = y - size / 2 + "px";
 
   gsap.killTweensOf(thudEffect);
+
+  // Random rotation between -30 and 30
+  const randomRotation = Math.random() * 60 - 30;
+
+  // Random Reveal Scale (No Opacity Fade)
   gsap.fromTo(
     thudEffect,
-    { scale: 0.5, opacity: 1, rotation: -15 },
-    { scale: 1.2, opacity: 0, rotation: 15, duration: 0.6, ease: "power2.out" },
+    { scale: 0, rotation: randomRotation },
+    {
+      scale: 1.2,
+      duration: 0.15,
+      ease: "back.out(3)", // High intensity pop
+      onComplete: () => {
+        // Quick scale out
+        gsap.to(thudEffect, {
+          scale: 0,
+          duration: 0.2,
+          delay: 0.1,
+          ease: "power2.in",
+        });
+      },
+    },
   );
 }
 
@@ -359,7 +402,7 @@ function handleSpamProtection() {
     spamClickCount = 0;
   }, 800);
 
-  if (spamClickCount > 3) {
+  if (spamClickCount > CONFIG.spamClickLimit) {
     startMessingMode();
     spamClickCount = 0;
   }
@@ -382,5 +425,8 @@ function startMessingMode() {
     isCursorHidden = false;
     isInteracting = false;
     setPose("center");
-  }, 5000);
+  }, CONFIG.messingDuration);
 }
+
+// Initialize state
+setPose("center");
