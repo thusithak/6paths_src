@@ -1,11 +1,5 @@
 body {
-    background-color: #1a1a1a;
-    color: white;
-    overflow: hidden;
-    /* Prevent scrolling */
     transition: cursor 0.2s;
-    user-select: none;
-    /* Prevent text selection while dragging */
 }
 
 /* Container for the frames */
@@ -64,8 +58,8 @@ body {
 .interaction-zone {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 30%;
+    width: 40%;
     height: 100%;
     z-index: 10;
     cursor: grab;
@@ -125,9 +119,9 @@ body.cursor-hidden {
 /* --- THUD EFFECT --- */
 .thud-effect {
     position: absolute;
-    width: 60px;
+    width: 100px;
     /* Adjust size based on image */
-    height: 60px;
+    height: 80px;
     pointer-events: none;
     /* Remove default opacity, handled by scale in JS now */
     transform: scale(0);
