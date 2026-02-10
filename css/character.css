@@ -1,0 +1,105 @@
+body {
+    transition: cursor 0.2s;
+}
+
+/* Container for the frames */
+.character-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    /* Center the container */
+    margin: 0 auto;
+}
+
+/* Common style for all frames (images) */
+.frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Ensure PNGs fit nicely */
+    display: none;
+    /* Hidden by default */
+    pointer-events: none;
+    /* Let clicks pass through to container */
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* The active frame is visible via JS logic */
+.frame.active {
+    display: block;
+}
+
+/* Hitbox for mouse interaction */
+.interaction-zone {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    width: 40%;
+    height: 100%;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.interaction-zone:active {
+    cursor: grabbing;
+}
+
+/* Utility to hide cursor */
+body.cursor-hidden {
+    cursor: none !important;
+}
+
+.cursor-hidden .interaction-zone {
+    cursor: none !important;
+}
+
+/* Instructions */
+.instructions {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    opacity: 0.6;
+    font-family: sans-serif;
+    pointer-events: none;
+}
+
+/* --- SPEECH BUBBLE STYLES --- */
+.speech-bubble {
+    position: absolute;
+    top: 0px;
+    right: -40px;
+    /* Position to the right of the head */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 12px 18px;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    /* Tail effect */
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    max-width: 250px;
+    z-index: 20;
+    transform: scale(0);
+    transform-origin: bottom left;
+    pointer-events: none;
+    text-align: center;
+    border: 2px solid #000;
+}
+
+/* --- THUD EFFECT --- */
+.thud-effect {
+    position: absolute;
+    width: 100px;
+    /* Adjust size based on image */
+    height: 80px;
+    pointer-events: none;
+    opacity: 0;
+    /* Hidden by default */
+    z-index: 15;
+    object-fit: contain;
+}
