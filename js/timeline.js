@@ -57,18 +57,21 @@
         backgroundColor: targetColor, // Fill effect
         borderColor: targetColor,
         duration: 0.3, 
+        delay: 0.2,
         ease: "back.out(2)" 
       }, "-=0.6")
         .to(connector, { 
         width: isMobile ? "30px" : "8%", 
-        duration: 0.4, 
+        duration: 0.4,
+        delay: 0.2, 
         backgroundColor: targetColor, 
         ease: "power1.inOut" 
       }, "-=0.3")
         .to(card, { 
         borderColor: "rgba(255,255,255,0.2)", 
         x: 0, 
-        duration: 0.5 
+        duration: 0.2,
+        delay: 0.2, 
       }, "-=0.2");
     });
 
