@@ -18,8 +18,8 @@
       ease: "none",
       scrollTrigger: {
         trigger: "#mainTimeline",
-        start: "top 70%",
-        end: "bottom center",
+        start: "top 80%",
+        end: "bottom 90%",
         scrub: 0.5
       }
     });
