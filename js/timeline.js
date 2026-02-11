@@ -18,7 +18,7 @@
       ease: "none",
       scrollTrigger: {
         trigger: "#mainTimeline",
-        start: "top center",
+        start: "top 70%",
         end: "bottom center",
         scrub: 0.5
       }
