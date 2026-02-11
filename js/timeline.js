@@ -27,7 +27,7 @@
     // 3. Dynamic Color Changing for the Spine
     milestones.forEach((milestone, i) => {
       const isProf = milestone.classList.contains('professional');
-      const targetColor = isProf ? '#38bdf8' : '#f472b6';
+      const targetColor = isProf ? '#63adf2' : '#63adf2';
 
       ScrollTrigger.create({
         trigger: milestone,
@@ -51,12 +51,12 @@
         }
       });
 
-      tl.to(milestone, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" })
+      tl.to(milestone, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" })
         .to(node, { 
         scale: 1, 
         backgroundColor: targetColor, // Fill effect
         borderColor: targetColor,
-        duration: 0.5, 
+        duration: 0.3, 
         ease: "back.out(2)" 
       }, "-=0.6")
         .to(connector, { 
