@@ -65,11 +65,16 @@ body.cursor-hidden {
 }
 
 .speech-bubble {
+
     position: absolute;
-    top: -30px;
-    right: -70px;
-    z-index: 20;
+    bottom: 100%;
+    left: 50%;
+    width: max-content;
     max-width: 250px;
+    transform-origin: bottom left;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    z-index: 20;
     transform: scale(0);
     transform-origin: bottom left;
     pointer-events: none;
