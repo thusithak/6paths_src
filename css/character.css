@@ -1,7 +1,3 @@
-body {
-    transition: cursor 0.2s;
-}
-
 .character-container {
     position: relative;
     width: 266px;

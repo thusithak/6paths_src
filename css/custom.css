@@ -37,7 +37,6 @@ body *::after {
   transition-property: background,background-color, border-color, color, fill, stroke;
   transition-duration: var(--transition-duration);
   transition-delay: var(--transition-delay);
-  transition-timing-function: ease;
 }
 
 h1, h2, h3, h4, h5, h6,
