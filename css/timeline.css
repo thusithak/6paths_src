@@ -107,6 +107,9 @@
     display: block;
   }
   
+  .skills-set{
+    text-align:left;
+  }
   .personal .connector { right: 50%; left: auto; transform-origin: right; }
   .professional .connector { left: 50%; right: auto; transform-origin: left; }
 
