@@ -18,8 +18,8 @@
       ease: "none",
       scrollTrigger: {
         trigger: "#mainTimeline",
-        start: "top 80%",
-        end: "bottom 90%",
+        start: "top 70%",
+        end: "bottom 75%",
         scrub: 0.5
       }
     });
@@ -46,7 +46,7 @@
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: milestone,
-          start: "top 90%", // Trigger slightly before it hits center to align with line
+          start: "top 80%", // Trigger slightly before it hits center to align with line
           toggleActions: "play none none reverse"
         }
       });
