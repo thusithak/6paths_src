@@ -46,7 +46,7 @@
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: milestone,
-          start: "top 80%", // Trigger slightly before it hits center to align with line
+          start: "top 70%", // Trigger slightly before it hits center to align with line
           toggleActions: "play none none reverse"
         }
       });
@@ -83,8 +83,8 @@
         ease: "none",
         scrollTrigger: {
           trigger: m,
-          start: "top bottom",
-          end: "bottom top",
+          start: "top 70%",
+          end: "bottom 75",
           scrub: true
         }
       });
