@@ -66,12 +66,10 @@
   }
 
   .card {
-    background: rgba(17, 24, 39, 0.7);
+    background:  var(--bg-color);
     backdrop-filter: blur(12px);
     padding: 2rem;
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s ease;
   }
 
   .professional .card:hover { border-color: var(--prof-color); }
