@@ -3,24 +3,6 @@
     --pers-color: #f472b6;
     --spine-color: var(--bg-color);
   }
-  
-  .timeline-container {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 100px 20px;
-  }
-
-  /* Central Spine Styling */
-  .spine-wrapper {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    transform: translateX(-50%);
-    z-index: 5; /* Lower than nodes */
-  }
 
   .spine-svg {
     width: 100%;
@@ -39,78 +21,12 @@
     filter: drop-shadow(0 0 8px var(--prof-color));
   }
 
-  /* Milestone Layout */
-  .milestone {
-    position: relative;
-    display: flex;
-    width: 100%;
-    margin-bottom: 0rem;
-    opacity: 0;
-    transform: translateY(50px);
-    z-index: 10;
-  }
-
-  .milestone.personal {
-    justify-content: flex-start;
-    text-align: right;
-  }
-
-  .milestone.professional {
-    justify-content: flex-end;
-    text-align: left;
-  }
-
-  .card-container {
-    width: 42%;
-    position: relative;
-  }
-
-  .card {
-    background:  var(--bg-color);
-    backdrop-filter: blur(12px);
-    padding: 2rem;
-    transition: transform 0.3s ease;
-  }
 
   .professional .card:hover { border-color: var(--prof-color); }
   .personal .card:hover { border-color: var(--pers-color); }
 
-  /* Marker/Node Points */
-  .node {
-    position: absolute;
-    top: 50%;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--bg-color); /* Initial empty state */
-    border: 4px solid var(--spine-color);
-    z-index: 50; /* Ensure it's above everything */
-    transform: translate(-50%, -50%) scale(0);
-    left: 50%;
-  }
-
-  /* Floating Connectors */
-  .connector {
-    position: absolute;
-    top: 50%;
-    height: 2px;
-    background: var(--spine-color);
-    z-index: 5;
-    width: 0%;
-  }
-
   .personal .connector { right: 50%; left: auto; transform-origin: right; }
   .professional .connector { left: 50%; right: auto; transform-origin: left; }
-
-  /* Typography */
-  .date-label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
 
   .professional .date-label { color: var(--prof-color); }
   .personal .date-label { color: var(--pers-color); }
