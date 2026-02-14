@@ -51,26 +51,23 @@ class Application {
     try {
       await this.splineManager.load(this.config.SPLINE.SCENE_URL);
 
-      // Attempt to read theme state from the Spline scene and use it as the source of truth
-      const splineTheme = this.splineManager.getVariable(this.config.SPLINE.THEME_STATE_VAR);
-      if (typeof splineTheme !== 'undefined') {
-        const isDarkFromSpline = Boolean(splineTheme);
-        this.themeManager.applyTheme(isDarkFromSpline);
-        console.log("Scene provided ThemeState; applied theme from Spline:", isDarkFromSpline);
-        // Ensure audio theme matches the applied theme
-        if (isDarkFromSpline) this.audioManager.fadeInThemeSound();
-        else this.audioManager.fadeOutThemeSound();
+      // App theme is the source of truth; sync it to the Spline scene
+      const appTheme = this.themeManager.getIsDark();
+      this.splineManager.setVariable(this.config.SPLINE.THEME_STATE_VAR, appTheme);
+      console.log("Synced app theme to Spline scene:", appTheme);
+
+      // Ensure audio matches the current theme
+      if (appTheme) {
+        this.audioManager.fadeInThemeSound();
       } else {
-        // If Spline doesn't expose the variable, push app state into the scene
-        this.splineManager.ensureSync(this.themeManager.getIsDark());
-        console.log("Scene did not provide ThemeState; synced Spline to app theme state.");
+        this.audioManager.fadeOutThemeSound();
       }
 
       // Schedule scene reveal
       setTimeout(() => {
-        // Re-check/sync after settling delay
+        // Re-sync to ensure consistency
         this.splineManager.ensureSync(this.themeManager.getIsDark());
-        console.log("Scene loaded and synced with theme state --- 2nd check.");
+        console.log("Scene loaded and synced with theme state.");
         this.sceneLoader.revealScene();
       }, this.sceneLoader.getSettlingDelay());
     } catch (error) {

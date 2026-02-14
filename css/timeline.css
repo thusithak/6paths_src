@@ -72,7 +72,7 @@
   }
 
   .professional .card:hover { border-color: var(--prof-color); }
-  .personal .card:hover { border-color: var(--pers-color); }
+  .personal .card:hover { border-color: var(--prof-color); }
 
   /* Marker/Node Points */
   .node {
@@ -100,22 +100,17 @@
 
     /* Typography */
   .date-label {
-    font-size: 0.875rem;
-    font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 0.5rem;
     display: block;
   }
   
-  .skills-set{
-    text-align:left;
-  }
   .personal .connector { right: 50%; left: auto; transform-origin: right; }
   .professional .connector { left: 50%; right: auto; transform-origin: left; }
 
   .professional .date-label { color: var(--prof-color); }
-  .personal .date-label { color: var(--pers-color); }
+  .personal .date-label { color: var(--prof-color); }
 
   /* Responsive */
   @media (max-width: 768px) {

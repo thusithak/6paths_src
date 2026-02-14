@@ -12,7 +12,28 @@ export class ThemeManager {
     this.isDark = this.savedTheme
       ? this.savedTheme === "dark"
       : this.systemPrefersDark;
+    
+    // If we're using system preference, immediately save it to localStorage
+    if (!this.savedTheme) {
+      localStorage.setItem(this.config.STORAGE.THEME_KEY, this.isDark ? "dark" : "light");
+    }
+
+    // Listen for system preference changes
+    this.setupSystemPreferenceListener();
+
     this.applyTheme(this.isDark);
+  }
+
+  setupSystemPreferenceListener() {
+    const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    darkModeQuery.addEventListener("change", (e) => {
+      // Only respond to system preference change if user hasn't explicitly set a theme
+      const userOverride = localStorage.getItem(this.config.STORAGE.THEME_KEY);
+      if (!userOverride) {
+        this.applyTheme(e.matches);
+        console.log("System theme preference changed; updated to:", e.matches ? "dark" : "light");
+      }
+    });
   }
 
   getIsDark() {
