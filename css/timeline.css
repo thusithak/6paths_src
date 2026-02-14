@@ -59,6 +59,7 @@
   }
 
   .card-container {
+    text-align: left;
     width: 42%;
     position: relative;
   }
