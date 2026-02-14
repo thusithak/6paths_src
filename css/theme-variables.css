@@ -1,0 +1,495 @@
+/* ============================================
+   COMPREHENSIVE THEME VARIABLES
+   Light Theme: background #edf2f5, color #363537
+   Dark Theme: background #142534, color #edf2f5
+   ============================================ */
+
+:root {
+  /* --- BASE COLORS (Easy to Change) --- */
+  /* Light Theme */
+  --light-bg: #edf2f5;
+  --light-color: #363537;
+  
+  /* Dark Theme */
+  --dark-bg: #142534;
+  --dark-color: #edf2f5;
+
+  /* --- LIGHT THEME (Default) --- */
+  /* Background Layers */
+  --bg-primary: #edf2f5;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --bg-surface: rgba(255, 255, 255, 0.7);
+
+  /* Text Colors */
+  --text-primary: #363537;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Borders & Dividers */
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --divider-color: rgba(0, 0, 0, 0.05);
+
+  /* Accent Colors */
+  --accent-primary: #0ea5e9;
+  --accent-secondary: #0284c7;
+  --accent-soft: rgba(14, 165, 233, 0.1);
+  --accent-bright: #38bdf8;
+
+  /* Component Specific */
+  --edge-blur: #edf2f5;
+  --switch-bg: #e2e8f0;
+  --switch-handle: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-highlight: rgba(255, 255, 255, 0.8);
+  --icon-dim: rgba(255, 255, 255, 0.4);
+  --icon-bright: rgba(255, 255, 255, 1);
+
+  /* Gradients */
+  --blur-frame-bg: linear-gradient(to bottom, rgb(255, 255, 255) 25%, transparent 100%);
+  --blur-frame-mask: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
+
+  /* Timeline Colors */
+  --timeline-prof-color: #38bdf8;
+  --timeline-pers-color: #f472b6;
+  --timeline-spine-color: #363537;
+
+  /* Transitions */
+  --transition-duration: 0.6s;
+  --transition-delay: 0.1s;
+  --transition-speed: 0.3s;
+  --transition-timing: ease;
+
+  /* Switch Dimensions */
+  --switch-width: 80px;
+  --switch-height: 40px;
+  --handle-size: 32px;
+}
+
+/* ============================================
+   DARK THEME OVERRIDES
+   ============================================ */
+[data-theme="dark"] {
+  /* Base Colors (Overrides) */
+  --bg-primary: #142534;
+  --bg-secondary: #1a2332;
+  --bg-tertiary: #1f2937;
+  --bg-surface: rgba(20, 37, 52, 0.75);
+
+  /* Text Colors */
+  --text-primary: #edf2f5;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #142534;
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --divider-color: rgba(255, 255, 255, 0.06);
+
+  /* Accent Colors (maintain brand blue for glow) */
+  --accent-primary: #0ea5e9;
+  --accent-secondary: #38bdf8;
+  --accent-soft: rgba(14, 165, 233, 0.15);
+  --accent-bright: #38bdf8;
+
+  /* Component Specific */
+  --edge-blur: #142534;
+  --switch-bg: #27272a;
+  --switch-handle: #ffffff;
+  --glass-bg: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.2);
+  --icon-dim: rgba(255, 255, 255, 0.4);
+  --icon-bright: rgba(255, 255, 255, 1);
+
+  /* Gradients */
+  --blur-frame-bg: linear-gradient(to bottom, rgba(20, 37, 52, 0.9) 25%, transparent 100%);
+  --blur-frame-mask: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+
+  /* Timeline Colors */
+  --timeline-spine-color: #edf2f5;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+  width: 12px;
+  padding: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--border-subtle);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 4px;
+  border: var(--border-subtle) 4px solid;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* ============================================
+   GLOBAL STYLES USING VARIABLES
+   ============================================ */
+
+html,
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+body *,
+body *::before,
+body *::after {
+  transition-property: background, background-color, border-color, color, fill, stroke;
+  transition-duration: var(--transition-duration);
+  transition-delay: var(--transition-delay);
+}
+
+h1, h2, h3, h4, h5, h6,
+p, span, div, li, a,
+input, textarea, button, select {
+  color: inherit;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.fade-border {
+  border-width: 0 1px;
+  border-style: dashed;
+  border-image: linear-gradient(to bottom,
+    transparent,
+    var(--accent-primary) 20%,
+    var(--accent-primary) 80%,
+    transparent) 1 100%;
+}
+
+.blur-frame {
+  transition: none !important;
+  background-image: var(--blur-frame-bg);
+  -webkit-background-image: var(--blur-frame-bg);
+  mask-image: var(--blur-frame-mask);
+  -webkit-mask-image: var(--blur-frame-mask);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ============================================
+   SWITCH COMPONENT STYLES
+   ============================================ */
+
+.frosted-switch-container {
+  display: inline-block;
+  margin: 10px;
+}
+
+.switch-input {
+  display: none;
+}
+
+.switch-label {
+  width: var(--switch-width);
+  height: var(--switch-height);
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin-bottom: 0px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-bright);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  margin-right: 0px;
+}
+
+.switch-handle {
+  width: var(--handle-size);
+  height: var(--handle-size);
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-highlight);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 0 2px 3px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   CONTENT COMPONENT STYLES
+   ============================================ */
+
+.menu-item-text {
+  color: var(--text-secondary);
+}
+
+.menu-item-btn:hover .menu-item-text {
+  color: var(--accent-primary);
+}
+
+.bento-child,
+.case-link {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+}
+
+.tag-pill {
+  background-color: var(--accent-soft);
+  color: var(--accent-primary);
+}
+
+.edge-blur-left {
+  background: linear-gradient(to right, var(--edge-blur), transparent) !important;
+}
+
+.edge-blur-right {
+  background: linear-gradient(to left, var(--edge-blur), transparent) !important;
+}
+
+/* ============================================
+   TIMELINE COMPONENT STYLES
+   ============================================ */
+
+.timeline-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.spine-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.spine-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.line-base {
+  stroke: var(--timeline-spine-color);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.line-progress {
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px var(--timeline-prof-color));
+}
+
+.milestone {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0rem;
+  opacity: 0;
+  transform: translateY(50px);
+  z-index: 10;
+}
+
+.milestone.personal {
+  justify-content: flex-start;
+  text-align: right;
+}
+
+.milestone.professional {
+  justify-content: flex-end;
+  text-align: left;
+}
+
+.card-container {
+  text-align: left;
+  width: 42%;
+  position: relative;
+}
+
+.card {
+  background: var(--bg-primary);
+  backdrop-filter: blur(12px);
+  padding: 2rem;
+  transition: transform var(--transition-speed) ease;
+  border: 1px solid var(--border-subtle);
+}
+
+.professional .card:hover {
+  border-color: var(--timeline-prof-color);
+}
+
+.personal .card:hover {
+  border-color: var(--timeline-pers-color);
+}
+
+.node {
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 4px solid var(--timeline-spine-color);
+  z-index: 50;
+  transform: translate(-50%, -50%) scale(0);
+  left: 50%;
+}
+
+.connector {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  background: var(--timeline-spine-color);
+  z-index: 5;
+  width: 0%;
+}
+
+.date-label {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.personal .connector {
+  right: 50%;
+  left: auto;
+  transform-origin: right;
+}
+
+.professional .connector {
+  left: 50%;
+  right: auto;
+  transform-origin: left;
+}
+
+.professional .date-label {
+  color: var(--timeline-prof-color);
+}
+
+.personal .date-label {
+  color: var(--timeline-pers-color);
+}
+
+/* ============================================
+   CHARACTER COMPONENT STYLES
+   ============================================ */
+
+.character-container {
+  position: relative;
+  width: 266px;
+  height: 400px;
+  margin: 0 auto;
+  transform-origin: center bottom;
+}
+
+.char-shadow {
+  position: absolute;
+  bottom: 8px;
+  left: 51%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  filter: blur(8px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  z-index: 1;
+}
+
+.frame.active {
+  display: block;
+}
+
+.interaction-zone {
+  position: absolute;
+  top: 0;
+  left: 30%;
+  width: 40%;
+  height: 100%;
+  z-index: 10;
+  cursor: grab;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .spine-wrapper {
+    left: 30px;
+  }
+
+  .milestone {
+    text-align: left !important;
+    justify-content: flex-end !important;
+    margin-bottom: 8rem;
+  }
+
+  .card-container {
+    width: calc(100% - 80px);
+  }
+
+  .node {
+    left: 30px;
+  }
+
+  .professional .connector,
+  .personal .connector {
+    left: 30px;
+    right: auto;
+    width: 30px !important;
+  }
+}
