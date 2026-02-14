@@ -22,6 +22,7 @@ export class AudioManager {
     // scroll fade controls
     this.bgScrollFaded = false;
     this.themeActive = false;
+    this.audioUnlocked = false; // Track if audio playback has been unlocked by user gesture
     this.setupAudioLibrary();
     this.setupEventListeners();
   }
@@ -209,5 +210,22 @@ export class AudioManager {
     setTimeout(() => {
       this.play(soundName);
     }, ms);
+  }
+
+  unlockAudioPlayback() {
+    if (this.audioUnlocked) return;
+    
+    // Trigger a sound play to unlock browser autoplay restrictions
+    // This must occur during a user gesture (click, touch, etc.)
+    safeCall(() => {
+      if (this.library.background) {
+        this.library.background.play();
+      }
+      if (this.library.theme) {
+        this.library.theme.play();
+      }
+      this.audioUnlocked = true;
+      console.log("Audio playback unlocked via user gesture");
+    });
   }
 }

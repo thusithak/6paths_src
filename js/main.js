@@ -28,13 +28,23 @@ class Application {
     this.sceneLoader.initializeLoader();
     this.themeManager.applyTheme(this.themeManager.getIsDark());
     this.sceneLoader.onLoaderClick(() => {
+      // Unlock audio playback immediately (requires user gesture like click)
+      this.audioManager.unlockAudioPlayback();
+      // Unmute and enable audio
       this.audioManager.setMute(false);
-      this.audioManager.playWithDelay("background", 500);
       // If switches are initialized, reflect the change in the UI
       try {
         if (this.soundSwitch) this.soundSwitch.toggle(true);
       } catch (e) {}
     });
+    
+    // Fallback: unlock audio on any page click if not already unlocked
+    // This ensures audio can be controlled even if user clicks page after loading
+    document.addEventListener('click', () => {
+      if (!this.audioManager.audioUnlocked) {
+        this.audioManager.unlockAudioPlayback();
+      }
+    }, { once: true });
   }
 
   async loadScene() {
