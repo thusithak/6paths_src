@@ -32,26 +32,57 @@ export class SplineManager {
   }
 
   setVariable(name, value) {
-    if (this.app) {
+    if (!this.app) {
+      console.warn(`Cannot set variable '${name}': Spline app not loaded`);
+      return;
+    }
+
+    try {
+      const variables = this.app.getVariables();
+      if (!variables) {
+        console.warn(`Cannot set variable '${name}': No variables available in Spline scene`);
+        return;
+      }
+
+      const currentValue = this.getVariableValue(variables, name);
+      if (currentValue === undefined) {
+        console.warn(`Variable '${name}' not found in Spline scene`);
+        return;
+      }
+
       this.app.setVariable(name, value);
+      console.log(`Spline variable '${name}' set to:`, value);
+    } catch (e) {
+      console.error(`Failed to set variable '${name}':`, e);
     }
   }
 
   ensureSync(targetState, variableName = null) {
     const varName = variableName || this.config.SPLINE.THEME_STATE_VAR;
     
-    if (!this.app) return;
+    if (!this.app) {
+      console.warn(`Cannot sync variable '${varName}': Spline app not loaded`);
+      return;
+    }
 
     const variables = this.app.getVariables();
-    if (!variables) return;
+    if (!variables) {
+      console.warn(`Cannot sync variable '${varName}': No variables available`);
+      return;
+    }
 
     let currentValue = this.getVariableValue(variables, varName);
 
-    if (currentValue !== undefined && currentValue !== targetState) {
-      this.setVariable(varName, targetState);
-      console.log(`Spline variable '${varName}' set to:`, targetState);
-    } else if (currentValue === undefined) {
+    if (currentValue === undefined) {
       console.warn(`Variable '${varName}' not found in Spline scene.`);
+      return;
+    }
+
+    if (currentValue !== targetState) {
+      this.app.setVariable(varName, targetState);
+      console.log(`Spline variable '${varName}' synced to:`, targetState);
+    } else {
+      console.log(`Spline variable '${varName}' already in sync:`, targetState);
     }
   }
 
