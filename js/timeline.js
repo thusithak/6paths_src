@@ -68,7 +68,7 @@
         ease: "power1.inOut" 
       }, "-=0.3")
         .to(card, { 
-        borderColor: "rgba(255,255,255,0.2)", 
+        borderColor: targetColor, 
         x: 0, 
         duration: 0.2,
         delay: 0.2, 
