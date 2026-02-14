@@ -23,13 +23,12 @@ const speechTexts = {
   dizzy: [
     "Whoa... Don't do it again!",
     "Ok, I'm spinning.",
-    "I tihnk i'm going to be sick...",
+    "I think I'm going to be sick...",
   ],
   messing: [
     "Ahahah Can't poke me now!",
-    "Hehehehee!",
-    "Anything wrong?",
-    "Try again!",
+    "I removed your cursor! Take that!",
+    "Anything wrong? I can't see you poking me now, can I?"
   ],
 };
 

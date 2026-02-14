@@ -51,10 +51,7 @@ class Application {
     try {
       await this.splineManager.load(this.config.SPLINE.SCENE_URL);
 
-      // App theme is the source of truth; sync it to the Spline scene
       const appTheme = this.themeManager.getIsDark();
-      this.splineManager.setVariable(this.config.SPLINE.THEME_STATE_VAR, appTheme);
-      console.log("Synced app theme to Spline scene:", appTheme);
 
       // Ensure audio matches the current theme
       if (appTheme) {
@@ -62,6 +59,13 @@ class Application {
       } else {
         this.audioManager.fadeOutThemeSound();
       }
+
+      // Allow Spline variables to fully initialize, then sync theme
+      // Use a small delay to ensure Spline's variable system is ready
+      setTimeout(() => {
+        this.splineManager.ensureSync(appTheme);
+        console.log("Synced app theme to Spline scene:", appTheme);
+      }, 100);
 
       // Schedule scene reveal
       setTimeout(() => {
