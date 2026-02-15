@@ -125,7 +125,7 @@ export class ThemeManager {
       masks.forEach((mask) => {
         const newImage = dark
           ? 'url("https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/699163a5cfe2e5e38a40dd34_5561b9136a42a2aeb6752e7cd778cb8a_clip_mask_dark.png")'
-          : 'url("https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/698d9d95fae33977cec7254f_241ceb745f610faf74a45a7d6ef4a4b6_clip_mask_light.png")';
+          : 'url("https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/698d9d95fae33977cec7254f_8fceb39423dab8918c2b51fcd80d5ed5_clip_mask_light.png")';
         mask.style.backgroundImage = newImage;
       });
     }, durationSeconds / 2);

@@ -2,7 +2,7 @@
    COMPREHENSIVE THEME VARIABLES
    Consolidated from multiple files with:
    - Light Theme: background #edf2f5, color #0c1923
-   - Dark Theme: background #142534, color #edf2f5
+   - Dark Theme: background #0c1923, color #edf2f5
    - Base RGBA colors for gradient consistency
    ============================================ */
 
@@ -39,7 +39,7 @@
   --light-color: #0c1923;
   
   /* Dark Theme Base */
-  --dark-bg: #142534;
+  --dark-bg: #0c1923;
   --dark-color: #edf2f5;
 
   /* ====== LIGHT THEME (Default) - BACKGROUNDS ====== */
@@ -107,7 +107,7 @@
   --rgba-accent-10: rgba(14, 165, 233, 0.15);
 
   /* ====== DARK THEME - BACKGROUNDS ====== */
-  --bg-primary: #142534;
+  --bg-primary: #0c1923;
   --bg-secondary: #1a2332;
   --bg-tertiary: #1f2937;
   --bg-surface: rgba(20, 37, 52, 0.75);
@@ -116,7 +116,7 @@
   --text-primary: #edf2f5;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
-  --text-inverse: #142534;
+  --text-inverse: #0c1923;
 
   /* ====== DARK THEME - BORDERS & DIVIDERS ====== */
   --border-subtle: var(--rgba-white-08);
@@ -130,7 +130,7 @@
   --accent-bright: #38bdf8;
 
   /* ====== DARK THEME - COMPONENT SPECIFIC ====== */
-  --edge-blur: #142534;
+  --edge-blur: #0c1923;
   --switch-bg: #27272a;
   --switch-handle: #ffffff;
   --glass-bg: var(--rgba-black-20);
