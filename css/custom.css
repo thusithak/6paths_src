@@ -17,7 +17,7 @@ body,
 body *, 
 body *::before, 
 body *::after {
-  transition-property: background,background-color, border-color, color, fill, stroke;
+  transition-property: background-color, border-color, color, fill, stroke;
   transition-duration: var(--transition-duration);
   transition-delay: var(--transition-delay);
 }

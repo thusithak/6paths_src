@@ -46,6 +46,7 @@ export class ThemeManager {
     this.body.setAttribute("data-theme", theme);
     localStorage.setItem(this.config.STORAGE.THEME_KEY, theme);
     this.updateLogos(darkModeActive);
+    this.updateMask(darkModeActive);
   }
 
   updateLogos(dark) {
@@ -93,6 +94,52 @@ export class ThemeManager {
     tl.add(() => {
       gsap.set(toHide, { display: 'none' });
     });
+  }
+
+  updateMask(dark) {
+    const masks = document.querySelectorAll('.mask');
+    if (masks.length === 0) return;
+
+    const { duration, ease } = this.config.ANIMATION.LOGO;
+    const durationSeconds = duration / 1000;
+
+    // Kill any existing animations on masks
+    gsap.killTweensOf(masks);
+
+    // Create timeline for coordinated animation
+    const tl = gsap.timeline();
+
+    // Fade out current mask
+    tl.to(
+      masks,
+      {
+        opacity: 0,
+        duration: durationSeconds,
+        ease: ease,
+      },
+      0
+    );
+
+    // Change background image mid-fade
+    tl.add(() => {
+      masks.forEach((mask) => {
+        const newImage = dark
+          ? 'url("https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/699163a5cfe2e5e38a40dd34_5561b9136a42a2aeb6752e7cd778cb8a_clip_mask_dark.png")'
+          : 'url("https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/698d9d95fae33977cec7254f_241ceb745f610faf74a45a7d6ef4a4b6_clip_mask_light.png")';
+        mask.style.backgroundImage = newImage;
+      });
+    }, durationSeconds / 2);
+
+    // Fade in new mask
+    tl.to(
+      masks,
+      {
+        opacity: 1,
+        duration: durationSeconds,
+        ease: ease,
+      },
+      durationSeconds / 2
+    );
   }
 
   toggleTheme() {
