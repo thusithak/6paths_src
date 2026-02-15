@@ -1,7 +1,7 @@
 /* ============================================
    COMPREHENSIVE THEME VARIABLES
    Consolidated from multiple files with:
-   - Light Theme: background #edf2f5, color #363537
+   - Light Theme: background #edf2f5, color #0c1923
    - Dark Theme: background #142534, color #edf2f5
    - Base RGBA colors for gradient consistency
    ============================================ */
@@ -36,7 +36,7 @@
   /* ====== BASE HEX COLORS ====== */
   /* Light Theme Base */
   --light-bg: #edf2f5;
-  --light-color: #363537;
+  --light-color: #0c1923;
   
   /* Dark Theme Base */
   --dark-bg: #142534;
@@ -49,7 +49,7 @@
   --bg-surface: var(--rgba-white-70);
 
   /* ====== LIGHT THEME - TEXT COLORS ====== */
-  --text-primary: #363537;
+  --text-primary: #0c1923;
   --text-secondary: #475569;
   --text-muted: #64748b;
   --text-inverse: #ffffff;
