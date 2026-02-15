@@ -107,3 +107,11 @@ input, textarea, button, select {
     -webkit-mask-image: var(--blur-frame-mask);
     mask-image: var(--blur-frame-mask);
 }
+
+.icon-small {
+    color: var(--icon-dim);
+}
+
+.main-title {
+    color: var(--text-primary);
+}

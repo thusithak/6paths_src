@@ -104,7 +104,7 @@
    ============================================ */
 [data-theme="dark"] {
   /* ====== DARK THEME BASE RGBA OVERRIDES ====== */
-  --rgba-accent-10: rgba(14, 165, 233, 0.15);
+  --rgba-accent-10: rgba(14, 165, 233, 0.4);
 
   /* ====== DARK THEME - BACKGROUNDS ====== */
   --bg-primary: #0c1923;
@@ -290,7 +290,7 @@ input, textarea, button, select {
    ============================================ */
 
 .menu-item-text {
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .menu-item-btn:hover .menu-item-text {
@@ -305,7 +305,7 @@ input, textarea, button, select {
 
 .tag-pill {
   background-color: var(--accent-soft);
-  color: var(--accent-primary);
+  color: var(--text-primary);
 }
 
 .edge-blur-left {
