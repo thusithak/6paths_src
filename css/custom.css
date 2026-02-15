@@ -26,6 +26,7 @@ h1, h2, h3, h4, h5, h6,
 p, span, div, li, a, 
 input, textarea, button, select {
   color: inherit;
+  color:var(--text-primary);
 }
 
 .fade-border {
@@ -99,15 +100,11 @@ input, textarea, button, select {
 }
 
 .blur-frame{
-    transition: none !important;
     position: relative;
-    /* Backdrop blur effect for the blurred content behind */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    /* Semi-transparent gradient overlay on top (allows blur to show through) */
     background-image: var(--blur-frame-overlay);
     -webkit-background-image: var(--blur-frame-overlay);
-    /* Mask restricts both the blur and overlay area */
     -webkit-mask-image: var(--blur-frame-mask);
     mask-image: var(--blur-frame-mask);
 }
