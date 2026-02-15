@@ -97,6 +97,7 @@
   --switch-width: 80px;
   --switch-height: 40px;
   --handle-size: 32px;
+  --hero-image-filter: brightness(0%) contrast(0%);
 }
 
 /* ============================================
@@ -148,6 +149,8 @@
 
   /* ====== DARK THEME - TIMELINE COLORS ====== */
   --timeline-spine-color: var(--dark-bg);
+
+  --hero-image-filter: brightness(60%) contrast(120%);
 }
 
 /* ============================================
