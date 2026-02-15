@@ -97,7 +97,7 @@
   --switch-width: 80px;
   --switch-height: 40px;
   --handle-size: 32px;
-  --hero-image-filter: brightness(0%) contrast(0%);
+  --hero-image-filter: none;
 }
 
 /* ============================================

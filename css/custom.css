@@ -116,6 +116,12 @@ input, textarea, button, select {
     color: var(--text-primary);
 }
 
+.hero-title{
+    color: var(--text-primary);
+}
+.tagline{
+    color: var(--text-primary);
+}
 .hero-image{
     filter: var(--hero-image-filter);
 }
