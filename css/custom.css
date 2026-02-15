@@ -100,10 +100,14 @@ input, textarea, button, select {
 
 .blur-frame{
     transition: none !important;
-    background-image: var(--blur-frame-bg);
-    -webkit-background-image: var(--blur-frame-bg);
-    mask-image: var(--blur-frame-mask);
-    -webkit-mask-image: var(--blur-frame-mask);
+    position: relative;
+    /* Backdrop blur effect for the blurred content behind */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    /* Semi-transparent gradient overlay on top (allows blur to show through) */
+    background-image: var(--blur-frame-overlay);
+    -webkit-background-image: var(--blur-frame-overlay);
+    /* Mask restricts both the blur and overlay area */
+    -webkit-mask-image: var(--blur-frame-mask);
+    mask-image: var(--blur-frame-mask);
 }

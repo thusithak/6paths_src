@@ -76,7 +76,7 @@
   --icon-bright: #ffffff;
 
   /* ====== LIGHT THEME - GRADIENTS ====== */
-  --blur-frame-bg: linear-gradient(to bottom, rgb(255, 255, 255) 25%, transparent 100%);
+  --blur-frame-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 25%, transparent 100%);
   --blur-frame-mask: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
   --edge-blur-left: linear-gradient(to right, var(--edge-blur), transparent);
   --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
@@ -85,7 +85,7 @@
   /* ====== LIGHT THEME - TIMELINE COLORS ====== */
   --timeline-prof-color: #38bdf8;
   --timeline-pers-color: #f472b6;
-  --timeline-spine-color: #363537;
+  --timeline-spine-color: var(--light-bg);
 
   /* ====== TRANSITIONS ====== */
   --transition-duration: 0.6s;
@@ -140,14 +140,14 @@
   --icon-bright: #ffffff;
 
   /* ====== DARK THEME - GRADIENTS ====== */
-  --blur-frame-bg: linear-gradient(to bottom, rgba(20, 37, 52, 0.9) 25%, transparent 100%);
+  --blur-frame-overlay: linear-gradient(to bottom, rgba(20, 37, 52, 0.15) 25%, transparent 100%);
   --blur-frame-mask: linear-gradient(to bottom, var(--rgba-black-40) 0%, rgba(0, 0, 0, 0) 100%);
   --edge-blur-left: linear-gradient(to right, var(--edge-blur), transparent);
   --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
   --fade-border-gradient: linear-gradient(to bottom, transparent, var(--accent-primary) 20%, var(--accent-primary) 80%, transparent);
 
   /* ====== DARK THEME - TIMELINE COLORS ====== */
-  --timeline-spine-color: #edf2f5;
+  --timeline-spine-color: var(--dark-bg);
 }
 
 /* ============================================
@@ -211,12 +211,16 @@ input, textarea, button, select {
 
 .blur-frame {
   transition: none !important;
-  background-image: var(--blur-frame-bg);
-  -webkit-background-image: var(--blur-frame-bg);
-  mask-image: var(--blur-frame-mask);
-  -webkit-mask-image: var(--blur-frame-mask);
+  position: relative;
+  /* Backdrop blur effect for the blurred content behind */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  /* Semi-transparent gradient overlay on top (allows blur to show through) */
+  background-image: var(--blur-frame-overlay);
+  -webkit-background-image: var(--blur-frame-overlay);
+  /* Mask restricts both the blur and overlay area */
+  -webkit-mask-image: var(--blur-frame-mask);
+  mask-image: var(--blur-frame-mask);
 }
 
 /* ============================================
