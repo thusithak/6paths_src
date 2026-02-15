@@ -73,7 +73,7 @@
   --glass-border: var(--rgba-white-40);
   --glass-highlight: var(--rgba-white-80);
   --icon-dim: var(--rgba-white-40);
-  --icon-bright: rgba(255, 255, 255, 1);
+  --icon-bright: #ffffff;
 
   /* ====== LIGHT THEME - GRADIENTS ====== */
   --blur-frame-bg: linear-gradient(to bottom, rgb(255, 255, 255) 25%, transparent 100%);
@@ -137,7 +137,7 @@
   --glass-border: var(--rgba-white-10);
   --glass-highlight: var(--rgba-white-20);
   --icon-dim: var(--rgba-white-40);
-  --icon-bright: rgba(255, 255, 255, 1);
+  --icon-bright: #ffffff;
 
   /* ====== DARK THEME - GRADIENTS ====== */
   --blur-frame-bg: linear-gradient(to bottom, rgba(20, 37, 52, 0.9) 25%, transparent 100%);
@@ -247,8 +247,8 @@ input, textarea, button, select {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--rgba-white-10);
+  box-shadow: inset 0 1px 2px var(--rgba-white-20);
 }
 
 .icon {
@@ -259,7 +259,7 @@ input, textarea, button, select {
   align-items: center;
   justify-content: center;
   color: var(--icon-bright);
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 1px 2px var(--rgba-black-10));
   margin-right: 0px;
 }
 
@@ -271,14 +271,14 @@ input, textarea, button, select {
   top: 3px;
   left: 5px;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--rgba-white-30);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid var(--glass-highlight);
   box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.1),
-    inset 0 2px 3px rgba(255, 255, 255, 0.9),
-    inset 0 -2px 5px rgba(0, 0, 0, 0.05);
+    0 4px 8px var(--rgba-black-10),
+    inset 0 2px 3px var(--rgba-white-90),
+    inset 0 -2px 5px var(--rgba-black-05);
 }
 
 /* ============================================

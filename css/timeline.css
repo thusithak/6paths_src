@@ -106,8 +106,12 @@
   .personal .connector { right: 50%; left: auto; transform-origin: right; }
   .professional .connector { left: 50%; right: auto; transform-origin: left; }
 
-  .professional .date-label { color: var(--prof-color); }
-  .personal .date-label { color: var(--prof-color); }
+  .professional .date-label {
+    color: var(--timeline-prof-color);
+  }
+  .personal .date-label {
+    color: var(--timeline-pers-color);
+  }
 
   /* Responsive */
   @media (max-width: 768px) {

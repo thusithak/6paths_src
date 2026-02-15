@@ -31,28 +31,10 @@ input, textarea, button, select {
 .fade-border {
     border-width: 0 1px;
     border-style: dashed;
-    border-image: linear-gradient(to bottom,
-            transparent,
-            #00d2ff 20%,
-            #00d2ff 80%,
-            transparent) 1 100%;
+    border-image: var(--fade-border-gradient) 1 100%;
 }
 
-::-webkit-scrollbar {
-    width: 12px;
-    padding: 2px;
-}
-
-::-webkit-scrollbar-track {
-    background: #d2dde8;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #fff;
-    border-radius: 4px;
-    border: #d2dde8 4px solid;
-}
-
+/* Scrollbar styling moved to theme-variables.css */
 
 .frosted-switch-container {
     display: inline-block;
