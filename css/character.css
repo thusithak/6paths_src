@@ -13,7 +13,7 @@
     transform: translateX(-50%);
     width: 100px;
     height: 12px;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--rgba-black-50);
     border-radius: 50%;
     filter: blur(8px);
     z-index: 0;
@@ -75,20 +75,20 @@ body.cursor-hidden {
     transform-origin: bottom left;
     pointer-events: none;
     text-align: center;
-    color: var(--text-color);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    color: var(--text-primary);
+    text-shadow: 0 2px 4px var(--rgba-black-30);
     padding: 12px 18px;
     border-radius: 18px;
     border-bottom-left-radius: 2px;
-    background: var(--bg-color);;
+    background: var(--bg-primary);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--rgba-white-30);
+    border-top: 1px solid var(--rgba-white-50);
+    border-bottom: 1px solid var(--rgba-white-10);
     box-shadow: 
-        0 8px 32px 0 rgba(0, 0, 0, 0.2),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+        0 8px 32px 0 var(--rgba-black-20),
+        inset 0 1px 1px 0 var(--rgba-white-20);
 }
 
 .thud-effect {

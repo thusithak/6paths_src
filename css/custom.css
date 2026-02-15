@@ -1,31 +1,14 @@
+/* --- Theme Variables are consolidated in theme-variables.css --- */
+
 :root {
     --transition-delay: 0.5s;
     --transition-duration: 1s;
-    --bg-color: var(--color--tk-light-white);
-    --text-color: var(--color--tk-black);
-    --switch-width: 80px;
-    --switch-height: 40px;
-    --handle-size: 32px;
-    --glass-bg: rgba(255, 255, 255, 0.2);
-    --glass-border: rgba(255, 255, 255, 0.4);
-    --glass-highlight: rgba(255, 255, 255, 0.8);
-    --icon-dim: rgba(255, 255, 255, 0.4);
-    --icon-bright: rgba(255, 255, 255, 1);
-    --blur-frame-bg: linear-gradient(to bottom, rgb(255, 255, 255) 25%, transparent 100%);
-    --blur-frame-mask: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
-}
-
-[data-theme="dark"] {
-    --bg-color: var(--dark--tk-white);
-    --text-color: var(--dark--tk-black);
-    --blur-frame-bg: linear-gradient(to bottom, black 25%, transparent 100%);
-    --blur-frame-mask:linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%)
 }
 
 html,
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -95,8 +78,8 @@ input, textarea, button, select {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid var(--rgba-white-10);
+    box-shadow: inset 0 1px 2px var(--rgba-white-20);
 }
 
 /* Generic Icon Wrappers */
@@ -109,7 +92,7 @@ input, textarea, button, select {
     justify-content: center;
     /* Default State (Will be overridden by GSAP) */
     color: var(--icon-dim);
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    filter: drop-shadow(0 1px 2px var(--rgba-black-10));
     margin-right: 0px;
 }
 
@@ -123,14 +106,14 @@ input, textarea, button, select {
     z-index: 1;
 
     /* Handle Glass Styles */
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--rgba-white-30);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-highlight);
     box-shadow:
-        0 4px 8px rgba(0, 0, 0, 0.1),
-        inset 0 2px 3px rgba(255, 255, 255, 0.9),
-        inset 0 -2px 5px rgba(0, 0, 0, 0.05);
+        0 4px 8px var(--rgba-black-10),
+        inset 0 2px 3px var(--rgba-white-90),
+        inset 0 -2px 5px var(--rgba-black-05);
 }
 
 .blur-frame{

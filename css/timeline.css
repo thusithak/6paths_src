@@ -1,8 +1,5 @@
- :root {
-    --prof-color: #38bdf8;
-    --pers-color: #f472b6;
-    --spine-color: var(--bg-color);
-  }
+/* Timeline variables are consolidated in theme-variables.css */
+
  .timeline-container {
     position: relative;
     max-width: 1200px;
@@ -26,7 +23,7 @@
   }
 
   .line-base {
-    stroke: var(--spine-color);
+    stroke: var(--timeline-spine-color);
     stroke-width: 4;
     stroke-linecap: round;
   }
@@ -34,7 +31,7 @@
   .line-progress {
     stroke-width: 4;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 8px var(--prof-color));
+    filter: drop-shadow(0 0 8px var(--timeline-prof-color));
   }
 
    /* Milestone Layout */
@@ -65,14 +62,14 @@
   }
 
   .card {
-    background:  var(--bg-color);
+    background:  var(--bg-primary);
     backdrop-filter: blur(12px);
     padding: 2rem;
     transition: transform 0.3s ease;
   }
 
-  .professional .card:hover { border-color: var(--prof-color); }
-  .personal .card:hover { border-color: var(--prof-color); }
+  .professional .card:hover { border-color: var(--timeline-prof-color); }
+  .personal .card:hover { border-color: var(--timeline-prof-color); }
 
   /* Marker/Node Points */
   .node {
@@ -81,8 +78,8 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: var(--bg-color); /* Initial empty state */
-    border: 4px solid var(--spine-color);
+    background: var(--bg-primary); /* Initial empty state */
+    border: 4px solid var(--timeline-spine-color);
     z-index: 50; /* Ensure it's above everything */
     transform: translate(-50%, -50%) scale(0);
     left: 50%;
@@ -93,7 +90,7 @@
     position: absolute;
     top: 50%;
     height: 2px;
-    background: var(--spine-color);
+    background: var(--timeline-spine-color);
     z-index: 5;
     width: 0%;
   }

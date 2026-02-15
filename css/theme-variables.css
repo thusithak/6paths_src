@@ -1,69 +1,99 @@
 /* ============================================
    COMPREHENSIVE THEME VARIABLES
-   Light Theme: background #edf2f5, color #363537
-   Dark Theme: background #142534, color #edf2f5
+   Consolidated from multiple files with:
+   - Light Theme: background #edf2f5, color #363537
+   - Dark Theme: background #142534, color #edf2f5
+   - Base RGBA colors for gradient consistency
    ============================================ */
 
 :root {
-  /* --- BASE COLORS (Easy to Change) --- */
-  /* Light Theme */
+  /* ====== BASE RGBA COLORS (for consistency) ====== */
+  /* White variants */
+  --rgba-white-06: rgba(255, 255, 255, 0.06);
+  --rgba-white-08: rgba(255, 255, 255, 0.08);
+  --rgba-white-10: rgba(255, 255, 255, 0.1);
+  --rgba-white-15: rgba(255, 255, 255, 0.15);
+  --rgba-white-20: rgba(255, 255, 255, 0.2);
+  --rgba-white-30: rgba(255, 255, 255, 0.3);
+  --rgba-white-40: rgba(255, 255, 255, 0.4);
+  --rgba-white-50: rgba(255, 255, 255, 0.5);
+  --rgba-white-70: rgba(255, 255, 255, 0.7);
+  --rgba-white-80: rgba(255, 255, 255, 0.8);
+  --rgba-white-90: rgba(255, 255, 255, 0.9);
+
+  /* Black variants */
+  --rgba-black-05: rgba(0, 0, 0, 0.05);
+  --rgba-black-10: rgba(0, 0, 0, 0.1);
+  --rgba-black-20: rgba(0, 0, 0, 0.2);
+  --rgba-black-30: rgba(0, 0, 0, 0.3);
+  --rgba-black-40: rgba(0, 0, 0, 0.4);
+  --rgba-black-50: rgba(0, 0, 0, 0.5);
+
+  /* Brand blue (accent) variants */
+  --rgba-accent-10: rgba(14, 165, 233, 0.1);
+  --rgba-accent-15: rgba(14, 165, 233, 0.15);
+
+  /* ====== BASE HEX COLORS ====== */
+  /* Light Theme Base */
   --light-bg: #edf2f5;
   --light-color: #363537;
   
-  /* Dark Theme */
+  /* Dark Theme Base */
   --dark-bg: #142534;
   --dark-color: #edf2f5;
 
-  /* --- LIGHT THEME (Default) --- */
-  /* Background Layers */
+  /* ====== LIGHT THEME (Default) - BACKGROUNDS ====== */
   --bg-primary: #edf2f5;
   --bg-secondary: #ffffff;
   --bg-tertiary: #f1f5f9;
-  --bg-surface: rgba(255, 255, 255, 0.7);
+  --bg-surface: var(--rgba-white-70);
 
-  /* Text Colors */
+  /* ====== LIGHT THEME - TEXT COLORS ====== */
   --text-primary: #363537;
   --text-secondary: #475569;
   --text-muted: #64748b;
   --text-inverse: #ffffff;
 
-  /* Borders & Dividers */
+  /* ====== LIGHT THEME - BORDERS & DIVIDERS ====== */
   --border-subtle: #e2e8f0;
   --border-strong: #cbd5e1;
-  --divider-color: rgba(0, 0, 0, 0.05);
+  --divider-color: var(--rgba-black-05);
 
-  /* Accent Colors */
+  /* ====== LIGHT THEME - ACCENT COLORS ====== */
   --accent-primary: #0ea5e9;
   --accent-secondary: #0284c7;
-  --accent-soft: rgba(14, 165, 233, 0.1);
+  --accent-soft: var(--rgba-accent-10);
   --accent-bright: #38bdf8;
 
-  /* Component Specific */
+  /* ====== LIGHT THEME - COMPONENT SPECIFIC ====== */
   --edge-blur: #edf2f5;
   --switch-bg: #e2e8f0;
   --switch-handle: #ffffff;
-  --glass-bg: rgba(255, 255, 255, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.4);
-  --glass-highlight: rgba(255, 255, 255, 0.8);
-  --icon-dim: rgba(255, 255, 255, 0.4);
+  --glass-bg: var(--rgba-white-20);
+  --glass-border: var(--rgba-white-40);
+  --glass-highlight: var(--rgba-white-80);
+  --icon-dim: var(--rgba-white-40);
   --icon-bright: rgba(255, 255, 255, 1);
 
-  /* Gradients */
+  /* ====== LIGHT THEME - GRADIENTS ====== */
   --blur-frame-bg: linear-gradient(to bottom, rgb(255, 255, 255) 25%, transparent 100%);
-  --blur-frame-mask: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
+  --blur-frame-mask: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
+  --edge-blur-left: linear-gradient(to right, var(--edge-blur), transparent);
+  --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
+  --fade-border-gradient: linear-gradient(to bottom, transparent, var(--accent-primary) 20%, var(--accent-primary) 80%, transparent);
 
-  /* Timeline Colors */
+  /* ====== LIGHT THEME - TIMELINE COLORS ====== */
   --timeline-prof-color: #38bdf8;
   --timeline-pers-color: #f472b6;
   --timeline-spine-color: #363537;
 
-  /* Transitions */
+  /* ====== TRANSITIONS ====== */
   --transition-duration: 0.6s;
   --transition-delay: 0.1s;
   --transition-speed: 0.3s;
   --transition-timing: ease;
 
-  /* Switch Dimensions */
+  /* ====== COMPONENT DIMENSIONS ====== */
   --switch-width: 80px;
   --switch-height: 40px;
   --handle-size: 32px;
@@ -73,44 +103,50 @@
    DARK THEME OVERRIDES
    ============================================ */
 [data-theme="dark"] {
-  /* Base Colors (Overrides) */
+  /* ====== DARK THEME BASE RGBA OVERRIDES ====== */
+  --rgba-accent-10: rgba(14, 165, 233, 0.15);
+
+  /* ====== DARK THEME - BACKGROUNDS ====== */
   --bg-primary: #142534;
   --bg-secondary: #1a2332;
   --bg-tertiary: #1f2937;
   --bg-surface: rgba(20, 37, 52, 0.75);
 
-  /* Text Colors */
+  /* ====== DARK THEME - TEXT COLORS ====== */
   --text-primary: #edf2f5;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --text-inverse: #142534;
 
-  /* Borders & Dividers */
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.15);
-  --divider-color: rgba(255, 255, 255, 0.06);
+  /* ====== DARK THEME - BORDERS & DIVIDERS ====== */
+  --border-subtle: var(--rgba-white-08);
+  --border-strong: var(--rgba-white-15);
+  --divider-color: var(--rgba-white-06);
 
-  /* Accent Colors (maintain brand blue for glow) */
+  /* ====== DARK THEME - ACCENT COLORS ====== */
   --accent-primary: #0ea5e9;
   --accent-secondary: #38bdf8;
-  --accent-soft: rgba(14, 165, 233, 0.15);
+  --accent-soft: var(--rgba-accent-10);
   --accent-bright: #38bdf8;
 
-  /* Component Specific */
+  /* ====== DARK THEME - COMPONENT SPECIFIC ====== */
   --edge-blur: #142534;
   --switch-bg: #27272a;
   --switch-handle: #ffffff;
-  --glass-bg: rgba(0, 0, 0, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-highlight: rgba(255, 255, 255, 0.2);
-  --icon-dim: rgba(255, 255, 255, 0.4);
+  --glass-bg: var(--rgba-black-20);
+  --glass-border: var(--rgba-white-10);
+  --glass-highlight: var(--rgba-white-20);
+  --icon-dim: var(--rgba-white-40);
   --icon-bright: rgba(255, 255, 255, 1);
 
-  /* Gradients */
+  /* ====== DARK THEME - GRADIENTS ====== */
   --blur-frame-bg: linear-gradient(to bottom, rgba(20, 37, 52, 0.9) 25%, transparent 100%);
-  --blur-frame-mask: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+  --blur-frame-mask: linear-gradient(to bottom, var(--rgba-black-40) 0%, rgba(0, 0, 0, 0) 100%);
+  --edge-blur-left: linear-gradient(to right, var(--edge-blur), transparent);
+  --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
+  --fade-border-gradient: linear-gradient(to bottom, transparent, var(--accent-primary) 20%, var(--accent-primary) 80%, transparent);
 
-  /* Timeline Colors */
+  /* ====== DARK THEME - TIMELINE COLORS ====== */
   --timeline-spine-color: #edf2f5;
 }
 
@@ -170,11 +206,7 @@ input, textarea, button, select {
 .fade-border {
   border-width: 0 1px;
   border-style: dashed;
-  border-image: linear-gradient(to bottom,
-    transparent,
-    var(--accent-primary) 20%,
-    var(--accent-primary) 80%,
-    transparent) 1 100%;
+  border-image: var(--fade-border-gradient) 1 100%;
 }
 
 .blur-frame {
@@ -273,11 +305,11 @@ input, textarea, button, select {
 }
 
 .edge-blur-left {
-  background: linear-gradient(to right, var(--edge-blur), transparent) !important;
+  background: var(--edge-blur-left) !important;
 }
 
 .edge-blur-right {
-  background: linear-gradient(to left, var(--edge-blur), transparent) !important;
+  background: var(--edge-blur-right) !important;
 }
 
 /* ============================================
