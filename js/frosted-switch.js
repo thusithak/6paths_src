@@ -59,6 +59,8 @@ export class FrostedSwitch {
     const observer = new MutationObserver(() => {
       // Update the visual state with the new theme colors
       this.setVisualState(this.isOn, 0);
+      const inactiveColor = this.getCSSVariable("--switch-icon-inactive-color");
+      console.log("Animating inactive icon with color:", inactiveColor);
     });
 
     observer.observe(document.documentElement, {
