@@ -57,10 +57,8 @@ export class FrostedSwitch {
   setupThemeChangeListener() {
     // Watch for data-theme attribute changes on the document element
     const observer = new MutationObserver(() => {
-      // Update the visual state with the new theme colors
-      this.setVisualState(this.isOn, 0);
-      const inactiveColor = this.getCSSVariable("--switch-icon-inactive-color");
-      console.log("Animating inactive icon with color:", inactiveColor);
+      // Update the icon colors with the new theme values
+      this.updateIconColors();
     });
 
     observer.observe(document.documentElement, {
@@ -108,6 +106,35 @@ export class FrostedSwitch {
     return getComputedStyle(document.documentElement)
       .getPropertyValue(varName)
       .trim();
+  }
+
+  updateIconColors() {
+    // Determine which icons are currently active/inactive
+    const activeIcon = this.isOn ? this.iconRight : this.iconLeft;
+    const inactiveIcon = this.isOn ? this.iconLeft : this.iconRight;
+
+    // Kill existing animations
+    if (window.gsap) {
+      if (activeIcon) gsap.killTweensOf(activeIcon);
+      if (inactiveIcon) gsap.killTweensOf(inactiveIcon);
+    }
+
+    // Apply the new theme colors directly
+    if (activeIcon) {
+      const activeColor = this.getCSSVariable("--switch-icon-active-color");
+      const activeShadow = this.getCSSVariable("--switch-icon-active-shadow");
+      activeIcon.style.color = activeColor;
+      activeIcon.style.filter = `drop-shadow(0 0 6px ${activeShadow})`;
+    }
+
+    if (inactiveIcon) {
+      const inactiveColor = this.getCSSVariable("--switch-icon-inactive-color");
+      const inactiveShadow = this.getCSSVariable(
+        "--switch-icon-inactive-shadow",
+      );
+      inactiveIcon.style.color = inactiveColor;
+      inactiveIcon.style.filter = `drop-shadow(0 1px 2px ${inactiveShadow})`;
+    }
   }
 
   animateActiveIcon(icon, duration) {
