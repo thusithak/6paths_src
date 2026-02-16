@@ -56,7 +56,7 @@ export class FrostedSwitch {
   toggle(forceState) {
     const newState =
       typeof forceState !== "undefined" ? forceState : !this.isOn;
-    
+
     if (newState === this.isOn) return;
 
     this.isOn = newState;
@@ -89,24 +89,33 @@ export class FrostedSwitch {
   }
 
   getCSSVariable(varName) {
-    return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(varName)
+      .trim();
   }
 
   animateActiveIcon(icon, duration) {
     if (window.gsap && icon) {
-      const { duration: iconDuration, delay } = this.config.ANIMATION.SWITCH.icon;
+      const { duration: iconDuration, delay } =
+        this.config.ANIMATION.SWITCH.icon;
       const activeColor = this.getCSSVariable("--switch-icon-active-color");
       const activeShadow = this.getCSSVariable("--switch-icon-active-shadow");
-      animateGSAP(icon, iconDuration, "power1.inOut", {
-        color: activeColor,
-        filter: `drop-shadow(0 0 6px ${activeShadow})`,
-      }, {
-        onStart: () => {
-          if (duration > 0) {
-            icon.style.transitionDelay = `${delay}s`;
-          }
+      animateGSAP(
+        icon,
+        iconDuration,
+        "power1.inOut",
+        {
+          color: activeColor,
+          filter: `drop-shadow(0 0 6px ${activeShadow})`,
         },
-      });
+        {
+          onStart: () => {
+            if (duration > 0) {
+              icon.style.transitionDelay = `${delay}s`;
+            }
+          },
+        },
+      );
     }
   }
 
@@ -114,7 +123,9 @@ export class FrostedSwitch {
     if (window.gsap && icon) {
       const { duration: iconDuration } = this.config.ANIMATION.SWITCH.icon;
       const inactiveColor = this.getCSSVariable("--switch-icon-inactive-color");
-      const inactiveShadow = this.getCSSVariable("--switch-icon-inactive-shadow");
+      const inactiveShadow = this.getCSSVariable(
+        "--switch-icon-inactive-shadow",
+      );
       animateGSAP(icon, iconDuration, "power1.inOut", {
         color: inactiveColor,
         filter: `drop-shadow(0 1px 2px ${inactiveShadow})`,
