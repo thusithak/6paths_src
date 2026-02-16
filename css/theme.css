@@ -29,6 +29,6 @@
   background: linear-gradient(to left, var(--edge-blur), transparent) !important;
 }
 
-.skills-set{
+.skills-set h3,.skills-set ul li{
   color: var(--text-primary);
 }
