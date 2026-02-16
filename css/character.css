@@ -1,52 +1,5 @@
-.character-container {
-    position: relative;
-    width: 266px;
-    height: 400px;
-    margin: 0 auto;
-    transform-origin: center bottom;
-}
-
-.char-shadow {
-    position: absolute;
-    bottom: 8px;
-    left: 51%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 12px;
-    background: var(--rgba-black-50);
-    border-radius: 50%;
-    filter: blur(8px);
-    z-index: 0;
-    pointer-events: none;
-}
-
-.frame {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: none;
-    pointer-events: none;
-    user-select: none;
-    -webkit-user-drag: none;
-    z-index: 1;
-}
-
-.frame.active {
-    display: block;
-}
-
-.interaction-zone {
-    position: absolute;
-    top: 0;
-    left: 30%;
-    width: 40%;
-    height: 100%;
-    z-index: 10;
-    cursor: grab;
-}
+/* Character component styles are consolidated in theme-variables.css */
+/* This file contains only unique character-specific interactions */
 
 .interaction-zone:active {
     cursor: grabbing;

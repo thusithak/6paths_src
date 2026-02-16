@@ -1,112 +1,5 @@
-/* --- Theme Variables are consolidated in theme-variables.css --- */
-
-:root {
-    --transition-delay: 0.5s;
-    --transition-duration: 1s;
-}
-
-html,
-body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-body, 
-body *, 
-body *::before, 
-body *::after {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-duration: var(--transition-duration);
-  transition-delay: var(--transition-delay);
-}
-
-h1, h2, h3, h4, h5, h6,
-p, span, div, li, a, 
-input, textarea, button, select {
-  color: var(--text-primary);
-}
-
-.fade-border {
-    border-width: 0 1px;
-    border-style: dashed;
-    border-image: var(--fade-border-gradient) 1 100%;
-}
-
-/* Scrollbar styling moved to theme-variables.css */
-
-.frosted-switch-container {
-    display: inline-block;
-    margin: 10px;
-}
-
-.switch-input {
-    display: none;
-}
-
-.switch-label {
-    width: var(--switch-width);
-    height: var(--switch-height);
-    border-radius: 50px;
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 10px;
-    margin-bottom: 0px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-bottom: 1px solid var(--rgba-white-10);
-    box-shadow: inset 0 1px 2px var(--rgba-white-20);
-}
-
-/* Generic Icon Wrappers */
-.icon {
-    width: 22px;
-    height: 22px;
-    z-index: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* Default State (Will be overridden by GSAP) */
-    color: var(--icon-dim);
-    filter: drop-shadow(0 1px 2px var(--rgba-black-10));
-    margin-right: 0px;
-}
-
-.switch-handle {
-    width: var(--handle-size);
-    height: var(--handle-size);
-    border-radius: 50%;
-    position: absolute;
-    top: 3px;
-    left: 5px;
-    z-index: 1;
-
-    /* Handle Glass Styles */
-    background: var(--rgba-white-30);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid var(--glass-highlight);
-    box-shadow:
-        0 4px 8px var(--rgba-black-10),
-        inset 0 2px 3px var(--rgba-white-90),
-        inset 0 -2px 5px var(--rgba-black-05);
-}
-
-.blur-frame{
-    position: relative;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background-image: var(--blur-frame-overlay);
-    -webkit-background-image: var(--blur-frame-overlay);
-    -webkit-mask-image: var(--blur-frame-mask);
-    mask-image: var(--blur-frame-mask);
-}
+/* --- Theme Variables and common styles are consolidated in theme-variables.css --- */
+/* --- This file contains only unique custom styles not in theme-variables.css --- */
 
 .icon-small {
     color: var(--text-primary);
@@ -131,10 +24,6 @@ input, textarea, button, select {
 
 .menu-item-text {
     color: var(--text-secondary);
-}
-
-.menu-item-btn:hover .menu-item-text {
-    color: var(--accent-primary);
 }
 
 .bento-child,
