@@ -76,7 +76,7 @@
   --icon-bright: #ffffff;
   --switch-icon-active-color: rgba(255, 255, 255, 0.81);
   --switch-icon-active-shadow: rgba(39, 37, 37, 0.8);
-  --switch-icon-inactive-color: rgb(221, 221, 221);
+  --Parent: rgb(221, 221, 221);
   --switch-icon-inactive-shadow: rgba(0, 0, 0, 0.1);
 
   /* ====== LIGHT THEME - GRADIENTS ====== */
@@ -396,15 +396,6 @@ input, textarea, button, select {
   backdrop-filter: blur(12px);
   padding: 2rem;
   transition: transform var(--transition-speed) ease;
-  border: 1px solid var(--border-subtle);
-}
-
-.professional .card:hover {
-  border-color: var(--timeline-prof-color);
-}
-
-.personal .card:hover {
-  border-color: var(--timeline-pers-color);
 }
 
 .node {
