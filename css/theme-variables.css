@@ -72,7 +72,7 @@
   --glass-bg: var(--rgba-white-20);
   --glass-border: var(--rgba-white-40);
   --glass-highlight: var(--rgba-white-80);
-  --icon-dim: var(--rgba-white-40);
+  --icon-dim: var(--rgba-white-08);
   --icon-bright: #ffffff;
 
   /* ====== LIGHT THEME - GRADIENTS ====== */
@@ -265,7 +265,7 @@ input, textarea, button, select {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--icon-bright);
+  color: var(--icon-dim);
   filter: drop-shadow(0 1px 2px var(--rgba-black-10));
   margin-right: 0px;
 }
