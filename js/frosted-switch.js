@@ -14,6 +14,7 @@ export class FrostedSwitch {
     this.configureAnimation();
     this.initializeVisuals();
     this.setupEventListeners();
+    this.setupThemeChangeListener();
   }
 
   initializeElements(elementId) {
@@ -51,6 +52,19 @@ export class FrostedSwitch {
         this.toggle();
       });
     }
+  }
+
+  setupThemeChangeListener() {
+    // Watch for data-theme attribute changes on the document element
+    const observer = new MutationObserver(() => {
+      // Update the visual state with the new theme colors
+      this.setVisualState(this.isOn, 0);
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
   }
 
   toggle(forceState) {
