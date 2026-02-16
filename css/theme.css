@@ -28,3 +28,7 @@
 .edge-blur-right {
   background: linear-gradient(to left, var(--edge-blur), transparent) !important;
 }
+
+.skills-set{
+  color: var(--text-primary);
+}
