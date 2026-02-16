@@ -74,6 +74,10 @@
   --glass-highlight: var(--rgba-white-80);
   --icon-dim: var(--rgba-white-08);
   --icon-bright: #ffffff;
+  --switch-icon-active-color: rgba(12, 25, 35, 0.4);
+  --switch-icon-active-shadow: rgba(255, 255, 255, 0.8);
+  --switch-icon-inactive-color: rgb(12, 25, 35);
+  --switch-icon-inactive-shadow: rgba(0, 0, 0, 0.1);
 
   /* ====== LIGHT THEME - GRADIENTS ====== */
   --blur-frame-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 25%, transparent 100%);
@@ -139,6 +143,10 @@
   --glass-highlight: var(--rgba-white-20);
   --icon-dim: var(--rgba-white-40);
   --icon-bright: #ffffff;
+  --switch-icon-active-color: rgba(255, 255, 255, 1);
+  --switch-icon-active-shadow: rgba(255, 255, 255, 0.6);
+  --switch-icon-inactive-color: rgba(255, 255, 255, 0.3);
+  --switch-icon-inactive-shadow: rgba(0, 0, 0, 0.3);
 
   /* ====== DARK THEME - GRADIENTS ====== */
   --blur-frame-overlay: linear-gradient(to bottom, rgba(20, 37, 52, 0.15) 25%, transparent 100%);

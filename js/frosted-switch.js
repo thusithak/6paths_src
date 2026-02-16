@@ -88,12 +88,18 @@ export class FrostedSwitch {
     }
   }
 
+  getCSSVariable(varName) {
+    return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+  }
+
   animateActiveIcon(icon, duration) {
     if (window.gsap && icon) {
       const { duration: iconDuration, delay } = this.config.ANIMATION.SWITCH.icon;
+      const activeColor = this.getCSSVariable("--switch-icon-active-color");
+      const activeShadow = this.getCSSVariable("--switch-icon-active-shadow");
       animateGSAP(icon, iconDuration, "power1.inOut", {
-        color: "rgba(255,255,255,1)",
-        filter: "drop-shadow(0 0 6px rgba(255,255,255,0.8))",
+        color: activeColor,
+        filter: `drop-shadow(0 0 6px ${activeShadow})`,
       }, {
         onStart: () => {
           if (duration > 0) {
@@ -107,9 +113,11 @@ export class FrostedSwitch {
   animateInactiveIcon(icon, duration) {
     if (window.gsap && icon) {
       const { duration: iconDuration } = this.config.ANIMATION.SWITCH.icon;
+      const inactiveColor = this.getCSSVariable("--switch-icon-inactive-color");
+      const inactiveShadow = this.getCSSVariable("--switch-icon-inactive-shadow");
       animateGSAP(icon, iconDuration, "power1.inOut", {
-        color: "rgba(255,255,255,0.4)",
-        filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.1))",
+        color: inactiveColor,
+        filter: `drop-shadow(0 1px 2px ${inactiveShadow})`,
       });
     }
   }
