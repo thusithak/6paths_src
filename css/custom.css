@@ -125,3 +125,6 @@ input, textarea, button, select {
 .hero-image{
     filter: var(--hero-image-filter);
 }
+.icon-open-link{
+    color: var(--icon-dim);
+}
