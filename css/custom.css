@@ -109,7 +109,7 @@ input, textarea, button, select {
 }
 
 .icon-small {
-    color: var(--icon-dim);
+    color: var(--text-primary);
 }
 
 .main-title {
