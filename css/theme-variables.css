@@ -74,7 +74,7 @@
   --glass-highlight: var(--rgba-white-80);
   --icon-dim: var(--rgba-white-08);
   --icon-bright: #ffffff;
-  --switch-icon-active-color: rgba(12, 25, 35, 0.4);
+  --switch-icon-active-color: rgba(255, 255, 255, 0.81);
   --switch-icon-active-shadow: rgba(39, 37, 37, 0.8);
   --switch-icon-inactive-color: rgb(221, 221, 221);
   --switch-icon-inactive-shadow: rgba(0, 0, 0, 0.1);
