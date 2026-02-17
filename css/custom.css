@@ -49,3 +49,69 @@
 .skills-set ul li {
     color: var(--text-primary);
 }
+
+.app_logo_list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    border-radius: 1rem;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+}
+
+.app_logo_list img {
+    height: 48px;
+    width: auto;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    object-fit: contain;
+}
+
+.app_logo_list img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.01);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .app_logo_list {
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .app_logo_list img {
+        height: 36px;
+    }
+}
+
+.case-study.not-ready {
+    background-color: #fff;
+    border-color: #e2e8f0;
+}
+
+.case-study.not-ready::after {
+    content: "COMING SOON";
+    position: absolute;
+    top: 24px;
+    right: -32px;
+    background-color: #ff6b6b;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 6px 40px;
+    /* Wide padding for the strip */
+    transform: rotate(45deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    z-index: 10;
+}
