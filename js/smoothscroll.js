@@ -26,28 +26,40 @@ if (
 ) {
   let isTransitioning = false;
   let isModalOpen = false;
+  let closeFallbackTimer = null;
 
-  gsap.set(modalWrapper, { display: "none" });
+  const clearCloseFallback = () => {
+    if (closeFallbackTimer) {
+      clearTimeout(closeFallbackTimer);
+      closeFallbackTimer = null;
+    }
+  };
+
+  const restoreClosedState = () => {
+    clearCloseFallback();
+    isTransitioning = false;
+    isModalOpen = false;
+    gsap.set(modalWrapper, { display: "none", pointerEvents: "none" });
+    document.body.classList.remove("modal-open");
+    smoother.paused(false);
+  };
+
+  gsap.set(modalWrapper, { display: "none", pointerEvents: "none" });
   gsap.set(modalBackdrop, { opacity: 0 });
   gsap.set(modalContent, { yPercent: 100 });
 
   const modalTL = gsap.timeline({
     paused: true,
     onComplete: () => {
+      clearCloseFallback();
       isTransitioning = false;
       isModalOpen = true;
     },
-    onReverseComplete: () => {
-      isTransitioning = false;
-      isModalOpen = false;
-      gsap.set(modalWrapper, { display: "none" });
-      document.body.classList.remove("modal-open");
-      smoother.paused(false);
-    },
+    onReverseComplete: restoreClosedState,
   });
 
   modalTL
-    .set(modalWrapper, { display: "block" })
+    .set(modalWrapper, { display: "block", pointerEvents: "auto" })
     .to(modalBackdrop, { opacity: 1, duration: 0.3, ease: "power2.out" })
     .to(
       modalContent,
@@ -58,6 +70,7 @@ if (
   const openModal = () => {
     if (isTransitioning || isModalOpen) return;
 
+    clearCloseFallback();
     isTransitioning = true;
     document.body.classList.add("modal-open");
     modalContent.scrollTop = 0;
@@ -70,6 +83,12 @@ if (
 
     isTransitioning = true;
     modalTL.reverse();
+
+    closeFallbackTimer = setTimeout(() => {
+      if (isTransitioning) {
+        restoreClosedState();
+      }
+    }, 800);
   };
 
   triggers.forEach((trigger) => {
