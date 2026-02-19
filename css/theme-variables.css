@@ -221,17 +221,12 @@ input, textarea, button, select {
 }
 
 .blur-frame {
-  transition: none !important;
-  position: relative;
-  /* Backdrop blur effect for the blurred content behind */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  /* Semi-transparent gradient overlay on top (allows blur to show through) */
-  background-image: var(--blur-frame-overlay);
-  -webkit-background-image: var(--blur-frame-overlay);
-  /* Mask restricts both the blur and overlay area */
-  -webkit-mask-image: var(--blur-frame-mask);
-  mask-image: var(--blur-frame-mask);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 25%, transparent 100%);
+  -webkit-background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 25%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
+  mask-image: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 /* ============================================
