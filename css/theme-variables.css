@@ -520,13 +520,13 @@ input, textarea, button, select {
   }
 
   .node {
-    left: 30px;
+    left: 10px;
   }
 
   .professional .connector,
   .personal .connector {
-    left: 30px;
+    left: 20px;
     right: auto;
-    width: 30px !important;
+    width: 60px !important;
   }
 }
