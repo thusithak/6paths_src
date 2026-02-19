@@ -58,25 +58,21 @@
     justify-content: center;
     gap: 2rem;
     padding: 2rem;
-    background: var(--bg-tertiary);
-    border-radius: 1rem;
-    box-shadow: var(--box-shadow);
-    border: 1px solid var(--border-color);
 }
 
 .app_logo_list img {
     height: 48px;
-    width: auto;
+    width: 48px;
     filter: grayscale(100%);
     opacity: 0.7;
     transition: all 0.3s ease;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .app_logo_list img:hover {
     filter: grayscale(0%);
     opacity: 1;
-    transform: scale(1.01);
+    transform: scale(1.1);
 }
 
 /* Responsive adjustments */
