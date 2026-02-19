@@ -9,45 +9,79 @@ let smoother = ScrollSmoother.create({
   smoothTouch: 0.1, // Optional: enable smooth scroll on touch devices
 });
 
-const modalWrapper = document.querySelector(".modal-wrapper");
+const modalWrapper =
+  document.getElementById("modal-wrapper") ||
+  document.querySelector(".modal-wrapper");
+const modalBackdrop = document.querySelector(".modal-backdrop");
 const modalContent = document.querySelector(".modal-content-container");
-const backdrop = document.querySelector(".modal-backdrop");
 const closeBtn = document.querySelector(".close-btn");
+const triggers = document.querySelectorAll(".case-study");
 
-// 1. Setup the Animation Timeline
-const modalTL = gsap.timeline({
-  paused: true,
-  onReverseComplete: () => {
-    gsap.set(modalWrapper, { display: "none" });
-    smoother.paused(false); // Re-enable background scroll
-  },
-});
+if (
+  modalWrapper &&
+  modalBackdrop &&
+  modalContent &&
+  closeBtn &&
+  triggers.length
+) {
+  let isTransitioning = false;
+  let isModalOpen = false;
 
-modalTL
-  .set(modalWrapper, { display: "block" })
-  .fromTo(backdrop, { opacity: 0 }, { opacity: 1, duration: 0.5 })
-  .fromTo(
-    modalContent,
-    { yPercent: 100 },
-    { yPercent: 0, duration: 0.8, ease: "power4.out" },
-    "<", // Starts at the same time as backdrop
-  );
+  gsap.set(modalWrapper, { display: "none" });
+  gsap.set(modalBackdrop, { opacity: 0 });
+  gsap.set(modalContent, { yPercent: 100 });
 
-// 2. Interaction Functions
-function openModal() {
-  smoother.paused(true); // Stop the background scroll
-  modalTL.play();
+  const modalTL = gsap.timeline({
+    paused: true,
+    onComplete: () => {
+      isTransitioning = false;
+      isModalOpen = true;
+    },
+    onReverseComplete: () => {
+      isTransitioning = false;
+      isModalOpen = false;
+      gsap.set(modalWrapper, { display: "none" });
+      document.body.classList.remove("modal-open");
+      smoother.paused(false);
+    },
+  });
+
+  modalTL
+    .set(modalWrapper, { display: "block" })
+    .to(modalBackdrop, { opacity: 1, duration: 0.3, ease: "power2.out" })
+    .to(
+      modalContent,
+      { yPercent: 0, duration: 0.5, ease: "power3.out" },
+      "<0.1",
+    );
+
+  const openModal = () => {
+    if (isTransitioning || isModalOpen) return;
+
+    isTransitioning = true;
+    document.body.classList.add("modal-open");
+    modalContent.scrollTop = 0;
+    smoother.paused(true);
+    modalTL.play();
+  };
+
+  const closeModal = () => {
+    if (isTransitioning || !isModalOpen) return;
+
+    isTransitioning = true;
+    modalTL.reverse();
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", openModal);
+  });
+
+  closeBtn.addEventListener("click", closeModal);
+  modalBackdrop.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modalTL.progress() > 0 && !modalTL.reversed()) {
+      closeModal();
+    }
+  });
 }
-
-function closeModal() {
-  modalTL.reverse();
-}
-
-// 3. Event Listeners
-document.querySelectorAll(".case-study").forEach((el) => {
-  el.addEventListener("click", openModal);
-});
-
-// Close by clicking backdrop OR close button
-backdrop.addEventListener("click", closeModal);
-closeBtn.addEventListener("click", closeModal);
