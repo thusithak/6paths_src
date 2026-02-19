@@ -364,7 +364,7 @@ input, textarea, button, select {
   position: relative;
   display: flex;
   width: 100%;
-  margin-bottom: 0rem;
+  margin-bottom: -8rem;
   opacity: 0;
   transform: translateY(50px);
   z-index: 10;
@@ -508,7 +508,7 @@ input, textarea, button, select {
   .milestone {
     text-align: left !important;
     justify-content: flex-end !important;
-    margin-bottom: 8rem;
+    margin-bottom: 4rem;
   }
 
   .card-container {
