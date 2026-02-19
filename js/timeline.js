@@ -77,7 +77,7 @@ const initTimeline = () => {
       .to(
         connector,
         {
-          width: isMobile ? "30px" : "3%",
+          width: isMobile ? "30px" : "6%",
           duration: 0.4,
           delay: 0.2,
           backgroundColor: targetColor,
