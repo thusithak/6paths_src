@@ -102,6 +102,7 @@
   --switch-height: 40px;
   --handle-size: 32px;
   --hero-image-filter: none;
+  --timeline-card-bg: #ffffff;
 }
 
 /* ============================================
@@ -159,6 +160,7 @@
   --timeline-spine-color: var(--dark-bg);
 
   --hero-image-filter: brightness(60%) contrast(120%);
+  --timeline-card-bg: #111e2a;
 }
 
 /* ============================================
@@ -387,10 +389,12 @@ input, textarea, button, select {
 }
 
 .card {
-  background: var(--bg-primary);
+  background: var(--timeline-card-bg);
   backdrop-filter: blur(12px);
   padding: 2rem;
   transition: transform var(--transition-speed) ease;
+  border: none;
+  border-radius: 1rem;
 }
 
 .node {

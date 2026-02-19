@@ -96,8 +96,8 @@
     position: absolute;
     top: 24px;
     right: -48px;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.5px;
