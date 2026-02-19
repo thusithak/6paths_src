@@ -95,16 +95,15 @@
     content: "COMING SOON";
     position: absolute;
     top: 24px;
-    right: -32px;
-    background-color: #ff6b6b;
-    color: white;
-    font-size: 0.65rem;
-    font-weight: 800;
+    right: -48px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
     letter-spacing: 0.5px;
     text-align: center;
     text-transform: uppercase;
-    padding: 6px 40px;
-    /* Wide padding for the strip */
+    padding: 10px 40px;
     transform: rotate(45deg);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     pointer-events: none;
