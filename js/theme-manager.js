@@ -7,14 +7,17 @@ export class ThemeManager {
     this.body = document.body;
     this.savedTheme = localStorage.getItem(this.config.STORAGE.THEME_KEY);
     this.systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
     this.isDark = this.savedTheme
       ? this.savedTheme === "dark"
       : this.systemPrefersDark;
-    
+
     if (!this.savedTheme) {
-      localStorage.setItem(this.config.STORAGE.THEME_KEY, this.isDark ? "dark" : "light");
+      localStorage.setItem(
+        this.config.STORAGE.THEME_KEY,
+        this.isDark ? "dark" : "light",
+      );
     }
 
     this.setupSystemPreferenceListener();
@@ -28,7 +31,10 @@ export class ThemeManager {
       const userOverride = localStorage.getItem(this.config.STORAGE.THEME_KEY);
       if (!userOverride) {
         this.applyTheme(e.matches);
-        console.log("System theme preference changed; updated to:", e.matches ? "dark" : "light");
+        console.log(
+          "System theme preference changed; updated to:",
+          e.matches ? "dark" : "light",
+        );
       }
     });
   }
@@ -60,7 +66,7 @@ export class ThemeManager {
 
     const tl = gsap.timeline();
 
-    gsap.set(toShow, { display: 'inline-block', opacity: 0 });
+    gsap.set(toShow, { display: "inline-block", opacity: 0 });
 
     tl.to(
       toHide,
@@ -69,7 +75,7 @@ export class ThemeManager {
         duration: durationSeconds,
         ease: ease,
       },
-      0
+      0,
     );
 
     tl.to(
@@ -79,16 +85,16 @@ export class ThemeManager {
         duration: durationSeconds,
         ease: ease,
       },
-      0
+      0,
     );
 
     tl.add(() => {
-      gsap.set(toHide, { display: 'none' });
+      gsap.set(toHide, { display: "none" });
     });
   }
 
   updateMask(dark) {
-    const masks = document.querySelectorAll('.mask');
+    const masks = document.querySelectorAll(".mask");
     if (masks.length === 0) return;
 
     const { duration, ease } = this.config.ANIMATION.LOGO;
@@ -105,7 +111,7 @@ export class ThemeManager {
         duration: durationSeconds,
         ease: ease,
       },
-      0
+      0,
     );
 
     tl.add(() => {
@@ -124,7 +130,7 @@ export class ThemeManager {
         duration: durationSeconds,
         ease: ease,
       },
-      durationSeconds / 2
+      durationSeconds / 2,
     );
   }
 

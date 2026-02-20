@@ -10,7 +10,11 @@ class Application {
     this.config = config;
     this.themeManager = new ThemeManager(config);
     this.audioManager = new AudioManager(config);
-    this.sceneLoader = new SceneLoader(config.DOM.CANVAS_ID, config.DOM.LOADER_ID, config);
+    this.sceneLoader = new SceneLoader(
+      config.DOM.CANVAS_ID,
+      config.DOM.LOADER_ID,
+      config,
+    );
     this.splineManager = new SplineManager(config.DOM.CANVAS_ID, config);
     this.themeSwitch = null;
     this.soundSwitch = null;
@@ -32,12 +36,16 @@ class Application {
         if (this.soundSwitch) this.soundSwitch.toggle(true);
       } catch (e) {}
     });
-    
-    document.addEventListener('click', () => {
-      if (!this.audioManager.audioUnlocked) {
-        this.audioManager.unlockAudioPlayback();
-      }
-    }, { once: true });
+
+    document.addEventListener(
+      "click",
+      () => {
+        if (!this.audioManager.audioUnlocked) {
+          this.audioManager.unlockAudioPlayback();
+        }
+      },
+      { once: true },
+    );
   }
 
   async loadScene() {
@@ -74,7 +82,7 @@ class Application {
         onToggle: (isActive) => {
           this.themeManager.applyTheme(isActive);
           this.splineManager.ensureSync(isActive);
-          
+
           if (isActive) {
             this.audioManager.fadeInThemeSound();
           } else {
@@ -82,7 +90,7 @@ class Application {
           }
         },
       },
-      this.config
+      this.config,
     );
 
     this.soundSwitch = new FrostedSwitch(
@@ -94,7 +102,7 @@ class Application {
           this.audioManager.setMute(isMuted);
         },
       },
-      this.config
+      this.config,
     );
   }
 
@@ -110,7 +118,9 @@ class Application {
 
 function startApp() {
   const app = new Application();
-  app.initialize().catch((err) => console.error("App initialization failed:", err));
+  app
+    .initialize()
+    .catch((err) => console.error("App initialization failed:", err));
 
   window.__app = app;
 }

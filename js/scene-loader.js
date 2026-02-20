@@ -5,10 +5,12 @@ export class SceneLoader {
   constructor(canvasId, loaderOverlayId, config = CONFIG) {
     this.config = config;
     this.canvas = validateDOM(canvasId) || document.getElementById(canvasId);
-    this.loader = validateDOM(loaderOverlayId) || document.getElementById(loaderOverlayId);
+    this.loader =
+      validateDOM(loaderOverlayId) || document.getElementById(loaderOverlayId);
     this.sceneRevealed = false;
-    this.isRepeatVisit = sessionStorage.getItem(this.config.STORAGE.SCENE_LOADED_KEY) === "true";
-    this.SETTLING_DELAY = this.isRepeatVisit 
+    this.isRepeatVisit =
+      sessionStorage.getItem(this.config.STORAGE.SCENE_LOADED_KEY) === "true";
+    this.SETTLING_DELAY = this.isRepeatVisit
       ? this.config.ANIMATION.SCENE.repeatVisitDelay
       : this.config.ANIMATION.SCENE.firstVisitDelay;
   }

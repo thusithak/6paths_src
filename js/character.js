@@ -26,7 +26,7 @@ const speechTexts = {
   messing: [
     "Ahahah Can't poke me now!",
     "I removed your cursor! Take that!",
-    "Anything wrong? I can't see you poking me now, can I?"
+    "Anything wrong? I can't see you poking me now, can I?",
   ],
 };
 

@@ -61,12 +61,16 @@ export class AudioManager {
 
   setupEventListeners() {
     const selectors = this.config.DOM.EVENT_SELECTORS;
-    attachEventListeners(selectors.hover, "mouseenter", () => this.play("hover"));
+    attachEventListeners(selectors.hover, "mouseenter", () =>
+      this.play("hover"),
+    );
     attachEventListeners(selectors.click, "click", () => this.play("click"));
     attachEventListeners(selectors.switch, "click", () => this.play("switch"));
-    
+
     safeCall(() => {
-      window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
+      window.addEventListener("scroll", this.handleScroll.bind(this), {
+        passive: true,
+      });
     });
   }
 
@@ -80,28 +84,30 @@ export class AudioManager {
     if (!bg) return;
     if (this.isMuted) return;
 
-    const scrollRatio = (window.scrollY || window.pageYOffset) / (window.innerHeight || document.documentElement.clientHeight || 1);
+    const scrollRatio =
+      (window.scrollY || window.pageYOffset) /
+      (window.innerHeight || document.documentElement.clientHeight || 1);
     const { threshold, fadeTarget, fadeDuration } = this.config.AUDIO.SCROLL;
 
     if (scrollRatio >= threshold && !this.bgScrollFaded) {
       const current = getAudioVolume(bg, this.backgroundVolume);
       fadeAudio(bg, current, fadeTarget, fadeDuration);
-      
+
       if (theme && this.themeActive) {
         const currentThemeVol = getAudioVolume(theme, this.themeVolume);
         fadeAudio(theme, currentThemeVol, fadeTarget, fadeDuration);
       }
-      
+
       this.bgScrollFaded = true;
     } else if (scrollRatio < threshold && this.bgScrollFaded) {
       const current = getAudioVolume(bg, fadeTarget);
       fadeAudio(bg, current, this.backgroundVolume, fadeDuration);
-      
+
       if (theme && this.themeActive) {
         const current = getAudioVolume(theme, fadeTarget);
         fadeAudio(theme, current, this.themeVolume, fadeDuration);
       }
-      
+
       this.bgScrollFaded = false;
     }
   }
@@ -113,7 +119,7 @@ export class AudioManager {
   setMute(isMuted) {
     this.isMuted = isMuted;
     if (!window.Howler) return;
-    
+
     Object.keys(this.library).forEach((key) => {
       const sound = this.library[key];
       if (!sound) return;
@@ -125,7 +131,7 @@ export class AudioManager {
     if (bg) {
       playAudio(bg);
 
-      const target = isMuted ? 0 : (this.backgroundVolume || 1.0);
+      const target = isMuted ? 0 : this.backgroundVolume || 1.0;
       const currentVol = getAudioVolume(bg, 0);
       fadeAudio(bg, currentVol, target, fadeDuration);
     }
@@ -192,7 +198,7 @@ export class AudioManager {
 
   unlockAudioPlayback() {
     if (this.audioUnlocked) return;
-    
+
     safeCall(() => {
       if (this.library.background) {
         this.library.background.play();
