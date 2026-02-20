@@ -130,9 +130,9 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(var(--bg-primary), 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     opacity: 0;
     /* Starting state for GSAP */
     z-index: 10;
@@ -142,10 +142,9 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 66.6vh;
-    /* 2/3 of the screen */
-    background: #ffffff;
-    border-radius: 24px 24px 0 0;
+    height: 80vh;
+    background: var(--bg-primary);
+    border-radius: 0;
     overflow-y: auto;
     overflow-x: hidden;
     box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
@@ -164,8 +163,8 @@ body.modal-open {
     right: 24px;
     float: right;
     z-index: 100;
-    background: #f1f5f9;
-    color: #0f172a;
+    background: var(--accent-primary);
+    color: var(--text-primary);
     border: none;
     padding: 8px 20px;
     border-radius: 9999px;
@@ -176,6 +175,6 @@ body.modal-open {
 }
 
 .close-btn:hover {
-    background: #e2e8f0;
+    background: var(--accent-primary-hover);
     transform: scale(1.05);
 }
