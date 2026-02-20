@@ -1,6 +1,3 @@
-/* --- Theme Variables and common styles are consolidated in theme-variables.css --- */
-/* --- This file contains only unique custom styles not in theme-variables.css --- */
-
 .icon-small {
     color: var(--text-primary);
 }
@@ -76,7 +73,6 @@
     transform: scale(1.1);
 }
 
-/* Responsive adjustments */
 @media (max-width: 640px) {
     .app_logo_list {
         gap: 1.5rem;
@@ -112,9 +108,6 @@
     z-index: 10;
 }
 
-
-//case studies 
-
 .modal-wrapper {
     position: fixed;
     top: 0;
@@ -122,7 +115,6 @@
     width: 100%;
     height: 100%;
     display: none;
-    /* Hidden by default, toggled by GSAP */
     z-index: 9999;
 }
 
@@ -134,7 +126,6 @@
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     opacity: 0;
-    /* Starting state for GSAP */
     z-index: 10;
 }
 
@@ -151,12 +142,10 @@
     z-index: 20;
 }
 
-/* Prevent background scrolling when modal is open */
 body.modal-open {
     overflow: hidden;
 }
 
-/* Close Button Styling */
 .close-btn {
     position: sticky;
     top: 24px;

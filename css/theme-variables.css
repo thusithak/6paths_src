@@ -1,14 +1,4 @@
-/* ============================================
-   COMPREHENSIVE THEME VARIABLES
-   Consolidated from multiple files with:
-   - Light Theme: background #edf2f5, color #0c1923
-   - Dark Theme: background #0c1923, color #edf2f5
-   - Base RGBA colors for gradient consistency
-   ============================================ */
-
 :root {
-  /* ====== BASE RGBA COLORS (for consistency) ====== */
-  /* White variants */
   --rgba-white-06: rgba(255, 255, 255, 0.06);
   --rgba-white-08: rgba(255, 255, 255, 0.08);
   --rgba-white-10: rgba(255, 255, 255, 0.1);
@@ -21,7 +11,6 @@
   --rgba-white-80: rgba(255, 255, 255, 0.8);
   --rgba-white-90: rgba(255, 255, 255, 0.9);
 
-  /* Black variants */
   --rgba-black-05: rgba(0, 0, 0, 0.05);
   --rgba-black-10: rgba(0, 0, 0, 0.1);
   --rgba-black-20: rgba(0, 0, 0, 0.2);
@@ -29,43 +18,34 @@
   --rgba-black-40: rgba(0, 0, 0, 0.4);
   --rgba-black-50: rgba(0, 0, 0, 0.5);
 
-  /* Brand blue (accent) variants */
   --rgba-accent-10: rgba(14, 165, 233, 0.1);
   --rgba-accent-15: rgba(14, 165, 233, 0.15);
 
-  /* ====== BASE HEX COLORS ====== */
-  /* Light Theme Base */
   --light-bg: #edf2f5;
   --light-color: #0c1923;
   
-  /* Dark Theme Base */
   --dark-bg: #0c1923;
   --dark-color: #edf2f5;
 
-  /* ====== LIGHT THEME (Default) - BACKGROUNDS ====== */
   --bg-primary: #edf2f5;
   --bg-secondary: #ffffff;
   --bg-tertiary: #f1f5f9;
   --bg-surface: var(--rgba-white-70);
 
-  /* ====== LIGHT THEME - TEXT COLORS ====== */
   --text-primary: #0c1923;
   --text-secondary: #475569;
   --text-muted: #64748b;
   --text-inverse: #ffffff;
 
-  /* ====== LIGHT THEME - BORDERS & DIVIDERS ====== */
   --border-subtle: #e2e8f0;
   --border-strong: #cbd5e1;
   --divider-color: var(--rgba-black-05);
 
-  /* ====== LIGHT THEME - ACCENT COLORS ====== */
   --accent-primary: #0ea5e9;
   --accent-secondary: #0284c7;
   --accent-soft: var(--rgba-accent-10);
   --accent-bright: #38bdf8;
 
-  /* ====== LIGHT THEME - COMPONENT SPECIFIC ====== */
   --edge-blur: #edf2f5;
   --switch-bg: #e2e8f0;
   --switch-handle: #ffffff;
@@ -79,25 +59,21 @@
   --Parent: rgb(221, 221, 221);
   --switch-icon-inactive-shadow: rgba(0, 0, 0, 0.1);
 
-  /* ====== LIGHT THEME - GRADIENTS ====== */
   --blur-frame-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 25%, transparent 100%);
   --blur-frame-mask: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
   --edge-blur-left: linear-gradient(to right, var(--edge-blur), transparent);
   --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
   --fade-border-gradient: linear-gradient(to bottom, transparent, var(--accent-primary) 20%, var(--accent-primary) 80%, transparent);
 
-  /* ====== LIGHT THEME - TIMELINE COLORS ====== */
   --timeline-prof-color: #38bdf8;
   --timeline-pers-color: #f472b6;
   --timeline-spine-color: var(--light-bg);
 
-  /* ====== TRANSITIONS ====== */
   --transition-duration: 0.6s;
   --transition-delay: 0.1s;
   --transition-speed: 0.3s;
   --transition-timing: ease;
 
-  /* ====== COMPONENT DIMENSIONS ====== */
   --switch-width: 80px;
   --switch-height: 40px;
   --handle-size: 32px;
@@ -105,37 +81,28 @@
   --timeline-card-bg: #ffffff;
 }
 
-/* ============================================
-   DARK THEME OVERRIDES
-   ============================================ */
 [data-theme="dark"] {
-  /* ====== DARK THEME BASE RGBA OVERRIDES ====== */
   --rgba-accent-10: rgba(14, 165, 233, 0.4);
 
-  /* ====== DARK THEME - BACKGROUNDS ====== */
   --bg-primary: #0c1923;
   --bg-secondary: #1a2332;
   --bg-tertiary: #1f2937;
   --bg-surface: rgba(20, 37, 52, 0.75);
 
-  /* ====== DARK THEME - TEXT COLORS ====== */
   --text-primary: #edf2f5;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --text-inverse: #0c1923;
 
-  /* ====== DARK THEME - BORDERS & DIVIDERS ====== */
   --border-subtle: var(--rgba-white-08);
   --border-strong: var(--rgba-white-15);
   --divider-color: var(--rgba-white-06);
 
-  /* ====== DARK THEME - ACCENT COLORS ====== */
   --accent-primary: #0ea5e9;
   --accent-secondary: #38bdf8;
   --accent-soft: var(--rgba-accent-10);
   --accent-bright: #38bdf8;
 
-  /* ====== DARK THEME - COMPONENT SPECIFIC ====== */
   --edge-blur: #0c1923;
   --switch-bg: #27272a;
   --switch-handle: #ffffff;
@@ -149,23 +116,18 @@
   --switch-icon-inactive-color: rgba(255, 255, 255, 0.808);
   --switch-icon-inactive-shadow: rgba(87, 87, 87, 0.3);
 
-  /* ====== DARK THEME - GRADIENTS ====== */
   --blur-frame-overlay: linear-gradient(to bottom, rgba(20, 37, 52, 0.15) 25%, transparent 100%);
   --blur-frame-mask: linear-gradient(to bottom, var(--rgba-black-40) 0%, rgba(0, 0, 0, 0) 100%);
   --edge-blur-left: linear-gradient(to right, var(--edge-blur), transparent);
   --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
   --fade-border-gradient: linear-gradient(to bottom, transparent, var(--accent-primary) 20%, var(--accent-primary) 80%, transparent);
 
-  /* ====== DARK THEME - TIMELINE COLORS ====== */
   --timeline-spine-color: var(--dark-bg);
 
   --hero-image-filter: brightness(60%) contrast(120%);
   --timeline-card-bg: #111e2a;
 }
 
-/* ============================================
-   SCROLLBAR STYLING
-   ============================================ */
 ::-webkit-scrollbar {
   width: 12px;
   padding: 2px;
@@ -184,10 +146,6 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-primary);
 }
-
-/* ============================================
-   GLOBAL STYLES USING VARIABLES
-   ============================================ */
 
 html,
 body {
@@ -212,10 +170,6 @@ input, textarea, button, select {
   color: inherit;
 }
 
-/* ============================================
-   UTILITY CLASSES
-   ============================================ */
-
 .fade-border {
   border-width: 0 1px;
   border-style: dashed;
@@ -230,10 +184,6 @@ input, textarea, button, select {
   -webkit-mask-image: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
   mask-image: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
 }
-
-/* ============================================
-   SWITCH COMPONENT STYLES
-   ============================================ */
 
 .frosted-switch-container {
   display: inline-block;
@@ -293,10 +243,6 @@ input, textarea, button, select {
     inset 0 -2px 5px var(--rgba-black-05);
 }
 
-/* ============================================
-   CONTENT COMPONENT STYLES
-   ============================================ */
-
 .menu-item-text {
   color: var(--text-primary);
 }
@@ -323,10 +269,6 @@ input, textarea, button, select {
 .edge-blur-right {
   background: var(--edge-blur-right) !important;
 }
-
-/* ============================================
-   TIMELINE COMPONENT STYLES
-   ============================================ */
 
 .timeline-container {
   position: relative;
@@ -446,10 +388,6 @@ input, textarea, button, select {
   color: var(--timeline-pers-color);
 }
 
-/* ============================================
-   CHARACTER COMPONENT STYLES
-   ============================================ */
-
 .character-container {
   position: relative;
   width: 266px;
@@ -499,10 +437,6 @@ input, textarea, button, select {
   z-index: 10;
   cursor: grab;
 }
-
-/* ============================================
-   RESPONSIVE ADJUSTMENTS
-   ============================================ */
 
 @media (max-width: 768px) {
   .spine-wrapper {

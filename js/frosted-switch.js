@@ -55,9 +55,7 @@ export class FrostedSwitch {
   }
 
   setupThemeChangeListener() {
-    // Watch for data-theme attribute changes on the document element
     const observer = new MutationObserver(() => {
-      // Update the icon colors with the new theme values
       this.updateIconColors();
     });
 
@@ -109,17 +107,14 @@ export class FrostedSwitch {
   }
 
   updateIconColors() {
-    // Determine which icons are currently active/inactive
     const activeIcon = this.isOn ? this.iconRight : this.iconLeft;
     const inactiveIcon = this.isOn ? this.iconLeft : this.iconRight;
 
-    // Kill existing animations
     if (window.gsap) {
       if (activeIcon) gsap.killTweensOf(activeIcon);
       if (inactiveIcon) gsap.killTweensOf(inactiveIcon);
     }
 
-    // Apply the new theme colors directly
     if (activeIcon) {
       const activeColor = this.getCSSVariable("--switch-icon-active-color");
       const activeShadow = this.getCSSVariable("--switch-icon-active-shadow");

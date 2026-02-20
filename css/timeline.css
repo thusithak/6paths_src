@@ -1,6 +1,3 @@
-/* Timeline styles are consolidated in theme-variables.css */
-/* This file is kept for potential future timeline-specific overrides */
-
 .professional .card:hover {
   border-color: var(--timeline-prof-color);
 }

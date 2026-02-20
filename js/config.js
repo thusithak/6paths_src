@@ -37,13 +37,12 @@ export const CONFIG = {
       },
     },
     VOLUMES: {
-      background: 1.0,  // Default background ambient sound volume
-      theme: 0.1,       // Default theme (cricket) sounds volume
+      background: 1.0,
+      theme: 0.1,
     },
-    // Scroll behavior
     SCROLL: {
-      threshold: 0.2,         // Fade background at 20% scroll depth
-      fadeTarget: 0.0,        // Target volume when scrolled past threshold
+      threshold: 0.2,
+      fadeTarget: 0.0,
       fadeDuration: 2000,
     },
     MUTE: {
@@ -57,29 +56,29 @@ export const CONFIG = {
   ANIMATION: {
     SWITCH: {
       width: 80,
-      height: 40, 
+      height: 40,
       handleSize: 32,
       handlePadding: 0,
       travelDistance: 38,
       toggle: {
         duration: 0.2,
-        ease: "power1.out", 
+        ease: "power1.out",
       },
       icon: {
-        duration: 0.2, 
-        delay: 0.0, 
+        duration: 0.2,
+        delay: 0.0,
       },
     },
     LOGO: {
       duration: 0.24,
-      ease: "power1.out", 
+      ease: "power1.out",
     },
     SCENE: {
-      firstVisitDelay: 2000,  // Initial settling delay for first-time visitors (ms)
-      repeatVisitDelay: 100,  // Settling delay for repeat visitors (ms)
-      loaderFadeFirst: 0.8,   // Loader fade duration on first visit (seconds)
-      loaderFadeRepeat: 0.2,  // Loader fade duration on repeat visit (seconds)
-      loaderHideDelay: 500,   // Delay before starting loader fade (ms)
+      firstVisitDelay: 2000,
+      repeatVisitDelay: 100,
+      loaderFadeFirst: 0.8,
+      loaderFadeRepeat: 0.2,
+      loaderHideDelay: 500,
     },
   },
   DOM: {
@@ -90,9 +89,9 @@ export const CONFIG = {
       sound: "sound-switch",
     },
     EVENT_SELECTORS: {
-      hover: '[data-sound="hover"]',      // Elements that trigger hover sound on mouseenter
-      click: '[data-sound-2="click"]',    // Elements that trigger click sound on click
-      switch: '[data-sound-3="switch"]',  // Elements that trigger switch sound on click
+      hover: '[data-sound="hover"]',
+      click: '[data-sound-2="click"]',
+      switch: '[data-sound-3="switch"]',
     },
     LOGO_SELECTORS: {
       dark: ".logo-img-blue",
@@ -100,7 +99,7 @@ export const CONFIG = {
     },
   },
   STORAGE: {
-    THEME_KEY: "theme", 
+    THEME_KEY: "theme",
     SCENE_LOADED_KEY: "splineSceneLoaded",
   },
   SPLINE: {

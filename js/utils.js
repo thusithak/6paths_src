@@ -1,15 +1,9 @@
-/**
- * Shared utility functions for audio, GSAP, DOM, and state management.
- */
-
 export function fadeAudio(audio, fromVolume, toVolume, duration) {
   if (!audio) return;
 
   safeCall(() => {
-    // Attempt to use Howler's fade method for smooth transitions
     audio.fade(fromVolume, toVolume, duration);
   }, () => {
-    // Fallback: Set volume immediately if fade method unavailable
     safeCall(() => {
       audio.volume(toVolume);
     });
@@ -26,7 +20,6 @@ export function fadeElement(element, fromOpacity, toOpacity, duration, options =
       ...options,
     });
   } else {
-    // CSS fallback
     element.style.transition = `opacity ${duration}s ease`;
     element.style.opacity = toOpacity.toString();
   }
@@ -40,11 +33,8 @@ export function safeCall(fn, fallback = null) {
       try {
         return fallback();
       } catch (fallbackError) {
-    // Silently fail if both fail
       }
     }
-    // Optionally log error for debugging (uncomment as needed):
-    // console.warn('Safe call failed:', error);
   }
 }
 
@@ -58,7 +48,6 @@ export function playAudio(audio) {
   if (!audio) return false;
 
   return safeCall(() => {
-    // Only play if not already playing
     if (!isAudioPlaying(audio)) {
       audio.play();
       return true;
@@ -111,7 +100,6 @@ export function animateGSAP(element, duration, ease, properties, callbacks = {})
       onComplete: callbacks.onComplete,
     });
   }, () => {
-    // CSS fallback for basic properties
     if (properties.opacity !== undefined) {
       element.style.transition = `opacity ${duration}s ${ease.split('(')[0]}`;
       element.style.opacity = properties.opacity.toString();

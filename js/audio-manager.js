@@ -16,13 +16,12 @@ export class AudioManager {
   constructor(config = CONFIG) {
     this.config = config;
     this.library = {};
-    this.isMuted = true; // SOURCE OF TRUTH for mute state
-    this.backgroundVolume = this.config.AUDIO.VOLUMES.background; // SOURCE OF TRUTH for intended background volume
-    this.themeVolume = this.config.AUDIO.VOLUMES.theme; // SOURCE OF TRUTH for intended theme volume
-    // scroll fade controls
+    this.isMuted = true;
+    this.backgroundVolume = this.config.AUDIO.VOLUMES.background;
+    this.themeVolume = this.config.AUDIO.VOLUMES.theme;
     this.bgScrollFaded = false;
     this.themeActive = false;
-    this.audioUnlocked = false; // Track if audio playback has been unlocked by user gesture
+    this.audioUnlocked = false;
     this.setupAudioLibrary();
     this.setupEventListeners();
   }
@@ -43,26 +42,20 @@ export class AudioManager {
       });
     });
 
-    // If a background track exists, remember its configured volume and ensure it loops/plays
     if (this.library.background) {
       const bg = this.library.background;
-      // Restore intended background volume from config (source of truth)
       this.backgroundVolume = this.config.AUDIO.VOLUMES.background;
-      // ensure loop is enabled on the background track
       safeCall(() => {
         bg.loop(true);
       });
-      // Try to play the background immediately (browsers may block autoplay until user interaction)
       safeCall(() => {
         bg.play();
       });
-      // set initial background volume according to current mute state
       safeCall(() => {
         bg.volume(this.isMuted ? 0 : this.backgroundVolume);
       });
     }
 
-    // Start muted
     this.setMute(true);
   }
 
@@ -72,7 +65,6 @@ export class AudioManager {
     attachEventListeners(selectors.click, "click", () => this.play("click"));
     attachEventListeners(selectors.switch, "click", () => this.play("switch"));
     
-    // Fade background based on scroll position
     safeCall(() => {
       window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
     });
@@ -86,18 +78,15 @@ export class AudioManager {
     const bg = this.library.background;
     const theme = this.library.theme;
     if (!bg) return;
-    // If site is muted, background should remain muted
     if (this.isMuted) return;
 
     const scrollRatio = (window.scrollY || window.pageYOffset) / (window.innerHeight || document.documentElement.clientHeight || 1);
     const { threshold, fadeTarget, fadeDuration } = this.config.AUDIO.SCROLL;
 
     if (scrollRatio >= threshold && !this.bgScrollFaded) {
-      // fade down to low volume
       const current = getAudioVolume(bg, this.backgroundVolume);
       fadeAudio(bg, current, fadeTarget, fadeDuration);
       
-      // Also fade out theme sound during scroll
       if (theme && this.themeActive) {
         const currentThemeVol = getAudioVolume(theme, this.themeVolume);
         fadeAudio(theme, currentThemeVol, fadeTarget, fadeDuration);
@@ -105,11 +94,9 @@ export class AudioManager {
       
       this.bgScrollFaded = true;
     } else if (scrollRatio < threshold && this.bgScrollFaded) {
-      // fade back up to intended background volume
       const current = getAudioVolume(bg, fadeTarget);
       fadeAudio(bg, current, this.backgroundVolume, fadeDuration);
       
-      // Also fade back in theme sound when scrolling back up
       if (theme && this.themeActive) {
         const current = getAudioVolume(theme, fadeTarget);
         fadeAudio(theme, current, this.themeVolume, fadeDuration);
@@ -127,18 +114,15 @@ export class AudioManager {
     this.isMuted = isMuted;
     if (!window.Howler) return;
     
-    // Mute all sounds including background and theme
     Object.keys(this.library).forEach((key) => {
       const sound = this.library[key];
       if (!sound) return;
       setAudioMute(sound, isMuted);
     });
 
-    // Fade background in/out for smoother muting experience
     const bg = this.library.background;
     const { fadeDuration } = this.config.AUDIO.MUTE;
     if (bg) {
-      // ensure playing so fade is audible
       playAudio(bg);
 
       const target = isMuted ? 0 : (this.backgroundVolume || 1.0);
@@ -146,7 +130,6 @@ export class AudioManager {
       fadeAudio(bg, currentVol, target, fadeDuration);
     }
 
-    // Fade out theme sound if site is muted
     if (isMuted && this.themeActive) {
       this.fadeOutThemeSound();
     }
@@ -166,15 +149,12 @@ export class AudioManager {
     this.themeActive = true;
 
     safeCall(() => {
-      // Randomize playback rate (time signature) within configured range
       const [minRate, maxRate] = this.config.AUDIO.THEME_SOUND.rateRange;
       const randomRate = randomInRange(minRate, maxRate);
       setAudioRate(theme, randomRate);
 
-      // Ensure theme sound is playing
       playAudio(theme);
 
-      // Fade in from 0 to stored target volume (this.themeVolume is source of truth)
       const { fadeDuration } = this.config.AUDIO.THEME_SOUND;
       fadeAudio(theme, 0, this.themeVolume, fadeDuration);
     });
@@ -187,12 +167,10 @@ export class AudioManager {
     this.themeActive = false;
 
     safeCall(() => {
-      // Get current volume or use stored target volume
       const currentVol = getAudioVolume(theme, this.themeVolume);
       const { fadeDuration } = this.config.AUDIO.THEME_SOUND;
       fadeAudio(theme, currentVol, 0, fadeDuration);
 
-      // Stop playing after fade completes
       setTimeout(() => {
         if (theme && !isAudioPlaying(theme)) return;
         stopAudio(theme);
@@ -215,8 +193,6 @@ export class AudioManager {
   unlockAudioPlayback() {
     if (this.audioUnlocked) return;
     
-    // Trigger a sound play to unlock browser autoplay restrictions
-    // This must occur during a user gesture (click, touch, etc.)
     safeCall(() => {
       if (this.library.background) {
         this.library.background.play();

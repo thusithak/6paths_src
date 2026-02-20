@@ -25,10 +25,8 @@ export class SceneLoader {
     this.sceneRevealed = true;
 
     safeCall(() => {
-      // Fade in canvas
       this.canvas.style.opacity = "1";
 
-      // Schedule loader removal
       setTimeout(() => {
         const fadeDuration = this.isRepeatVisit
           ? this.config.ANIMATION.SCENE.loaderFadeRepeat

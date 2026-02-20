@@ -1,6 +1,3 @@
-/* Character component styles are consolidated in theme-variables.css */
-/* This file contains only unique character-specific interactions */
-
 .interaction-zone:active {
     cursor: grabbing;
 }

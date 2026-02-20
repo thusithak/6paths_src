@@ -1,17 +1,15 @@
-// --- CONFIGURATION & CONSTANTS ---
 const CONFIG = {
-  frameRate: 200, // Speed of animation loop
-  dragLimitX: 100, // Max horizontal drag
-  dragLimitY: -100, // Max vertical drag (upwards)
-  shakeThreshold: 30, // Pixels to register a shake
-  shakeCountTrigger: 4, // Shakes needed for dizzy
-  spamClickLimit: 3, // Clicks before messing mode
-  messingDuration: 6000, // How long cursor stays hidden
+  frameRate: 200,
+  dragLimitX: 100,
+  dragLimitY: -100,
+  shakeThreshold: 30,
+  shakeCountTrigger: 4,
+  spamClickLimit: 3,
+  messingDuration: 6000,
   shadowMaxBlur: 8,
   shadowMinBlur: 2,
 };
 
-// Speech Texts Library
 const speechTexts = {
   center: ["I see you.", "Hi There...", "Hmm?", "Hello!", "What's Up?"],
   left: ["What's there?", "Over there?", "Hmm... Looking", "That way?"],
@@ -32,14 +30,12 @@ const speechTexts = {
   ],
 };
 
-// DOM Elements
 const container = document.getElementById("charContainer");
 const hitbox = document.getElementById("hitbox");
 const speechBubble = document.getElementById("speechBubble");
 const thudEffect = document.getElementById("thudEffect");
 const charShadow = document.getElementById("charShadow");
 
-// We scan the DOM for images with data-pose attributes to build our state map
 const poses = {};
 document.querySelectorAll(".frame").forEach((img) => {
   const pose = img.dataset.pose;
@@ -47,44 +43,33 @@ document.querySelectorAll(".frame").forEach((img) => {
   poses[pose].push(img);
 });
 
-// --- STATE VARIABLES ---
-
-// Character State
 let currentState = null;
 let currentlyVisibleFrame = null;
 let isInteracting = false;
 
-// Timers
 let interactionTimer = null;
 let speechTimer = null;
 let spamResetTimer = null;
 let shakeTimer = null;
 
-// Mouse & Input Tracking
 let lastMouseX = 0;
 let shakeCount = 0;
 let lastDirection = 0;
 let spamClickCount = 0;
 let isCursorHidden = false;
 
-// Dragging Logic
 let isDragging = false;
 let dragActive = false;
 let dragStart = { x: 0, y: 0 };
 let blockClick = false;
 
-// --- RENDER LOGIC ---
-
 function renderCurrentPose() {
-  // Get all images for the current pose
   const frames = poses[currentState];
   if (!frames || frames.length === 0) return;
 
-  // Randomly select a frame index ONCE when state changes
   const randomIndex = Math.floor(Math.random() * frames.length);
   const nextFrame = frames[randomIndex];
 
-  // Only update DOM if the frame actually changed
   if (currentlyVisibleFrame !== nextFrame) {
     document
       .querySelectorAll(".frame")
@@ -94,10 +79,7 @@ function renderCurrentPose() {
   }
 }
 
-// --- STATE MANAGEMENT ---
-
 function setPose(poseName) {
-  // Priority checks
   if (isCursorHidden && poseName !== "messing") return;
   if (
     isInteracting &&
@@ -110,13 +92,9 @@ function setPose(poseName) {
 
   currentState = poseName;
 
-  // Immediate render
   renderCurrentPose();
 
-  // Update Text
   updateSpeech(poseName);
-
-  // NOTE: Removed the bouncing animation on container per request
 }
 
 function updateSpeech(poseName) {
@@ -124,10 +102,8 @@ function updateSpeech(poseName) {
   const text = texts[Math.floor(Math.random() * texts.length)];
   speechBubble.innerText = text;
 
-  // Random Reveal using Scale (No Opacity Fade)
   gsap.killTweensOf(speechBubble);
 
-  // Random start scale slightly to vary the pop
   const startScale = Math.random() * 0.3;
 
   gsap.fromTo(
@@ -140,7 +116,6 @@ function updateSpeech(poseName) {
   let duration = 2000;
   if (poseName === "messing") duration = 1500;
 
-  // Scale out to hide (No Opacity Fade)
   speechTimer = setTimeout(() => {
     gsap.to(speechBubble, { scale: 0, duration: 0.25, ease: "back.in(1.7)" });
   }, duration);
@@ -158,16 +133,12 @@ function resetInteraction(delay = 1000) {
   }, delay);
 }
 
-// --- DRAG LOGIC ---
-
 hitbox.addEventListener("mousedown", (e) => {
   if (isCursorHidden) return;
 
   isDragging = true;
-  dragActive = false; // Hasn't moved yet
+  dragActive = false;
   dragStart = { x: e.clientX, y: e.clientY };
-
-  // Note: We don't set pose 'down' yet. We wait for movement.
 });
 
 document.addEventListener("mouseup", () => {
@@ -176,7 +147,6 @@ document.addEventListener("mouseup", () => {
   isDragging = false;
 
   if (dragActive) {
-    // Was dragging, so snap back
     gsap.to(container, {
       x: 0,
       y: 0,
@@ -184,7 +154,6 @@ document.addEventListener("mouseup", () => {
       ease: "elastic.out(1, 0.5)",
     });
 
-    // Snap shadow back
     gsap.to(charShadow, {
       y: 0,
       scale: 1,
@@ -197,7 +166,6 @@ document.addEventListener("mouseup", () => {
     isInteracting = false;
     setPose("center");
 
-    // Prevent the subsequent 'click' event
     blockClick = true;
     setTimeout(() => {
       blockClick = false;
@@ -205,47 +173,34 @@ document.addEventListener("mouseup", () => {
   }
 });
 
-// --- GLOBAL MOUSE LOGIC (Tracking + Dragging) ---
-
 document.addEventListener("mousemove", (e) => {
   if (isCursorHidden) return;
 
-  // 1. Handle Dragging
   if (isDragging) {
     const dx = e.clientX - dragStart.x;
     const dy = e.clientY - dragStart.y;
 
-    // Threshold to start visual dragging (prevents jitter on clicks)
     if (!dragActive && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) {
       dragActive = true;
-      isInteracting = true; // Lock other animations
-      setPose("down"); // Set "picked up" pose
+      isInteracting = true;
+      setPose("down");
     }
 
     if (dragActive) {
-      // Clamp Movement
       const clampedX = Math.max(
         -CONFIG.dragLimitX,
         Math.min(CONFIG.dragLimitX, dx),
       );
-      const clampedY = Math.max(CONFIG.dragLimitY, Math.min(0, dy)); // Negative goes up
+      const clampedY = Math.max(CONFIG.dragLimitY, Math.min(0, dy));
 
       gsap.set(container, { x: clampedX, y: clampedY });
 
-      // Shadow Logic:
-      // 1. Shadow stays at y=0 (relative to parent), so if container goes UP (-Y), shadow goes DOWN (+Y) to compensate.
-      // 2. Shadow shrinks as container goes higher.
-
-      // Calculate height ratio (0 at ground, 1 at max height)
       const heightRatio = Math.abs(clampedY) / Math.abs(CONFIG.dragLimitY);
 
-      // Shadow stays on "floor" by negating container movement
       const shadowY = -clampedY;
 
-      // Scale shrinks from 1.0 down to 0.5
       const shadowScale = 1 - heightRatio * 0.5;
 
-      // Opacity reduces slightly
       const shadowOpacity = 1 - heightRatio * 0.4;
 
       gsap.set(charShadow, {
@@ -254,15 +209,13 @@ document.addEventListener("mousemove", (e) => {
         opacity: shadowOpacity,
       });
     }
-    return; // Stop here if dragging
+    return;
   }
 
-  // 2. Handle Shake (Only if not interacting)
   handleShakeDetection(e.clientX);
 
   if (isInteracting) return;
 
-  // 3. Look At Logic
   const rect = container.getBoundingClientRect();
   const centerX = rect.left + rect.width / 2;
   const centerY = rect.top + rect.height / 2;
@@ -275,7 +228,6 @@ document.addEventListener("mousemove", (e) => {
     return;
   }
 
-  // Swapped Left/Right logic per request
   if (Math.abs(dx) > Math.abs(dy)) {
     if (dx < 0) setPose("right");
     else setPose("left");
@@ -285,7 +237,6 @@ document.addEventListener("mousemove", (e) => {
   }
 });
 
-// --- WAVE / SHAKE ---
 function handleShakeDetection(currentX) {
   const dx = currentX - lastMouseX;
   const direction = Math.sign(dx);
@@ -320,8 +271,6 @@ function triggerDizzy() {
   resetInteraction(2000);
 }
 
-// --- CLICK INTERACTIONS ---
-
 function triggerThudEffect(x, y) {
   const size = 60;
   thudEffect.style.left = x - size / 2 + "px";
@@ -329,19 +278,16 @@ function triggerThudEffect(x, y) {
 
   gsap.killTweensOf(thudEffect);
 
-  // Random rotation between -30 and 30
   const randomRotation = Math.random() * 60 - 30;
 
-  // Random Reveal Scale (No Opacity Fade)
   gsap.fromTo(
     thudEffect,
     { scale: 0, rotation: randomRotation },
     {
       scale: 1.2,
       duration: 0.15,
-      ease: "back.out(3)", // High intensity pop
+      ease: "back.out(3)",
       onComplete: () => {
-        // Quick scale out
         gsap.to(thudEffect, {
           scale: 0,
           duration: 0.2,
@@ -377,9 +323,6 @@ hitbox.addEventListener("click", (e) => {
 hitbox.addEventListener("dblclick", (e) => {
   if (isCursorHidden) return;
 
-  // Double click might still fire after a drag if browser is quirky,
-  // but blockClick usually catches the single click component.
-
   isInteracting = true;
   setPose("angry");
 
@@ -393,8 +336,6 @@ hitbox.addEventListener("dblclick", (e) => {
 
   resetInteraction(1500);
 });
-
-// --- SPAM PROTECTION ---
 
 function handleSpamProtection() {
   if (isCursorHidden) return;
@@ -416,7 +357,6 @@ function startMessingMode() {
   setPose("messing");
   container.style.opacity = "0.8";
 
-  // Force reset any drags
   isDragging = false;
   dragActive = false;
   gsap.to(container, { x: 0, y: 0, duration: 0.2 });
@@ -430,5 +370,4 @@ function startMessingMode() {
   }, CONFIG.messingDuration);
 }
 
-// Initialize state
 setPose("center");
