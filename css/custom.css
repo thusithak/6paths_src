@@ -163,3 +163,23 @@ body.modal-open {
     background: var(--accent-primary-hover);
     transform: scale(1.05);
 }
+
+//man navbar animation supportive css
+
+.navbar-container {
+    background-color: transparent;
+}
+.main-nav {
+    background-color: var(--bg-primary);
+    border-bottom: 2px solid var(--bg-secondary);
+}
+.menu-item-btn {
+    color: var(--text-primary);
+}
+.menu-item-btn:hover {
+    background-color: var(--tk-yellow-accent);
+    color: var(--text-primary);
+}
+
+
+

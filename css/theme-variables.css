@@ -245,34 +245,6 @@ input, textarea, button, select {
     inset 0 -2px 5px var(--rgba-black-05);
 }
 
-.menu-item-btn{
-  color: var(--text-primary);
-}
-.menu-item-btn:hover {
-  background-color: var(--tk-yellow-accent);
-  color: var(--text-primary);
-}
-
-.main-nav {
-  position: fixed;
-  width: 100%;
-  background-color: var(--bg-primary);
-  border-bottom: 2px solid var(--bg-secondary);
-  transition: background 0.3s, border 0.3s;
-}
-
-.main-nav.scrolled {
-  background-color: var(--bg-secondary);
-  border-bottom: 2px solid var(--bg-primary);
-  transition: background 0.3s, border 0.3s;
-}
-.navbar-container {
-  margin: 0 auto;
-  width: var(--container-width);
-  background-color: var(--container-bg);
-}
-
-
 .bento-child,
 .case-link {
   background-color: var(--bg-tertiary);

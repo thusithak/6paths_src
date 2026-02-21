@@ -16,10 +16,10 @@ function runAdhocIntegrations() {
   const navTl = gsap.timeline({
     scrollTrigger: {
       trigger: "body",
-      toggleClass: { targets: ".main-nav", className: "scrolled" },
-      start: () => `top+=${window.innerHeight * 0.9} top`,
-      end: "+=200",
-      scrub: 1,
+      toggleClass: { targets: ".navbar-container", className: "scrolled" },
+      start: () => `top+=${window.innerHeight * 0.8} top`,
+      end: "+=100",
+      scrub: 0.5,
       invalidateOnRefresh: true,
     },
   });
@@ -28,14 +28,14 @@ function runAdhocIntegrations() {
     .to(".main-nav", {
       backgroundColor: "transparent",
       borderColor: "transparent",
-      duration: 1,
+      duration: 0.5,
     })
     .to(
       ".navbar-container",
       {
         maxWidth: "960px",
         backgroundColor: "#000000",
-        duration: 1,
+        duration: 0.5,
       },
       0,
     );
