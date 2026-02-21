@@ -259,9 +259,13 @@ input, textarea, button, select {
   background-color: var(--bg-primary);
   border-bottom: 2px solid var(--bg-secondary);
   transition: background 0.3s, border 0.3s;
-  /* Backup for non-JS */
 }
 
+.main-nav.scrolled {
+  background-color: var(--bg-secondary);
+  border-bottom: 2px solid var(--bg-primary);
+  transition: background 0.3s, border 0.3s;
+}
 .navbar-container {
   margin: 0 auto;
   width: var(--container-width);
