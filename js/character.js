@@ -355,7 +355,7 @@ function startMessingMode() {
   isCursorHidden = true;
   document.body.classList.add("cursor-hidden");
   setPose("messing");
-  container.style.opacity = "0.8";
+  container.style.filter = "grayscale(100%)";
 
   isDragging = false;
   dragActive = false;
@@ -363,7 +363,7 @@ function startMessingMode() {
 
   setTimeout(() => {
     document.body.classList.remove("cursor-hidden");
-    container.style.opacity = "1";
+    container.style.filter = "none";
     isCursorHidden = false;
     isInteracting = false;
     setPose("center");
