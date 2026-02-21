@@ -19,10 +19,6 @@
     color: var(--icon-dim);
 }
 
-.menu-item-text {
-    color: var(--text-secondary);
-}
-
 .bento-child,
 .case-link {
     background-color: var(--bg-tertiary);

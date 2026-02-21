@@ -79,6 +79,7 @@
   --handle-size: 32px;
   --hero-image-filter: none;
   --timeline-card-bg: #ffffff;
+  --tk-yellow-accent: #f5dc00;
 }
 
 [data-theme="dark"] {
@@ -126,6 +127,7 @@
 
   --hero-image-filter: brightness(60%) contrast(120%);
   --timeline-card-bg: #111e2a;
+  --tk-yellow-accent: #ffe926;
 }
 
 ::-webkit-scrollbar {
@@ -243,12 +245,15 @@ input, textarea, button, select {
     inset 0 -2px 5px var(--rgba-black-05);
 }
 
-.menu-item-text {
+.main-nav{
+  background-color: var(--bg-primary);
+}
+.menu-item-btn{
   color: var(--text-primary);
 }
-
-.menu-item-btn:hover .menu-item-text {
-  color: var(--accent-primary);
+.menu-item-btn:hover {
+  background-color: var(--tk-yellow-accent);
+  color: var(--text-primary);
 }
 
 .bento-child,
