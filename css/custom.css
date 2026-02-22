@@ -6,16 +6,19 @@
     color: var(--text-primary);
 }
 
-.hero-title{
+.hero-title {
     color: var(--text-primary);
 }
-.tagline{
+
+.tagline {
     color: var(--text-primary);
 }
-.hero-image{
+
+.hero-image {
     filter: var(--hero-image-filter);
 }
-.icon-open-link{
+
+.icon-open-link {
     color: var(--icon-dim);
 }
 
@@ -42,9 +45,11 @@
 .skills-set ul li {
     color: var(--text-primary);
 }
-.skills-set ul{
+
+.skills-set ul {
     padding-left: 25px;
 }
+
 .app_logo_list {
     display: flex;
     flex-wrap: wrap;
@@ -169,17 +174,19 @@ body.modal-open {
 .navbar-container {
     background-color: transparent;
 }
+.navbar-container.scrolled .main-nav .menu-item-btn {
+    color: var(--text-secondary);
+}
 .main-nav {
     background-color: var(--bg-primary);
-    border-bottom: 2px solid var(--bg-secondary);
+    border: 2px solid var(--bg-secondary);
 }
+
 .menu-item-btn {
     color: var(--text-primary);
 }
+
 .menu-item-btn:hover {
     background-color: var(--tk-yellow-accent);
     color: var(--text-primary);
 }
-
-
-
