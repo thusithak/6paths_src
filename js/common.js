@@ -21,9 +21,11 @@ function runAdhocIntegrations() {
       end: "+=150",
       scrub: 0.5,
       onEnter: () =>
-        document.querySelector(".main-nav").classList.add("scrolled"),
+        document.querySelector(".navbar-container").classList.add("scrolled"),
       onLeaveBack: () =>
-        document.querySelector(".main-nav").classList.remove("scrolled"),
+        document
+          .querySelector(".navbar-container")
+          .classList.remove("scrolled"),
       invalidateOnRefresh: true,
     },
   });
@@ -38,7 +40,7 @@ function runAdhocIntegrations() {
       ".navbar-container",
       {
         maxWidth: "960px",
-        backgroundColor: "#000000",
+        backgroundColor: "var(--bg-primary)",
         duration: 0.5,
       },
       0,
