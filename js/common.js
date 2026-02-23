@@ -19,7 +19,7 @@ function runAdhocIntegrations() {
       toggleClass: { targets: ".navbar-container", className: "scrolled" },
       start: () => `top+=${window.innerHeight * 0.8} top`,
       end: "+=100",
-      scrub: 0.5,
+      scrub: false,
       invalidateOnRefresh: true,
     },
   });
