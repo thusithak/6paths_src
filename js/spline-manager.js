@@ -121,9 +121,9 @@ export class SplineManager {
       return;
     }
 
-    const container = document.querySelector("#section-container");
+    const container = document.querySelector("#canvas3d");
     if (!container) {
-      console.warn("Scroll trigger container '#section-container' not found");
+      console.warn("Scroll trigger container '#canvas3d' not found");
       return;
     }
 
@@ -166,7 +166,7 @@ export class SplineManager {
       {},
       {
         scrollTrigger: {
-          trigger: "#section-container",
+          trigger: "#canvas3d",
           start: "top top",
           end: "bottom bottom",
           scrub: 1,
