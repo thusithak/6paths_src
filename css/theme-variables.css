@@ -207,7 +207,8 @@ input, textarea, button, select {
   justify-content: space-between;
   padding: 0 10px;
   margin-bottom: 0px;
-  background: var(--glass-bg);
+  background: var(--bg-primary);
+  border: 2px solid var(--bg-secondary);
 }
 
 .icon {
@@ -217,8 +218,7 @@ input, textarea, button, select {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--icon-dim);
-  filter: drop-shadow(0 1px 2px var(--rgba-black-10));
+  color: var(--text-primary);
   margin-right: 0px;
 }
 
@@ -230,14 +230,7 @@ input, textarea, button, select {
   top: 3px;
   left: 5px;
   z-index: 1;
-  background: var(--rgba-white-30);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid var(--glass-highlight);
-  box-shadow:
-    0 4px 8px var(--rgba-black-10),
-    inset 0 2px 3px var(--rgba-white-90),
-    inset 0 -2px 5px var(--rgba-black-05);
+  background: var(--bg-secondary);
 }
 
 .bento-child,
