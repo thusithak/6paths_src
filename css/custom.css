@@ -174,19 +174,19 @@ body.modal-open {
 .navbar-container {
     background-color: transparent;
 }
+.navbar-container .main-nav .menu-item-btn {
+    color: var(--text-primary);
+}
 .navbar-container.scrolled .main-nav .menu-item-btn {
     color: var(--text-secondary);
 }
+.navbar-container .main-nav .menu-item-btn:hover,
+.navbar-container.scrolled .main-nav .menu-item-btn:hover {
+    background-color: var(--tk-yellow-accent);
+}
+
 .main-nav {
     background-color: var(--bg-primary);
     border: 2px solid var(--bg-secondary);
 }
 
-.menu-item-btn {
-    color: var(--text-primary);
-}
-
-.menu-item-btn:hover {
-    background-color: var(--tk-yellow-accent);
-    color: var(--text-primary);
-}
