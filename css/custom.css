@@ -173,6 +173,7 @@ body.modal-open {
 
 .navbar-container {
     background-color: transparent;
+    border: 2px solid transparent;
 }
 .navbar-container .main-nav .menu-item-btn {
     color: var(--text-primary);

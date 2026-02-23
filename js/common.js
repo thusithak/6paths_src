@@ -41,7 +41,6 @@ function runAdhocIntegrations() {
       {
         maxWidth: "960px",
         backgroundColor: "var(--bg-primary)",
-        borderSize: "2px",
         borderColor: "var(--bg-secondary)",
         duration: 0.5,
       },
