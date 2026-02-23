@@ -32,14 +32,14 @@ function runAdhocIntegrations() {
     .to(".main-nav", {
       backgroundColor: "rgba(255, 255, 255, 0)", // transparent
       borderColor: "rgba(0, 0, 0, 0)", // transparent
-      duration: 1,
+      duration: 0.5,
     })
     .to(
       ".navbar-container",
       {
         maxWidth: "960px",
         backgroundColor: "#000000",
-        duration: 1,
+        duration: 0.5,
       },
       0,
     );
