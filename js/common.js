@@ -13,29 +13,33 @@ function runAdhocIntegrations() {
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // One timeline to rule them all
   const navTl = gsap.timeline({
     scrollTrigger: {
       trigger: "body",
-      toggleClass: { targets: ".navbar-container", className: "scrolled" },
-      start: () => `top+=${window.innerHeight * 0.8} top`,
-      end: "+=100",
-      scrub: false,
+      start: () => `top+=${window.innerHeight * 0.9} top`,
+      end: "+=150",
+      scrub: 0.5,
+      onEnter: () =>
+        document.querySelector(".main-nav").classList.add("scrolled"),
+      onLeaveBack: () =>
+        document.querySelector(".main-nav").classList.remove("scrolled"),
       invalidateOnRefresh: true,
     },
   });
 
   navTl
     .to(".main-nav", {
-      backgroundColor: "transparent",
-      borderColor: "transparent",
-      duration: 0.5,
+      backgroundColor: "rgba(255, 255, 255, 0)", // transparent
+      borderColor: "rgba(0, 0, 0, 0)", // transparent
+      duration: 1,
     })
     .to(
       ".navbar-container",
       {
         maxWidth: "960px",
         backgroundColor: "#000000",
-        duration: 0.5,
+        duration: 1,
       },
       0,
     );
