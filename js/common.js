@@ -13,7 +13,6 @@ function runAdhocIntegrations() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // One timeline to rule them all
   const navTl = gsap.timeline({
     scrollTrigger: {
       trigger: "body",
@@ -32,6 +31,53 @@ function runAdhocIntegrations() {
   navTl.to(".navbar-container", {
     maxWidth: "960px",
     duration: 0.5,
+  });
+
+  //funky tooltip, use with data-tooltip attribute on any element to show tooltip text on hover
+  const tooltip = document.getElementById("tooltip");
+  const triggers = document.querySelectorAll("[data-tooltip]");
+
+  const moveX = gsap.quickTo(tooltip, "x", {
+    duration: 0.15,
+    ease: "power3.out",
+  });
+  const moveY = gsap.quickTo(tooltip, "y", {
+    duration: 0.15,
+    ease: "power3.out",
+  });
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("mouseenter", (e) => {
+      tooltip.innerHTML = trigger.getAttribute("data-tooltip");
+      gsap.set(tooltip, {
+        x: e.clientX - 0,
+        y: e.clientY - 120,
+      });
+      gsap.to(tooltip, {
+        scale: 1,
+        opacity: 1,
+        rotation: gsap.utils.random(-15, 15),
+        duration: 0.8,
+        ease: "elastic.out(1.2, 0.4)",
+        overwrite: "auto",
+      });
+    });
+
+    trigger.addEventListener("mousemove", (e) => {
+      moveX(e.clientX - 0);
+      moveY(e.clientY - 80);
+    });
+
+    trigger.addEventListener("mouseleave", () => {
+      gsap.to(tooltip, {
+        scale: 0,
+        opacity: 0,
+        rotation: 0,
+        duration: 0.3,
+        ease: "back.in(1.5)",
+        overwrite: "auto",
+      });
+    });
   });
 }
 
