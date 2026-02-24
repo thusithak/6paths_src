@@ -73,7 +73,7 @@
 
 .case-study.theme-not-ready {
     background-color: #fff;
-    filter: contrast(60%) brightness(120%);
+    filter: grayscale(100%) contrast(60%) brightness(120%);
 }
 
 .case-study.theme-not-ready::after {
