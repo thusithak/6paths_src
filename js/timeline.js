@@ -23,7 +23,9 @@ const initTimeline = () => {
 
   milestones.forEach((milestone, i) => {
     const isProf = milestone.classList.contains("professional");
-    const targetColor = isProf ? "#63adf2" : "#63adf2";
+    const targetColor = isProf
+      ? "var(--timeline-prof-color)"
+      : "var(--timeline-pers-color)";
 
     ScrollTrigger.create({
       trigger: milestone,
