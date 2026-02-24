@@ -198,6 +198,10 @@ body.modal-open {
     border-color: transparent;
 }
 
+.navbar-container.scrolled .logo{
+    padding-left: var(--sizes--space-1);
+}
+
 .funky-tooltip {
     position: fixed;
     top: 0;
@@ -217,3 +221,5 @@ body.modal-open {
     transform-origin: bottom left;
     white-space: nowrap;
 }
+
+not-ready

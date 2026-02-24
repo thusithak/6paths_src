@@ -65,9 +65,9 @@
   --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
   --fade-border-gradient: linear-gradient(to bottom, transparent, var(--accent-primary) 20%, var(--accent-primary) 80%, transparent);
 
-  --timeline-prof-color: #38bdf8;
-  --timeline-pers-color: #f472b6;
-  --timeline-spine-color: var(--light-bg);
+  --timeline-prof-color: var(--text-primary);
+  --timeline-pers-color: var(--text-primary);
+  --timeline-spine-color: var(--bg-secondary);
 
   --transition-duration: 0.6s;
   --transition-delay: 0.1s;
@@ -321,8 +321,7 @@ input, textarea, button, select {
   backdrop-filter: blur(12px);
   padding: 2rem;
   transition: transform var(--transition-speed) ease;
-  border: none;
-  border-radius: 1rem;
+  border: 2px solid var(--bg-primary);;
 }
 
 .node {
