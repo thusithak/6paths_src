@@ -318,10 +318,9 @@ input, textarea, button, select {
 
 .card {
   background: var(--timeline-card-bg);
-  backdrop-filter: blur(12px);
   padding: 2rem;
   transition: transform var(--transition-speed) ease;
-  border: 2px solid var(--bg-primary);;
+  border: 2px solid var(--bg-primary);
 }
 
 .node {

@@ -41,6 +41,11 @@
     background: linear-gradient(to left, var(--edge-blur), transparent) !important;
 }
 
+.skills-set h3{
+    font-family: var(--fonts--title-font);
+    font-size: var(--font-sizes--font-size-h6);
+    font-weight: 400;
+}
 .skills-set h3,
 .skills-set ul li {
     color: var(--text-primary);
