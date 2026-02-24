@@ -218,7 +218,7 @@ input, textarea, button, select {
 .icon {
   width: 22px;
   height: 22px;
-  z-index: 0;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
