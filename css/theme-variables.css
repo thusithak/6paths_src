@@ -123,7 +123,9 @@
   --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
   --fade-border-gradient: linear-gradient(to bottom, transparent, var(--accent-primary) 20%, var(--accent-primary) 80%, transparent);
 
-  --timeline-spine-color: var(--dark-bg);
+  --timeline-prof-color: #edf2f5;
+  --timeline-pers-color: #edf2f5;
+  --timeline-spine-color: #0c1923;
 
   --hero-image-filter: brightness(60%) contrast(120%);
   --timeline-card-bg: #111e2a;
