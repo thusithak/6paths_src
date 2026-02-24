@@ -20,32 +20,19 @@ function runAdhocIntegrations() {
       start: () => `top+=${window.innerHeight * 0.9} top`,
       end: "+=150",
       scrub: 0.5,
-      onEnter: () =>
-        document.querySelector(".navbar-container").classList.add("scrolled"),
-      onLeaveBack: () =>
-        document
-          .querySelector(".navbar-container")
-          .classList.remove("scrolled"),
+      onUpdate: (self) => {
+        const navbarContainer = document.querySelector(".navbar-container");
+        if (!navbarContainer) return;
+        navbarContainer.classList.toggle("scrolled", self.progress > 0.1);
+      },
       invalidateOnRefresh: true,
     },
   });
 
-  navTl
-    .to(".main-nav", {
-      backgroundColor: "rgba(255, 255, 255, 0)", // transparent
-      borderColor: "rgba(0, 0, 0, 0)", // transparent
-      duration: 0.5,
-    })
-    .to(
-      ".navbar-container",
-      {
-        maxWidth: "960px",
-        backgroundColor: "var(--bg-primary)",
-        borderColor: "var(--bg-secondary)",
-        duration: 0.5,
-      },
-      0,
-    );
+  navTl.to(".navbar-container", {
+    maxWidth: "960px",
+    duration: 0.5,
+  });
 }
 
 if (document.readyState === "complete") {
