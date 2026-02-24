@@ -87,7 +87,6 @@
 
 .case-study.not-ready {
     background-color: #fff;
-    border-color: #e2e8f0;
 }
 
 .case-study.not-ready::after {
@@ -186,8 +185,11 @@ body.modal-open {
     background-color: var(--tk-yellow-accent);
 }
 
-.main-nav {
+.navbar-container .main-nav {
     background-color: var(--bg-primary);
     border: 2px solid var(--bg-secondary);
+}
+.navbar-container.scrolled .main-nav{
+    background-color: var(--bg-primary);
 }
 
