@@ -71,11 +71,11 @@
     }
 }
 
-.case-study.not-ready {
+.case-study.theme-not-ready {
     background-color: #fff;
 }
 
-.case-study.not-ready::after {
+.case-study.theme-not-ready::after {
     content: "COMING SOON";
     position: absolute;
     top: 24px;
@@ -209,7 +209,7 @@ body.modal-open {
 }
 
 .funky-tooltip.tooltip-theme-not-ready {
-    background: #ff3366;
+    background: #950d2f;
     color: white;
 }
 
