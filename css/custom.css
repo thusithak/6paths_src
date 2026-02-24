@@ -22,25 +22,6 @@
     color: var(--icon-dim);
 }
 
-.bento-child,
-.case-link {
-    background-color: var(--bg-tertiary);
-    border: 1px solid var(--border-subtle);
-}
-
-.tag-pill {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-.edge-blur-left {
-    background: linear-gradient(to right, var(--edge-blur), transparent) !important;
-}
-
-.edge-blur-right {
-    background: linear-gradient(to left, var(--edge-blur), transparent) !important;
-}
-
 .skills-set h3{
     font-family: var(--fonts--title-font);
     font-size: var(--font-sizes--font-size-h6);

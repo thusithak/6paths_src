@@ -61,8 +61,6 @@
 
   --blur-frame-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 25%, transparent 100%);
   --blur-frame-mask: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
-  --edge-blur-left: linear-gradient(to right, var(--edge-blur), transparent);
-  --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
   --fade-border-gradient: linear-gradient(to bottom, transparent, var(--accent-primary) 20%, var(--accent-primary) 80%, transparent);
 
   --timeline-prof-color: var(--text-primary);
@@ -121,8 +119,6 @@
 
   --blur-frame-overlay: linear-gradient(to bottom, rgba(20, 37, 52, 0.15) 25%, transparent 100%);
   --blur-frame-mask: linear-gradient(to bottom, var(--rgba-black-40) 0%, rgba(0, 0, 0, 0) 100%);
-  --edge-blur-left: linear-gradient(to right, var(--edge-blur), transparent);
-  --edge-blur-right: linear-gradient(to left, var(--edge-blur), transparent);
   --fade-border-gradient: linear-gradient(to bottom, transparent, var(--accent-primary) 20%, var(--accent-primary) 80%, transparent);
 
   --timeline-prof-color: #edf2f5;
@@ -248,16 +244,8 @@ input, textarea, button, select {
 }
 
 .tag-pill {
-  background-color: var(--accent-soft);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
-}
-
-.edge-blur-left {
-  background: var(--edge-blur-left) !important;
-}
-
-.edge-blur-right {
-  background: var(--edge-blur-right) !important;
 }
 
 .timeline-container {
@@ -265,6 +253,14 @@ input, textarea, button, select {
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 20px;
+}
+
+.professional .card:hover {
+  border-color: var(--timeline-prof-color);
+}
+
+.personal .card:hover {
+  border-color: var(--timeline-pers-color);
 }
 
 .spine-wrapper {
