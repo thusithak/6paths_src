@@ -179,12 +179,16 @@ input, textarea, button, select {
 }
 
 .blur-frame {
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 25%, transparent 100%);
-  -webkit-background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 25%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
-  mask-image: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 150px;
+  z-index: 40;
+  pointer-events: none;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .frosted-switch-container {
