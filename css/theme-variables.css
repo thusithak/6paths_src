@@ -67,7 +67,7 @@
 
   --timeline-prof-color: var(--text-primary);
   --timeline-pers-color: var(--text-primary);
-  --timeline-spine-color: var(--bg-secondary);
+  --timeline-spine-color: var(--bg-primary);
 
   --transition-duration: 0.6s;
   --transition-delay: 0.1s;
