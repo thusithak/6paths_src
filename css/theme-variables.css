@@ -55,7 +55,7 @@
 
   --edge-blur: #edf2f5;
   --icon-dim: var(--rgba-black-10);
-  --switch-icon-active-color: rgba(255, 255, 255, 0.81);
+  --switch-icon-active-color: #f5dc00;
   --switch-icon-active-shadow: rgba(39, 37, 37, 0.8);
   --switch-icon-inactive-shadow: rgba(0, 0, 0, 0.1);
 

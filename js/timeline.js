@@ -34,13 +34,11 @@ const initTimeline = () => {
       onEnter: () =>
         gsap.to(scrollLine, {
           stroke: targetColor,
-          filter: `drop-shadow(0 0 12px ${targetColor})`,
           duration: 0.4,
         }),
       onEnterBack: () =>
         gsap.to(scrollLine, {
           stroke: targetColor,
-          filter: `drop-shadow(0 0 12px ${targetColor})`,
           duration: 0.4,
         }),
     });
