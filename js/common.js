@@ -36,7 +36,6 @@ function runAdhocIntegrations() {
   //funky tooltip, use with data-tooltip attribute on any element to show tooltip text on hover
   const tooltip = document.getElementById("tooltip");
   const triggers = document.querySelectorAll("[data-tooltip]");
-
   const moveX = gsap.quickTo(tooltip, "x", {
     duration: 0.15,
     ease: "power3.out",
@@ -49,6 +48,13 @@ function runAdhocIntegrations() {
   triggers.forEach((trigger) => {
     trigger.addEventListener("mouseenter", (e) => {
       tooltip.innerHTML = trigger.getAttribute("data-tooltip");
+      tooltip.className = "funky-tooltip";
+      const activeThemeClass = Array.from(trigger.classList).find((cls) =>
+        cls.startsWith("theme-"),
+      );
+      if (activeThemeClass) {
+        tooltip.classList.add(`tooltip-${activeThemeClass}`);
+      }
       gsap.set(tooltip, {
         x: e.clientX - 0,
         y: e.clientY - 120,
@@ -62,12 +68,10 @@ function runAdhocIntegrations() {
         overwrite: "auto",
       });
     });
-
     trigger.addEventListener("mousemove", (e) => {
       moveX(e.clientX - 0);
       moveY(e.clientY - 80);
     });
-
     trigger.addEventListener("mouseleave", () => {
       gsap.to(tooltip, {
         scale: 0,

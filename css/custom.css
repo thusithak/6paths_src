@@ -29,8 +29,8 @@
 }
 
 .tag-pill {
-    background-color: var(--accent-soft);
-    color: var(--accent-primary);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .edge-blur-left {
@@ -217,7 +217,7 @@ body.modal-open {
     padding: 14px 28px;
     border-radius: 24px 24px 24px 0px;
     border: 2px solid var(--bg-primary);
-    box-shadow: 6px 6px 0px rgba(var(--bg-primary), 0.5);
+    box-shadow: 0px 6px 4px 0px rgba(33, 33, 33, 0.597);
     font-weight: 400;
     font-size: 1.1rem;
     z-index: 9999;
@@ -227,4 +227,12 @@ body.modal-open {
     white-space: nowrap;
 }
 
-not-ready
+.funky-tooltip.tooltip-theme-not-ready {
+    background: #ff3366;
+    color: white;
+}
+
+.funky-tooltip.tooltip-theme-ready {
+    background: var(--bg-secondary);
+    color: var(--text-inverse);
+}
