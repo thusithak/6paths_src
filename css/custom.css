@@ -210,11 +210,11 @@ body.modal-open {
 }
 
 .funky-tooltip.tooltip-theme-not-ready {
-    background: var(--tk-yellow-accent);
-    color: var(--text-primary);
+    background: var(--bg-secondary);
+    color: var(--text-inverse);
 }
 
 .funky-tooltip.tooltip-theme-ready {
-    background: var(--bg-secondary);
-    color: var(--text-inverse);
+    background: var(--tk-yellow-accent);
+    color: var(--text-secondary);
 }
