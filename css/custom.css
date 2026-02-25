@@ -196,7 +196,7 @@ body.modal-open {
     pointer-events: none;
     background: var(--tk-yellow-accent);
     color: var(--text-secondary);
-    padding: 16px 32px;
+    padding: 8px 24px;
     border-radius: 0px;
     box-shadow: 10px 6px 4px #1a233231;
     border: 2px solid var(--bg-primary);
