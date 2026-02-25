@@ -169,7 +169,7 @@ body.modal-open {
     color: var(--text-primary);
 }
 .navbar-container.scrolled .main-nav .menu-item-btn {
-    color: var(--text-secondary);
+    color: var(--text-primary);
 }
 .navbar-container .main-nav .menu-item-btn:hover,
 .navbar-container.scrolled .main-nav .menu-item-btn:hover {
