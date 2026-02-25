@@ -62,7 +62,7 @@ function runAdhocIntegrations() {
       gsap.to(tooltip, {
         scale: 1,
         opacity: 1,
-        rotation: gsap.utils.random(-30, 0),
+        rotation: gsap.utils.random(-15, 5),
         duration: 0.8,
         ease: "elastic.out(1.2, 0.4)",
         overwrite: "auto",

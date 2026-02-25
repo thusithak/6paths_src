@@ -198,7 +198,7 @@ body.modal-open {
     color: var(--text-secondary);
     padding: 16px 32px;
     border-radius: 0px;
-    box-shadow: 10px 10px 0px rgba(var(--bg-secondary), 0.85);
+    box-shadow: 0px 6px 4px 0px rgba(33, 33, 33, 0.5);
     border: 2px solid var(--bg-primary);
     font-weight: 800;
     font-style: italic;
