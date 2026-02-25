@@ -180,15 +180,15 @@ input, textarea, button, select {
 
 .blur-frame {
   position: absolute;
-  top: 0;
+  top: 8px;
   width: 100%;
-  height: 250px;
+  height: 100px;
   z-index: 40;
   pointer-events: none;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.15) 70%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.15) 70%);
+  mask-image: linear-gradient(to bottom,rgba(0, 0, 0, 0.15) 70%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.15) 70%);
+  -webkit-mask-image: linear-gradient(to bottom,rgba(0, 0, 0, 0.15) 70%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.15) 70%);
   
 }
 
