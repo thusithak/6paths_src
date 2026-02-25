@@ -16,8 +16,8 @@ function runAdhocIntegrations() {
   const navTl = gsap.timeline({
     scrollTrigger: {
       trigger: "body",
-      start: () => `top+=${window.innerHeight * 0.9} top`,
-      end: "+=150",
+      start: () => `top+=${window.innerHeight * 0.8} top`,
+      end: "+=100",
       scrub: 0.5,
       onUpdate: (self) => {
         const navbarContainer = document.querySelector(".navbar-container");

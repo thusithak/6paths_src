@@ -1,7 +1,0 @@
-.professional .card:hover {
-  border-color: var(--timeline-prof-color);
-}
-
-.personal .card:hover {
-  border-color: var(--timeline-pers-color);
-}
