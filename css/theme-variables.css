@@ -187,9 +187,16 @@ input, textarea, button, select {
   pointer-events: none;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  mask-image: linear-gradient(to bottom,rgba(0, 0, 0, 0.15) 70%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.15) 70%);
-  -webkit-mask-image: linear-gradient(to bottom,rgba(0, 0, 0, 0.15) 70%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.15) 70%);
-  
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black 35%,
+      black 70%,
+      transparent 100%);
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black 35%,
+      black 70%,
+      transparent 100%);
 }
 
 .frosted-switch-container {
