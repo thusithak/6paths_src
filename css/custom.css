@@ -210,8 +210,8 @@ body.modal-open {
 }
 
 .funky-tooltip.tooltip-theme-not-ready {
-    background: #950d2f;
-    color: white;
+    background: var(--tk-yellow-accent);
+    color: var(--text-primary);
 }
 
 .funky-tooltip.tooltip-theme-ready {
