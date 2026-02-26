@@ -66,8 +66,19 @@ if (
       "<0.1",
     );
 
-  const openModal = () => {
+  const openModal = (e) => {
     if (isTransitioning || isModalOpen) return;
+    const trigger = e.currentTarget;
+    const targetId = trigger.getAttribute("data-target");
+    if (targetId) {
+      document.querySelectorAll(".case-study-container").forEach((el) => {
+        el.style.display = "none";
+      });
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.style.display = "block";
+      }
+    }
 
     clearCloseFallback();
     isTransitioning = true;
