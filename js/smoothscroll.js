@@ -8,6 +8,81 @@ let smoother = ScrollSmoother.create({
   smoothTouch: 0.1,
 });
 
+const setupWebflowAnchorSync = () => {
+  const hashLinks = Array.from(
+    document.querySelectorAll('a[href*="#"]'),
+  ).filter((link) => {
+    const href = link.getAttribute("href");
+    if (!href || href === "#") return false;
+    const hashIndex = href.indexOf("#");
+    if (hashIndex === -1) return false;
+
+    const pathPart = href.slice(0, hashIndex);
+    if (!pathPart) return true;
+
+    const normalizedPath = pathPart.replace(/\/?$/, "");
+    const currentPath = window.location.pathname.replace(/\/?$/, "");
+    return normalizedPath === currentPath;
+  });
+
+  if (!hashLinks.length) return;
+
+  const sectionToLinks = new Map();
+  const uniqueSections = new Set();
+
+  hashLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    const hash = href.slice(href.indexOf("#"));
+    if (!hash || hash === "#") return;
+
+    const section = document.querySelector(hash);
+    if (!section) return;
+
+    uniqueSections.add(section);
+
+    const existingLinks = sectionToLinks.get(section) || [];
+    existingLinks.push(link);
+    sectionToLinks.set(section, existingLinks);
+
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      smoother.scrollTo(section, true, "top top");
+      history.replaceState(null, "", hash);
+    });
+  });
+
+  if (!uniqueSections.size) return;
+
+  const allSectionLinks = Array.from(sectionToLinks.values()).flat();
+
+  const setCurrentLinks = (activeSection) => {
+    allSectionLinks.forEach((link) => link.classList.remove("w--current"));
+    const activeLinks = sectionToLinks.get(activeSection) || [];
+    activeLinks.forEach((link) => link.classList.add("w--current"));
+  };
+
+  uniqueSections.forEach((section) => {
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top center",
+      end: "bottom center",
+      onEnter: () => setCurrentLinks(section),
+      onEnterBack: () => setCurrentLinks(section),
+    });
+  });
+
+  if (window.location.hash) {
+    const initialTarget = document.querySelector(window.location.hash);
+    if (initialTarget) {
+      requestAnimationFrame(() => {
+        smoother.scrollTo(initialTarget, false, "top top");
+      });
+    }
+  }
+};
+
+setupWebflowAnchorSync();
+
 const modalWrapper =
   document.getElementById("modal-wrapper") ||
   document.querySelector(".modal-wrapper");
