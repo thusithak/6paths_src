@@ -170,6 +170,69 @@ const setupWebflowAnchorSync = () => {
     };
   };
 
+  const waitForScrollSettle = (onSettled) => {
+    let previousY = smoother.scrollTop();
+    let stableFrames = 0;
+    let attempts = 0;
+    const maxAttempts = 180;
+    const stabilityThreshold = 0.35;
+    const requiredStableFrames = 8;
+
+    const check = () => {
+      const currentY = smoother.scrollTop();
+      const delta = Math.abs(currentY - previousY);
+      previousY = currentY;
+      attempts += 1;
+
+      if (delta < stabilityThreshold) {
+        stableFrames += 1;
+      } else {
+        stableFrames = 0;
+      }
+
+      if (stableFrames >= requiredStableFrames || attempts >= maxAttempts) {
+        onSettled();
+        return;
+      }
+
+      requestAnimationFrame(check);
+    };
+
+    requestAnimationFrame(check);
+  };
+
+  const correctSectionAlignment = (section, hash = "") => {
+    const { navbarOffset, rootOffset, sectionOffset, totalOffset } =
+      getAnchorOffsetParts(section);
+    const beforeCorrectionY = smoother.scrollTop();
+    const viewportTopBefore = section.getBoundingClientRect().top;
+    const alignmentError = viewportTopBefore - totalOffset;
+
+    if (Math.abs(alignmentError) > 0.75) {
+      const correctedDestination = Math.max(
+        0,
+        beforeCorrectionY + alignmentError,
+      );
+      smoother.scrollTo(correctedDestination, false);
+    }
+
+    const finalY = smoother.scrollTop();
+    const viewportTopAfter = section.getBoundingClientRect().top;
+
+    updateDebugOverlay({
+      hash,
+      targetId: section.id || "(no-id)",
+      navbarOffset,
+      rootOffset,
+      sectionOffset,
+      totalOffset,
+      rawTargetY: beforeCorrectionY + viewportTopBefore,
+      destination: finalY,
+      currentY: finalY,
+      targetViewportTop: viewportTopAfter,
+    });
+  };
+
   const scrollToSection = (section, smooth = true, hash = "") => {
     const { navbarOffset, rootOffset, sectionOffset, totalOffset } =
       getAnchorOffsetParts(section);
@@ -189,6 +252,16 @@ const setupWebflowAnchorSync = () => {
       currentY: smoother.scrollTop(),
       targetViewportTop: section.getBoundingClientRect().top,
     });
+
+    if (smooth) {
+      waitForScrollSettle(() => {
+        correctSectionAlignment(section, hash);
+      });
+    } else {
+      requestAnimationFrame(() => {
+        correctSectionAlignment(section, hash);
+      });
+    }
   };
 
   const resolveHashTarget = (href) => {
@@ -223,12 +296,12 @@ const setupWebflowAnchorSync = () => {
     };
   };
 
-  const hashLinks = Array.from(document.querySelectorAll('a[href*="#"]')).filter(
-    (link) => {
-      const href = link.getAttribute("href");
-      return Boolean(resolveHashTarget(href));
-    },
-  );
+  const hashLinks = Array.from(
+    document.querySelectorAll('a[href*="#"]'),
+  ).filter((link) => {
+    const href = link.getAttribute("href");
+    return Boolean(resolveHashTarget(href));
+  });
 
   if (!hashLinks.length) return;
 
