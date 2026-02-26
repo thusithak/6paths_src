@@ -57,7 +57,7 @@ function runAdhocIntegrations() {
       }
       gsap.set(tooltip, {
         x: e.clientX - 0,
-        y: e.clientY - 10,
+        y: e.clientY - 50,
       });
       gsap.to(tooltip, {
         scale: 1,
@@ -70,7 +70,7 @@ function runAdhocIntegrations() {
     });
     trigger.addEventListener("mousemove", (e) => {
       moveX(e.clientX - 0);
-      moveY(e.clientY - 10);
+      moveY(e.clientY - 50);
     });
     trigger.addEventListener("mouseleave", () => {
       gsap.to(tooltip, {
