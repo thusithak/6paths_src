@@ -6,18 +6,45 @@ let smoother = ScrollSmoother.create({
   smooth: 0.5,
   effects: true,
   smoothTouch: 0.1,
+  onUpdate: (self) => {
+    ScrollTrigger.refresh();
+  },
 });
 
-const links = document.querySelectorAll('a[href^="#"]');
-
-links.forEach((link) => {
+const navLinks = document.querySelectorAll('a[href^="#"]');
+navLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
-    const target = link.getAttribute("href");
-    smoother.scrollTo(target, true, "top top");
+    const targetId = link.getAttribute("href");
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      smoother.scrollTo(targetElement, true, "top 80px");
+      if (history.pushState) {
+        history.pushState(null, null, targetId);
+      }
+    }
   });
 });
 
+document.querySelectorAll("section[id], .section[id]").forEach((section) => {
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top 50%",
+    end: "bottom 50%",
+    onToggle: (self) => {
+      const navLink = document.querySelector(`a[href="#${section.id}"]`);
+      if (navLink) {
+        if (self.isActive) {
+          navLink.classList.add("w--current");
+        } else {
+          navLink.classList.remove("w--current");
+        }
+      }
+    },
+  });
+});
+
+// Modal window logic
 const modalWrapper =
   document.getElementById("modal-wrapper") ||
   document.querySelector(".modal-wrapper");
