@@ -9,17 +9,143 @@ let smoother = ScrollSmoother.create({
 });
 
 const setupWebflowAnchorSync = () => {
+  if (window.__anchorSyncInitialized) return;
+  window.__anchorSyncInitialized = true;
+
   const parseOffset = (value) => {
     const parsed = Number.parseFloat(value);
     return Number.isFinite(parsed) ? parsed : 0;
   };
 
-  const getRootAnchorOffset = () =>
-    parseOffset(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        "--anchor-offset",
-      ),
-    );
+  const debugEnabledByUrl =
+    new URLSearchParams(window.location.search).get("anchorDebug") === "1";
+  const debugEnabledByStorage = localStorage.getItem("anchorDebug") === "1";
+  let debugEnabled = debugEnabledByUrl || debugEnabledByStorage;
+
+  const setDebugEnabled = (enabled) => {
+    debugEnabled = enabled;
+    localStorage.setItem("anchorDebug", enabled ? "1" : "0");
+  };
+
+  let debugOverlay = null;
+  let debugText = null;
+  let debugGuide = null;
+
+  const ensureDebugOverlay = () => {
+    if (debugOverlay) return;
+
+    debugOverlay = document.createElement("div");
+    debugOverlay.setAttribute("data-anchor-debugger", "true");
+    Object.assign(debugOverlay.style, {
+      position: "fixed",
+      right: "12px",
+      bottom: "12px",
+      zIndex: "99999",
+      width: "320px",
+      maxWidth: "calc(100vw - 24px)",
+      background: "rgba(0,0,0,0.78)",
+      color: "#fff",
+      fontFamily: "monospace",
+      fontSize: "12px",
+      lineHeight: "1.35",
+      borderRadius: "8px",
+      padding: "10px 12px",
+      pointerEvents: "none",
+      whiteSpace: "pre-wrap",
+    });
+
+    const title = document.createElement("div");
+    title.textContent = "Anchor Debugger (Ctrl+Shift+A toggle)";
+    title.style.fontWeight = "700";
+    title.style.marginBottom = "6px";
+
+    debugText = document.createElement("div");
+    debugText.textContent = "Waiting for anchor click...";
+
+    debugGuide = document.createElement("div");
+    Object.assign(debugGuide.style, {
+      position: "fixed",
+      left: "0",
+      right: "0",
+      height: "0",
+      borderTop: "2px dashed #ff4d6d",
+      zIndex: "99998",
+      pointerEvents: "none",
+    });
+
+    debugOverlay.appendChild(title);
+    debugOverlay.appendChild(debugText);
+    document.body.appendChild(debugGuide);
+    document.body.appendChild(debugOverlay);
+  };
+
+  const removeDebugOverlay = () => {
+    if (debugOverlay) {
+      debugOverlay.remove();
+      debugOverlay = null;
+      debugText = null;
+    }
+    if (debugGuide) {
+      debugGuide.remove();
+      debugGuide = null;
+    }
+  };
+
+  const updateDebugOverlay = (payload) => {
+    if (!debugEnabled) return;
+    ensureDebugOverlay();
+    const {
+      hash,
+      targetId,
+      navbarOffset,
+      rootOffset,
+      sectionOffset,
+      totalOffset,
+      rawTargetY,
+      destination,
+      currentY,
+      targetViewportTop,
+    } = payload;
+
+    if (debugGuide) {
+      debugGuide.style.top = `${Math.max(0, totalOffset)}px`;
+    }
+
+    if (debugText) {
+      debugText.textContent = [
+        `hash: ${hash}`,
+        `target: #${targetId}`,
+        `navbarOffset: ${navbarOffset.toFixed(2)}`,
+        `rootOffset: ${rootOffset.toFixed(2)}`,
+        `sectionOffset: ${sectionOffset.toFixed(2)}`,
+        `totalOffset: ${totalOffset.toFixed(2)}`,
+        `rawTargetY: ${rawTargetY.toFixed(2)}`,
+        `destinationY: ${destination.toFixed(2)}`,
+        `currentY: ${currentY.toFixed(2)}`,
+        `targetViewportTop(now): ${targetViewportTop.toFixed(2)}`,
+      ].join("\n");
+    }
+  };
+
+  document.addEventListener("keydown", (event) => {
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "a") {
+      setDebugEnabled(!debugEnabled);
+      if (!debugEnabled) {
+        removeDebugOverlay();
+      } else {
+        ensureDebugOverlay();
+      }
+    }
+  });
+
+  if (debugEnabled) {
+    ensureDebugOverlay();
+  }
+
+  const getRootAnchorOffset = () => {
+    const rootStyle = getComputedStyle(document.documentElement);
+    return parseOffset(rootStyle.getPropertyValue("--anchor-offset"));
+  };
 
   const getNavbarOffset = () => {
     const navbar =
@@ -31,32 +157,78 @@ const setupWebflowAnchorSync = () => {
     return navbar.getBoundingClientRect().height;
   };
 
-  const getAnchorOffsetForSection = (section) => {
+  const getAnchorOffsetParts = (section) => {
+    const navbarOffset = getNavbarOffset();
+    const rootOffset = getRootAnchorOffset();
     const sectionOffset = parseOffset(section?.dataset?.anchorOffset);
-    return getNavbarOffset() + getRootAnchorOffset() + sectionOffset;
+    const totalOffset = navbarOffset + rootOffset + sectionOffset;
+    return {
+      navbarOffset,
+      rootOffset,
+      sectionOffset,
+      totalOffset,
+    };
   };
 
-  const scrollToSection = (section, smooth = true) => {
-    const offset = getAnchorOffsetForSection(section);
-    const destination = Math.max(0, smoother.offset(section, "top top") - offset);
+  const scrollToSection = (section, smooth = true, hash = "") => {
+    const { navbarOffset, rootOffset, sectionOffset, totalOffset } =
+      getAnchorOffsetParts(section);
+    const rawTargetY = smoother.offset(section, "top top");
+    const destination = Math.max(0, rawTargetY - totalOffset);
     smoother.scrollTo(destination, smooth);
+
+    updateDebugOverlay({
+      hash,
+      targetId: section.id || "(no-id)",
+      navbarOffset,
+      rootOffset,
+      sectionOffset,
+      totalOffset,
+      rawTargetY,
+      destination,
+      currentY: smoother.scrollTop(),
+      targetViewportTop: section.getBoundingClientRect().top,
+    });
   };
 
-  const hashLinks = Array.from(
-    document.querySelectorAll('a[href*="#"]'),
-  ).filter((link) => {
-    const href = link.getAttribute("href");
-    if (!href || href === "#") return false;
-    const hashIndex = href.indexOf("#");
-    if (hashIndex === -1) return false;
+  const resolveHashTarget = (href) => {
+    if (!href || href === "#") return null;
 
-    const pathPart = href.slice(0, hashIndex);
-    if (!pathPart) return true;
+    let url;
+    try {
+      url = new URL(href, window.location.href);
+    } catch (error) {
+      return null;
+    }
 
-    const normalizedPath = pathPart.replace(/\/?$/, "");
-    const currentPath = window.location.pathname.replace(/\/?$/, "");
-    return normalizedPath === currentPath;
-  });
+    if (!url.hash || url.hash === "#") return null;
+
+    const sameOrigin = url.origin === window.location.origin;
+    const normalizePath = (path) => path.replace(/\/?$/, "");
+    const samePath =
+      normalizePath(url.pathname) === normalizePath(window.location.pathname);
+
+    if (!sameOrigin || !samePath) return null;
+
+    const rawId = decodeURIComponent(url.hash.slice(1));
+    if (!rawId) return null;
+
+    const section = document.getElementById(rawId);
+    if (!section) return null;
+
+    return {
+      hash: `#${rawId}`,
+      section,
+      id: rawId,
+    };
+  };
+
+  const hashLinks = Array.from(document.querySelectorAll('a[href*="#"]')).filter(
+    (link) => {
+      const href = link.getAttribute("href");
+      return Boolean(resolveHashTarget(href));
+    },
+  );
 
   if (!hashLinks.length) return;
 
@@ -64,12 +236,13 @@ const setupWebflowAnchorSync = () => {
   const uniqueSections = new Set();
 
   hashLinks.forEach((link) => {
-    const href = link.getAttribute("href");
-    const hash = href.slice(href.indexOf("#"));
-    if (!hash || hash === "#") return;
+    if (link.dataset.anchorSyncBound === "1") return;
 
-    const section = document.querySelector(hash);
-    if (!section) return;
+    const href = link.getAttribute("href");
+    const target = resolveHashTarget(href);
+    if (!target) return;
+
+    const { hash, section } = target;
 
     uniqueSections.add(section);
 
@@ -77,10 +250,14 @@ const setupWebflowAnchorSync = () => {
     existingLinks.push(link);
     sectionToLinks.set(section, existingLinks);
 
+    link.dataset.anchorSyncBound = "1";
+
     link.addEventListener("click", (event) => {
       event.preventDefault();
-      scrollToSection(section, true);
-      history.replaceState(null, "", hash);
+      requestAnimationFrame(() => {
+        scrollToSection(section, true, hash);
+        history.replaceState(null, "", hash);
+      });
     });
   });
 
@@ -105,10 +282,10 @@ const setupWebflowAnchorSync = () => {
   });
 
   if (window.location.hash) {
-    const initialTarget = document.querySelector(window.location.hash);
-    if (initialTarget) {
+    const initialTarget = resolveHashTarget(window.location.href);
+    if (initialTarget?.section) {
       requestAnimationFrame(() => {
-        scrollToSection(initialTarget, false);
+        scrollToSection(initialTarget.section, false, initialTarget.hash);
       });
     }
   }
