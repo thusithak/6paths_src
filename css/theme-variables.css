@@ -1,25 +1,4 @@
 :root {
-  /* Unused color variables */
-  --accent-bright: #38bdf8;
-  --accent-secondary: #0284c7;
-  --bg-surface: var(--rgba-white-70);
-  --border-strong: #cbd5e1;
-  --dark-bg: #0c1923;
-  --dark-color: #edf2f5;
-  --divider-color: var(--rgba-black-05);
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: var(--rgba-white-40);
-  --glass-highlight: var(--rgba-white-80);
-  --icon-bright: var(--rgba-black-60);
-  --light-bg: #edf2f5;
-  --light-color: #0c1923;
-  --Parent: rgb(221, 221, 221);
-  --rgba-accent-15: rgba(14, 165, 233, 0.15);
-  --rgba-black-50: rgba(0, 0, 0, 0.5);
-  --switch-bg: #e2e8f0;
-  --switch-handle: #ffffff;
-  --text-muted: #64748b;
-
   --anchor-offset: 8;
   --rgba-white-06: rgba(255, 255, 255, 0.06);
   --rgba-white-08: rgba(255, 255, 255, 0.08);
@@ -42,8 +21,8 @@
   --rgba-accent-10: rgba(14, 165, 233, 0.1);
 
   --bg-primary: #edf2f5;
-  --bg-secondary: #1a2332;
-  --bg-tertiary: #f1f5f9;
+  --bg-secondary: #0c1923;
+  --bg-tertiary: #edf2f5;
 
   --text-primary: #0c1923;
   --text-secondary: #0c1923;
@@ -57,8 +36,6 @@
   --edge-blur: #edf2f5;
   --icon-dim: var(--rgba-black-10);
   --switch-icon-active-color: #f5dc00;
-  --switch-icon-active-shadow: rgba(39, 37, 37, 0.8);
-  --switch-icon-inactive-shadow: rgba(0, 0, 0, 0.1);
 
   --blur-frame-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 25%, transparent 100%);
   --blur-frame-mask: linear-gradient(to bottom, var(--rgba-white-40) 0%, rgba(255, 255, 255, 0) 100%);
@@ -77,30 +54,16 @@
   --switch-height: 40px;
   --handle-size: 30px;
   --hero-image-filter: none;
-  --timeline-card-bg: #ffffff;
+  --timeline-card-bg: #edf2f5;
   --tk-yellow-accent: #f5dc00;
   --image-bg-color: transparent
 }
 
 [data-theme="dark"] {
-  /* Unused color variables */
-  --accent-bright: #38bdf8;
-  --accent-secondary: #38bdf8;
-  --bg-surface: rgba(20, 37, 52, 0.75);
-  --border-strong: var(--rgba-white-15);
-  --divider-color: var(--rgba-white-06);
-  --glass-bg: rgba(0, 0, 0, 0.6);
-  --glass-border: var(--rgba-white-10);
-  --glass-highlight: var(--rgba-white-20);
-  --icon-bright: var(--rgba-white-90);
-  --switch-bg: #27272a;
-  --switch-handle: #ffffff;
-  --text-muted: #64748b;
-
   --rgba-accent-10: rgba(14, 165, 233, 0.4);
 
   --bg-primary: #0c1923;
-  --bg-secondary: #fff2f5;
+  --bg-secondary: #edf2f5;
   --bg-tertiary: #1f2937;
 
   --text-primary: #edf2f5;
@@ -114,10 +77,9 @@
 
   --edge-blur: #0c1923;
   --icon-dim: var(--rgba-white-10);
-  --switch-icon-active-color: rgba(255, 255, 255, 1);
-  --switch-icon-active-shadow: rgba(104, 104, 104, 0.6);
-  --switch-icon-inactive-color: rgba(255, 255, 255, 0.808);
-  --switch-icon-inactive-shadow: rgba(87, 87, 87, 0.3);
+  --switch-icon-active-color: #edf2f5;
+  --switch-icon-inactive-color: #edf2f5;
+  ;
 
   --blur-frame-overlay: linear-gradient(to bottom, rgba(20, 37, 52, 0.15) 25%, transparent 100%);
   --blur-frame-mask: linear-gradient(to bottom, var(--rgba-black-40) 0%, rgba(0, 0, 0, 0) 100%);
