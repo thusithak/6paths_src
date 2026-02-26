@@ -192,7 +192,7 @@ body.modal-open {
     font-style: italic;
     text-transform: uppercase;
     font-size: 1rem;
-    z-index: 999;
+    z-index: 1001;
     opacity: 0;
     transform: scale(0) perspective(2000px) rotateX(15deg) rotateY(-15deg) skew(-10deg, 2deg);
     transform-style: preserve-3d;
