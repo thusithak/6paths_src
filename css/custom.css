@@ -214,3 +214,6 @@ body.modal-open {
 .company-logo{
     background-color: var(--image-bg-color);;
 }
+.bento-grid-heading{
+    color: var(--text-primary);
+}
