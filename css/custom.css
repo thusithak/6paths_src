@@ -163,7 +163,9 @@ body.modal-open {
 .navbar-container.scrolled .main-nav .menu-item-btn:hover {
     background-color: var(--tk-yellow-accent);
 }
-
+.menu-item-btn.w--current{
+    color:var(--text-inverse);
+}
 .navbar-container .main-nav {
     background-color: var(--bg-primary);
     border: 2px solid var(--bg-secondary);
