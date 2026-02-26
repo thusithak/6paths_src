@@ -7,7 +7,7 @@ let smoother = ScrollSmoother.create({
   effects: true,
   smoothTouch: 0.1,
   onUpdate: (self) => {
-    ScrollTrigger.refresh();
+    //ScrollTrigger.refresh();
   },
 });
 
