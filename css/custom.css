@@ -210,3 +210,7 @@ body.modal-open {
     background: var(--tk-yellow-accent);
     color: var(--text-secondary);
 }
+
+.company-logo{
+    background-color: var(--image-bg-color);;
+}

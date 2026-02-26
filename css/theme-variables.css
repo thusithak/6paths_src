@@ -78,6 +78,7 @@
   --hero-image-filter: none;
   --timeline-card-bg: #ffffff;
   --tk-yellow-accent: #f5dc00;
+  --image-bg-color: transparent
 }
 
 [data-theme="dark"] {
@@ -128,6 +129,7 @@
   --hero-image-filter: brightness(60%) contrast(120%);
   --timeline-card-bg: #111e2a;
   --tk-yellow-accent: #ffe926;
+  --image-bg-color: #edf2f5
 }
 
 ::-webkit-scrollbar {
