@@ -9,6 +9,39 @@ let smoother = ScrollSmoother.create({
 });
 
 const setupWebflowAnchorSync = () => {
+  const parseOffset = (value) => {
+    const parsed = Number.parseFloat(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+
+  const getRootAnchorOffset = () =>
+    parseOffset(
+      getComputedStyle(document.documentElement).getPropertyValue(
+        "--anchor-offset",
+      ),
+    );
+
+  const getNavbarOffset = () => {
+    const navbar =
+      document.querySelector(".navbar-container") ||
+      document.querySelector(".navbar") ||
+      document.querySelector(".w-nav");
+
+    if (!navbar) return 0;
+    return navbar.getBoundingClientRect().height;
+  };
+
+  const getAnchorOffsetForSection = (section) => {
+    const sectionOffset = parseOffset(section?.dataset?.anchorOffset);
+    return getNavbarOffset() + getRootAnchorOffset() + sectionOffset;
+  };
+
+  const scrollToSection = (section, smooth = true) => {
+    const offset = getAnchorOffsetForSection(section);
+    const destination = Math.max(0, smoother.offset(section, "top top") - offset);
+    smoother.scrollTo(destination, smooth);
+  };
+
   const hashLinks = Array.from(
     document.querySelectorAll('a[href*="#"]'),
   ).filter((link) => {
@@ -46,7 +79,7 @@ const setupWebflowAnchorSync = () => {
 
     link.addEventListener("click", (event) => {
       event.preventDefault();
-      smoother.scrollTo(section, true, "top top");
+      scrollToSection(section, true);
       history.replaceState(null, "", hash);
     });
   });
@@ -75,7 +108,7 @@ const setupWebflowAnchorSync = () => {
     const initialTarget = document.querySelector(window.location.hash);
     if (initialTarget) {
       requestAnimationFrame(() => {
-        smoother.scrollTo(initialTarget, false, "top top");
+        scrollToSection(initialTarget, false);
       });
     }
   }

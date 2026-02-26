@@ -20,6 +20,7 @@
   --switch-handle: #ffffff;
   --text-muted: #64748b;
 
+  --anchor-offset: 8;
   --rgba-white-06: rgba(255, 255, 255, 0.06);
   --rgba-white-08: rgba(255, 255, 255, 0.08);
   --rgba-white-10: rgba(255, 255, 255, 0.1);
