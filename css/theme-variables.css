@@ -203,7 +203,7 @@ input, textarea, button, select {
 
 .frosted-switch-container {
   display: inline-block;
-  margin: 10px;
+  margin: 10px 2px;
 }
 
 .switch-input {
