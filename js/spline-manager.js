@@ -17,7 +17,6 @@ export class SplineManager {
       this.app = new Application(this.canvas);
       await this.app.load(sceneUrl);
       this.isLoaded = true;
-      this.initializeScrollAnimation();
       sessionStorage.setItem(this.config.STORAGE.SCENE_LOADED_KEY, "true");
       return this.app;
     } catch (error) {
@@ -114,68 +113,5 @@ export class SplineManager {
       );
       return undefined;
     }
-  }
-
-  initializeScrollAnimation(retryCount = 20) {
-    if (!this.app || typeof this.app.findObjectByName !== "function") {
-      return;
-    }
-
-    const container = document.querySelector("#canvas3d");
-    if (!container) {
-      console.warn("Scroll trigger container '#canvas3d' not found");
-      return;
-    }
-
-    if (
-      typeof window.gsap === "undefined" ||
-      typeof window.ScrollTrigger === "undefined"
-    ) {
-      if (retryCount <= 0) {
-        console.warn(
-          "GSAP or ScrollTrigger not available for Spline scroll animation",
-        );
-        return;
-      }
-
-      this.scrollAnimationRetryId = setTimeout(() => {
-        this.initializeScrollAnimation(retryCount - 1);
-      }, 100);
-      return;
-    }
-
-    if (this.scrollAnimationRetryId) {
-      clearTimeout(this.scrollAnimationRetryId);
-      this.scrollAnimationRetryId = null;
-    }
-
-    const movingObject = this.app.findObjectByName("rock");
-    if (!movingObject) {
-      console.warn("Spline object 'rock' not found for scroll animation");
-      return;
-    }
-
-    if (this.scrollAnimationTween) {
-      this.scrollAnimationTween.kill();
-      this.scrollAnimationTween = null;
-    }
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    this.scrollAnimationTween = gsap.to(
-      {},
-      {
-        scrollTrigger: {
-          trigger: "#canvas3d",
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-          onUpdate: (self) => {
-            const rotationValue = self.progress * Math.PI * 2;
-            movingObject.rotation.y = rotationValue;
-          },
-        },
-      },
-    );
   }
 }
