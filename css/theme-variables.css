@@ -27,7 +27,8 @@
   --text-primary: #0c1923;
   --text-secondary: #0c1923;
   --text-inverse: #ffffff;
-
+  --text-doesnt-change: #0c1923;
+  
   --border-subtle: #e2e8f0;
 
   --accent-primary: #0ea5e9;
@@ -69,6 +70,7 @@
   --text-primary: #edf2f5;
   --text-secondary: #0c1923;
   --text-inverse: #0c1923;
+  --text-doesnt-change: #0c1923;
 
   --border-subtle: var(--rgba-white-08);
 
