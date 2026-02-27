@@ -18,7 +18,7 @@ function runAdhocIntegrations() {
       trigger: "body",
       start: () => `top+=${window.innerHeight * 0.8} top`,
       end: "+=100",
-      scrub: 0.5,
+      scrub: 0.7,
       onUpdate: (self) => {
         const navbarContainer = document.querySelector(".navbar-container");
         if (!navbarContainer) return;
