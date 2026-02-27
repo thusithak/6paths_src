@@ -18,27 +18,31 @@ const navLinks = document.querySelectorAll('a[href^="#"]');
 navLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
+    e.stopPropagation();
     const targetId = link.getAttribute("href");
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
-      smoother.scrollTo(targetElement, true, "top 80px");
-      history.pushState(null, null, targetId);
+      const offset = smoother.offset(targetElement, "top top");
+      smoother.scrollTo(offset, true);
+      if (history.pushState) {
+        history.pushState(null, null, targetId);
+      }
     }
   });
 });
 
-document.querySelectorAll("section[id], .section[id]").forEach((section) => {
+document.querySelectorAll("section[id]").forEach((section) => {
   ScrollTrigger.create({
     trigger: section,
-    start: "top 50%",
-    end: "bottom 50%",
+    start: "top 10%",
+    end: "bottom 10%",
     onToggle: (self) => {
-      const navLink = document.querySelector(`a[href="#${section.id}"]`);
-      if (navLink) {
+      const link = document.querySelector(`a[href="#${section.id}"]`);
+      if (link) {
         if (self.isActive) {
-          navLink.classList.add("w--current");
+          link.classList.add("w--current");
         } else {
-          navLink.classList.remove("w--current");
+          link.classList.remove("w--current");
         }
       }
     },
