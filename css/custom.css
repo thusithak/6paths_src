@@ -157,7 +157,7 @@ body.modal-open {
     color: var(--text-primary);
 }
 .navbar-container .main-nav .menu-item-btn.w--current {
-    color: var(--text-inverse);
+    color: var(--text-doesnt-change);
 }
 .navbar-container.scrolled .main-nav .menu-item-btn {
     color: var(--text-primary);
@@ -167,7 +167,7 @@ body.modal-open {
     background-color: var(--tk-yellow-accent);
 }
 body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
-    color: var(--text-inverse);
+    color: var(--text-doesnt-change);
     background-color: var(--tk-yellow-accent);
 }
 .navbar-container .main-nav {
