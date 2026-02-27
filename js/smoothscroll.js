@@ -7,9 +7,9 @@ let smoother = ScrollSmoother.create({
   effects: true,
   smoothTouch: 0.1,
   snap: {
-    snapTo: "section", // Snaps to the closest <section> tag
-    duration: { min: 0.2, max: 0.7 }, // Speed of the snap
-    delay: 0.1, // Wait 0.1s after scrolling stops to snap
+    snapTo: "section",
+    duration: { min: 0.2, max: 0.7 },
+    delay: 0.1,
     ease: "power1.inOut",
   },
 });
@@ -43,14 +43,6 @@ document.querySelectorAll("section[id], .section[id]").forEach((section) => {
       }
     },
   });
-});
-
-ScrollTrigger.create({
-  trigger: ".spacer",
-  start: "bottom 90%",
-  onEnter: () => {
-    smoother.scrollTo("#my-ethos", true, "top top");
-  },
 });
 
 // Modal window logic
