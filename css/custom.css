@@ -156,11 +156,11 @@ body.modal-open {
 .navbar-container .main-nav .menu-item-btn {
     color: var(--text-primary);
 }
-.navbar-container .main-nav .menu-item-btn.w--current {
-    color: var(--text-doesnt-change);
-}
 .navbar-container.scrolled .main-nav .menu-item-btn {
     color: var(--text-primary);
+}
+.navbar-container .main-nav .menu-item-btn.w--current {
+    color: var(--text-doesnt-change);
 }
 .navbar-container .main-nav .menu-item-btn:hover,
 .navbar-container.scrolled .main-nav .menu-item-btn:hover {
