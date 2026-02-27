@@ -6,8 +6,11 @@ let smoother = ScrollSmoother.create({
   smooth: 0.5,
   effects: true,
   smoothTouch: 0.1,
-  onUpdate: (self) => {
-    //ScrollTrigger.refresh();
+  snap: {
+    snapTo: "section", // Snaps to the closest <section> tag
+    duration: { min: 0.2, max: 0.7 }, // Speed of the snap
+    delay: 0.1, // Wait 0.1s after scrolling stops to snap
+    ease: "power1.inOut",
   },
 });
 
@@ -19,9 +22,7 @@ navLinks.forEach((link) => {
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
       smoother.scrollTo(targetElement, true, "top 80px");
-      if (history.pushState) {
-        history.pushState(null, null, targetId);
-      }
+      history.pushState(null, null, targetId);
     }
   });
 });
@@ -42,6 +43,14 @@ document.querySelectorAll("section[id], .section[id]").forEach((section) => {
       }
     },
   });
+});
+
+ScrollTrigger.create({
+  trigger: ".spacer",
+  start: "bottom 90%",
+  onEnter: () => {
+    smoother.scrollTo("#my-ethos", true, "top top");
+  },
 });
 
 // Modal window logic
