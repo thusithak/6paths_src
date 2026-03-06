@@ -236,7 +236,7 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 }
 
 .case-study-container .container-sm {
-    max-width: 800px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 0 24px;
 }
@@ -378,6 +378,12 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     min-height: 400px;
 }
 
+.case-study-container h2{
+    font-family: var(--fonts--title-font);
+}
+.case-study-container .spacer{
+    padding: 1rem 0;
+}
 /* --- Media Queries --- */
 @media (min-width: 768px) {
     .case-study-container h1 {
