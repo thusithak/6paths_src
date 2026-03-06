@@ -280,6 +280,8 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 .case-study-container .grid-3 {
     display: grid;
     gap: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
 }
 
 .case-study-container .grid-2 {
@@ -301,6 +303,7 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 1rem;
+    justify-content: center;
 }
 
 .case-study-container .tag {
