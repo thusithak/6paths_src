@@ -305,7 +305,7 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 .case-study-container .grid-3 div {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
 }
 
