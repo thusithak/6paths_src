@@ -385,6 +385,14 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     height: 1rem;
     width: 100%;
 }
+.case-study-container .spacer-2 {
+    height: 2rem;
+    width: 100%;
+}
+.case-study-container .spacer-4 {
+    height: 4rem;
+    width: 100%;
+}
 /* --- Media Queries --- */
 @media (min-width: 768px) {
     .case-study-container h1 {
