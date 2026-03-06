@@ -248,7 +248,6 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 .case-study-container .container-sm {
     max-width: 960px;
     margin: 0 auto;
-    padding: 0 24px;
 }
 
 .case-study-container .section {
