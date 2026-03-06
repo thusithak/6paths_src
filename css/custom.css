@@ -254,6 +254,9 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     background: var(--bg-primary);
     padding: 5rem 0;
 }
+.case-study-container header.section {
+    padding-top: 0;
+}
 
 .case-study-container .main-title {
     text-align: center;
