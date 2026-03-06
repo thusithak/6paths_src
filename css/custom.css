@@ -420,14 +420,17 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 }
 
 .case-study-container .mb-1 {
+    display: inline-block;
     margin-bottom: 1rem;
 }
 
 .case-study-container .mb-2 {
+    display: inline-block;
     margin-bottom: 2rem;
 }
 
 .case-study-container .mb-4 {
+    display: inline-block;
     margin-bottom: 4rem;
 }
 
