@@ -381,8 +381,9 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 .case-study-container h2{
     font-family: var(--fonts--title-font);
 }
-.case-study-container .spacer{
-    padding: 1rem 0;
+.case-study-container .spacer-1{
+    height: 1rem;
+    width: 100%;
 }
 /* --- Media Queries --- */
 @media (min-width: 768px) {
