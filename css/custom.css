@@ -394,6 +394,12 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     height: 4rem;
     width: 100%;
 }
+
+.case-study-container .mb-1{ margin-bottom: 1rem; }
+.case-study-container .mb-2{ margin-bottom: 2rem; }
+.case-study-container .mb-4{ margin-bottom: 4rem; }
+
+
 /* --- Media Queries --- */
 @media (min-width: 768px) {
     .case-study-container h1 {
