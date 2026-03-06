@@ -454,15 +454,3 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     display: inline-block;
     margin-bottom: 4rem;
 }
-
-
-/* --- Media Queries --- */
-@media (min-width: 768px) {
-    .case-study-container h1 {
-        font-size: 2.5rem;
-    }
-
-    .case-study-container .section {
-        padding: 6rem 0;
-    }
-}
