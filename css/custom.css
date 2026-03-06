@@ -308,6 +308,9 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     justify-content: start;
     align-items: center;
 }
+.case-study-container .grid-3 div p{
+    text-align: center;
+}
 
 .case-study-container .grid-3 div.center{
     border-left: 1px dashed var(--bg-secondary);
@@ -331,7 +334,8 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 
 .case-study-container h1 {
     font-size: 3.5rem;
-    margin-bottom: var(--sizes--space-1);
+    margin-bottom: 0;
+    line-height: 1;
 }
 .case-study-container .subtitle {
     margin-bottom: var(--sizes--space-2);
@@ -455,8 +459,7 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 /* --- Media Queries --- */
 @media (min-width: 768px) {
     .case-study-container h1 {
-        font-size: 3.5rem;
-        margin-bottom: var(--sizes--space-1);
+        font-size: 2.5rem;
     }
 
     .case-study-container .section {
