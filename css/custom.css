@@ -242,9 +242,12 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 }
 
 .case-study-container .section {
+    background: var(--bg-primary);
     padding: 5rem 0;
 }
-
+.case-study-container .main-title{
+    text-align: center;
+}
 .case-study-container.section-alt {
     background-color: var(--bg-primary);
     border-top: 1px solid var(--bg-primary);
