@@ -307,16 +307,14 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     padding: 0.35rem 1rem;
     background: var(--bg-primary);
     color: var(--text-secondary);
-    border: 1px solid var(--bg-primary);
-    border-radius: 999px;
+    border: 1px solid var(--bg-secondary);
     font-size: 0.875rem;
     font-weight: 500;
 }
 
 .case-study-container .tag.primary {
     background: var(--tk-yellow-accent);
-    color: var(--accent);
-    border-color: transparent;
+    color: var(--text-doesnt-change);
 }
 
 /* Cards & Panels */
