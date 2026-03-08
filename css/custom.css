@@ -258,7 +258,7 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     padding-top: 0;
 }
 
-.case-study-container .main-title {
+.case-study-container .main-title-case {
     text-align: center;
 }
 
@@ -311,6 +311,7 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     align-items: center;
 }
 .case-study-container .grid-3 div p{
+    font-size: 1rem;
     text-align: center;
 }
 
@@ -380,7 +381,6 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     padding: 1.5rem;
     border: 1px solid var(--bg-primary);
     border-left: 4px solid var(--tk-yellow-accent);
-    height: 100%;
 }
 
 .case-study-container .card-bordered.success {
