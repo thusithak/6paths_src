@@ -456,3 +456,11 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     display: inline-block;
     margin-bottom: 4rem;
 }
+
+/* Tablet (991px down) */
+@media screen and (max-width: 991px) {
+    .case-study-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
