@@ -403,24 +403,12 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 
 /* Image Placeholder */
 .case-study-container .img-placeholder {
-    background-color: #f1f5f9;
-    border: 2px dashed #cbd5e1;
-    border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 3rem;
-    color: #64748b;
     font-style: italic;
-    min-height: 300px;
     width: 100%;
-    margin: 2rem 0;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-
-.case-study-container .img-placeholder-wide {
-    min-height: 400px;
 }
 
 .case-study-container h2 {
