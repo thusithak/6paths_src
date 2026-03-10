@@ -412,6 +412,10 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     margin: 2rem 0;
 }
 
+.case-study-container .img-placeholder iframe {
+    height:540px;
+    width: 100%;
+}
 .case-study-container h2 {
     font-family: var(--fonts--title-font);
 }
