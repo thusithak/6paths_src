@@ -43,16 +43,16 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .app_logo_list img {
-    height: 48px;
-    width: 48px;
-    filter: grayscale(100%);
-    opacity: 0.7;
+    height: 40px;
+    width: 40px;
     transition: all 0.3s ease;
     object-fit: cover;
+    padding: 0.5rem;
+    border: 1px solid var(--bg-secondary);
 }
 
 .app_logo_list img:hover {
@@ -409,7 +409,7 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     text-align: center;
     font-style: italic;
     width: 100%;
-    
+
     margin: 2rem 0;
 }
 
