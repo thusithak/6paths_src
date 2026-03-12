@@ -90,3 +90,38 @@ if (document.readyState === "complete") {
 } else {
   window.addEventListener("load", runAdhocIntegrations, { once: true });
 }
+
+// Jump animation for the image with class "app_logo_list img"
+
+const img = document.querySelector(".app_logo_list img");
+gsap.set(img, { transformOrigin: "50% 100%" });
+img.addEventListener("mouseenter", () => {
+  if (gsap.isTweening(img)) return;
+  const tl = gsap.timeline();
+  tl.to(img, {
+    duration: 0.1,
+    scaleX: 1.2,
+    scaleY: 0.8,
+    ease: "power1.inOut",
+  })
+    .to(img, {
+      duration: 0.3,
+      y: -60, // The jump height
+      scaleX: 0.8, // Stretch thin
+      scaleY: 1.3, // Stretch long
+      ease: "power2.out",
+    })
+    .to(img, {
+      duration: 0.2,
+      y: 0, // Falling back down
+      scaleX: 1.1, // Slight squash on impact
+      scaleY: 0.9,
+      ease: "power2.in",
+    })
+    .to(img, {
+      duration: 0.4,
+      scaleX: 1, // Back to normal
+      scaleY: 1,
+      ease: "elastic.out(1, 0.3)", // Adds that nice final wobble
+    });
+});
