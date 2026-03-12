@@ -92,54 +92,45 @@ if (document.readyState === "complete") {
 }
 
 // Jump animation for the image with class "app_logo_list img"
-
 const logos = document.querySelectorAll(".app_logo_list img");
-
-  logos.forEach((img) => {
-    // 1. Set the "floor" for the jump
-    gsap.set(img, { transformOrigin: "50% 100%" });
-
-    // 2. Hover Animation
-    img.addEventListener("mouseenter", () => {
-      // Check if it's already jumping to prevent glitching
-      if (gsap.isTweening(img)) return;
-
-      const tl = gsap.timeline();
-
-      tl.to(img, {
-        duration: 0.1,
-        scaleX: 1.25,
-        scaleY: 0.75,
-        ease: "power1.inOut"
-      })
+logos.forEach((img) => {
+  gsap.set(img, { transformOrigin: "50% 100%" });
+  img.addEventListener("mouseenter", () => {
+    if (gsap.isTweening(img)) return;
+    const tl = gsap.timeline();
+    tl.to(img, {
+      duration: 0.1,
+      scaleX: 1.25,
+      scaleY: 0.75,
+      ease: "power1.inOut",
+    })
       .to(img, {
         duration: 0.3,
         y: -40, // Height of the jump
         scaleX: 0.3,
         scaleY: 1.2,
-        ease: "power2.out"
+        ease: "power2.out",
       })
       .to(img, {
         duration: 0.2,
         y: 0,
         scaleX: 1.1,
         scaleY: 0.9,
-        ease: "power2.in"
+        ease: "power2.in",
       })
       .to(img, {
         duration: 0.5,
         scaleX: 1,
         scaleY: 1,
-        ease: "elastic.out(1, 0.3)" // The "jello" settle effect
+        ease: "elastic.out(1, 0.3)", // The "jello" settle effect
       });
-    });
   });
+});
 
-  gsap.from(".app_logo_list img", {
-    duration: 0.2,
-    opacity: 0,
-    y: 20,
-    stagger: 0.1,
-    ease: "back.out(1.7)"
-  });
+gsap.from(".app_logo_list img", {
+  duration: 0.2,
+  opacity: 0,
+  y: 20,
+  stagger: 0.1,
+  ease: "back.out(1.7)",
 });
