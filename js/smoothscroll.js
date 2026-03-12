@@ -8,7 +8,7 @@ let smoother = ScrollSmoother.create({
   smoothTouch: 0.1,
   snap: {
     snapTo: "section",
-    duration: { min: 0.2, max: 0.7 },
+    duration: { min: 0.5, max: 0.9 },
     delay: 0.1,
     ease: "power1.inOut",
   },
