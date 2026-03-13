@@ -126,11 +126,3 @@ logos.forEach((img) => {
       });
   });
 });
-
-gsap.from(".app_logo_list img", {
-  duration: 0.2,
-  opacity: 0,
-  y: 20,
-  stagger: 0.1,
-  ease: "back.out(1.7)",
-});
