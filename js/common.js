@@ -100,26 +100,26 @@ logos.forEach((img) => {
     const tl = gsap.timeline();
     tl.to(img, {
       duration: 0.1,
-      scaleX: 1.25,
-      scaleY: 0.75,
+      scaleX: 1.05,
+      scaleY: 0.95,
       ease: "power1.inOut",
     })
       .to(img, {
-        duration: 0.3,
-        y: -40, // Height of the jump
-        scaleX: 0.3,
+        duration: 0.1,
+        y: -20, // Height of the jump
+        scaleX: 0.8,
         scaleY: 1.2,
         ease: "power2.out",
       })
       .to(img, {
-        duration: 0.2,
+        duration: 0.1,
         y: 0,
         scaleX: 1.1,
         scaleY: 0.9,
         ease: "power2.in",
       })
       .to(img, {
-        duration: 0.5,
+        duration: 0.2,
         scaleX: 1,
         scaleY: 1,
         ease: "elastic.out(1, 0.3)", // The "jello" settle effect
