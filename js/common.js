@@ -94,7 +94,7 @@ if (document.readyState === "complete") {
 // Jump animation for the image with class "app_logo_list img"
 const logos = document.querySelectorAll(".app_logo_list img");
 logos.forEach((img) => {
-  console.log(img);
+  
   gsap.set(img, { transformOrigin: "50% 100%" });
   img.addEventListener("mouseenter", () => {
     if (gsap.isTweening(img)) return;
