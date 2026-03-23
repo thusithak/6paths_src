@@ -97,7 +97,7 @@ logos.forEach((img) => {
   console.log(img);
   gsap.set(img, { transformOrigin: "50% 100%" });
   img.addEventListener("mouseenter", () => {
-    if (gsap.isTweening(img)) return;
+    //if (gsap.isTweening(img)) return;
     const tl = gsap.timeline();
     tl.to(img, {
       duration: 0.1,
