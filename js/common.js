@@ -90,15 +90,9 @@ function runAdhocIntegrations() {
       overwrite: "auto",
     });
   }, true);
-}
 
-if (document.readyState === "complete") {
-  runAdhocIntegrations();
-} else {
-  window.addEventListener("load", runAdhocIntegrations, { once: true });
-}
 
-// Jump animation for images with class "app_logo_list img" - using event delegation
+  // Jump animation for images with class "app_logo_list img" - using event delegation
 document.addEventListener("mouseenter", (e) => {
   const img = e.target.closest(".app_logo_list img");
   if (!img) return;
@@ -132,3 +126,17 @@ document.addEventListener("mouseenter", (e) => {
       ease: "elastic.out(1, 0.3)", // The "jello" settle effect
     });
 }, true);
+
+
+}
+
+
+
+
+if (document.readyState === "complete") {
+  runAdhocIntegrations();
+} else {
+  window.addEventListener("load", runAdhocIntegrations, { once: true });
+}
+
+
