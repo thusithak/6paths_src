@@ -169,18 +169,7 @@ if (document.readyState === "complete") {
   window.addEventListener("load", runAdhocIntegrations, { once: true });
 }
 
-// Ensure all integrations and events are attached after DOM is ready
-function onDomReady(fn) {
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    setTimeout(fn, 0);
-  } else {
-    document.addEventListener("DOMContentLoaded", fn, { once: true });
-  }
-}
 
-onDomReady(runAdhocIntegrations);
-
-// Export for future use if needed
-export { attachGlobalEvents, runAdhocIntegrations };
+// No exports here; integrations will be managed by Application in main.js
 
 
