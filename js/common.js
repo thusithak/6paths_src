@@ -72,6 +72,7 @@ function runAdhocIntegrations() {
   }, true);
 
   document.addEventListener("mousemove", (e) => {
+    if (!(e.target instanceof Element)) return;
     const trigger = e.target.closest("[data-tooltip]");
     if (!trigger) return;
     moveX(e.clientX - 0);
@@ -79,6 +80,7 @@ function runAdhocIntegrations() {
   }, true);
 
   document.addEventListener("mouseleave", (e) => {
+    if (!(e.target instanceof Element)) return;
     const trigger = e.target.closest("[data-tooltip]");
     if (!trigger) return;
     gsap.to(tooltip, {
@@ -95,6 +97,7 @@ function runAdhocIntegrations() {
   // Jump animation for images with class "app_logo_list img" - using event delegation
 document.addEventListener("mouseenter", (e) => {
   const img = e.target.closest(".app_logo_list img");
+  if (!(e.target instanceof Element)) return;
   if (!img) return;
 
   gsap.set(img, { transformOrigin: "50% 100%" });
