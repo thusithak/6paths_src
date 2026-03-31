@@ -55,11 +55,8 @@ class Application {
 
       const appTheme = this.themeManager.getIsDark();
 
-      if (appTheme) {
-        this.audioManager.fadeInThemeSound();
-      } else {
-        this.audioManager.fadeOutThemeSound();
-      }
+      this.audioManager.fadeInThemeSound();
+      this.audioManager.setBackgroundActive(appTheme);
 
       setTimeout(() => {
         this.splineManager.ensureSync(appTheme);
@@ -83,12 +80,7 @@ class Application {
         onToggle: (isActive) => {
           this.themeManager.applyTheme(isActive);
           this.splineManager.ensureSync(isActive);
-
-          if (isActive) {
-            this.audioManager.fadeInThemeSound();
-          } else {
-            this.audioManager.fadeOutThemeSound();
-          }
+          this.audioManager.setBackgroundActive(isActive);
         },
       },
       this.config,

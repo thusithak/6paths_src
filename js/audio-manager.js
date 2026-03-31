@@ -21,6 +21,7 @@ export class AudioManager {
     this.themeVolume = this.config.AUDIO.VOLUMES.theme;
     this.bgScrollFaded = false;
     this.themeActive = false;
+    this.backgroundActive = false;
     this.audioUnlocked = false;
     this.setupAudioLibrary();
     this.setupEventListeners();
@@ -116,6 +117,22 @@ export class AudioManager {
     attachEventListeners(selector, eventType, () => this.play(soundName));
   }
 
+  setBackgroundActive(isActive) {
+    this.backgroundActive = Boolean(isActive);
+    if (!window.Howler) return;
+
+    const bg = this.library.background;
+    if (!bg) return;
+
+    playAudio(bg);
+
+    const target = !this.isMuted && this.backgroundActive
+      ? this.backgroundVolume || 1.0
+      : 0;
+    const currentVol = getAudioVolume(bg, this.backgroundActive ? this.backgroundVolume : 0);
+    fadeAudio(bg, currentVol, target, this.config.AUDIO.MUTE.fadeDuration);
+  }
+
   setMute(isMuted) {
     this.isMuted = isMuted;
     if (!window.Howler) return;
@@ -131,7 +148,9 @@ export class AudioManager {
     if (bg) {
       playAudio(bg);
 
-      const target = isMuted ? 0 : this.backgroundVolume || 1.0;
+      const target = !isMuted && this.backgroundActive
+        ? this.backgroundVolume || 1.0
+        : 0;
       const currentVol = getAudioVolume(bg, 0);
       fadeAudio(bg, currentVol, target, fadeDuration);
     }

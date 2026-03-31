@@ -38,7 +38,7 @@ export const CONFIG = {
       },
     },
     VOLUMES: {
-      background: 1.0,
+      background: 0.15,
       theme: 0.1,
     },
     SCROLL: {
