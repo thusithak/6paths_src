@@ -114,12 +114,9 @@ function runAdhocIntegrations() {
       );
 
       // Jump animation for images with class "app_logo_list img"
-      document.addEventListener(
-        "mouseenter",
-        (e) => {
-          if (!(e.target instanceof Element)) return;
-          const img = e.target.closest(".app_logo_list img");
-          if (!img) return;
+      document.body.addEventListener('mouseenter', function(event) {
+        if (event.target.matches('.app_logo_list img')) {
+          console.log('Element hovered via delegation:', event.target.textContent);
           gsap.set(img, { transformOrigin: "50% 100%" });
           const tl = gsap.timeline();
           tl.to(img, {
@@ -148,9 +145,9 @@ function runAdhocIntegrations() {
               scaleY: 1,
               ease: "elastic.out(1, 0.3)", // The "jello" settle effect
             });
-        },
-        true
-      );
+        }
+      });
+
     }
 
     // Attach all global events (tooltips, logo jump, etc.)
