@@ -136,8 +136,8 @@ export class AudioManager {
       fadeAudio(bg, currentVol, target, fadeDuration);
     }
 
-    if (isMuted && this.themeActive) {
-      this.fadeOutThemeSound();
+    if (!isMuted && this.themeActive) {
+      this.fadeInThemeSound();
     }
 
     console.log(isMuted ? "Site Started Muted" : "Site Unmuted");
@@ -150,9 +150,10 @@ export class AudioManager {
 
   fadeInThemeSound() {
     const theme = this.library.theme;
-    if (!theme || this.isMuted) return;
+    if (!theme) return;
 
     this.themeActive = true;
+    if (this.isMuted) return;
 
     safeCall(() => {
       const [minRate, maxRate] = this.config.AUDIO.THEME_SOUND.rateRange;
