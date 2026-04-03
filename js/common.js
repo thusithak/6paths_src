@@ -116,7 +116,8 @@ function runAdhocIntegrations() {
       // Jump animation for images with class "app_logo_list img"
       document.body.addEventListener('mouseenter', function(event) {
         if (event.target.matches('.app_logo_list img')) {
-          console.log('Element hovered via delegation:', event.target.textContent);
+          console.log('Element hovered via delegation:', event.target.alt);
+          const img = event.target;
           gsap.set(img, { transformOrigin: "50% 100%" });
           const tl = gsap.timeline();
           tl.to(img, {
