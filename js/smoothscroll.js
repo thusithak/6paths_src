@@ -34,8 +34,24 @@ navLinks.forEach((link) => {
 document.querySelectorAll("section[id]").forEach((section) => {
   ScrollTrigger.create({
     trigger: section,
-    start: "top 10%",
-    end: "bottom 10%",
+    start: "top 50%",
+    end: "bottom 50%",
+    onEnter: () => {
+      // Update URL hash when section enters viewport
+      if (history.replaceState) {
+        history.replaceState(null, null, `#${section.id}`);
+      } else {
+        window.location.hash = `#${section.id}`;
+      }
+    },
+    onEnterBack: () => {
+      // Update URL hash when scrolling back to section
+      if (history.replaceState) {
+        history.replaceState(null, null, `#${section.id}`);
+      } else {
+        window.location.hash = `#${section.id}`;
+      }
+    },
     onToggle: (self) => {
       const link = document.querySelector(`a[href="#${section.id}"]`);
       if (link) {
