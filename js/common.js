@@ -150,28 +150,30 @@ function runAdhocIntegrations() {
       });
 
       // Setup copy email functionality
-      const copyBtn = document.getElementById('copyEmailBtn');
+      const copyBtn = document.getElementById('copy_email_btn');
       const copyWrapper = document.querySelector('.copy-wrapper');
   
-      copyBtn.addEventListener('click', async () => {
-          // A. Grab the email address
-          const emailToCopy = copyBtn.getAttribute('data-email');
-  
-          try {
-              // B. Write to clipboard
-              await navigator.clipboard.writeText(emailToCopy);
-              
-              // C. Trigger Confetti Burst from the button's position
-              triggerConfetti(copyBtn);
-  
-              // D. Trigger GSAP "1up" Animation
-              trigger1UpAnimation(copyWrapper);
-              
-          } catch (err) {
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+            // A. Grab the email address
+            const emailToCopy = copyBtn.getAttribute('data-email');
+    
+            try {
+                // B. Write to clipboard
+                await navigator.clipboard.writeText(emailToCopy);
+                
+                // C. Trigger Confetti Burst from the button's position
+                triggerConfetti(copyBtn);
+    
+                // D. Trigger GSAP "1up" Animation
+                trigger1UpAnimation(copyWrapper);
+                
+            } catch (err) {
               console.error('Failed to copy: ', err);
               alert('Failed to copy email.');
           }
       });
+      }
   
       // --- Helper Functions ---
   
