@@ -49,32 +49,74 @@ class Application {
     );
 
     // Setup copy email functionality
-    const copyBtn = document.getElementById('copy_email_btn');
-    const copyMessage = document.getElementById('copyMessage');
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const copyWrapper = document.querySelector('.copy-wrapper');
 
-    if (copyBtn && copyMessage) {
-      copyBtn.addEventListener('click', async () => {
-        // Grab the email address from the data attribute
+    copyBtn.addEventListener('click', async () => {
+        // A. Grab the email address
         const emailToCopy = copyBtn.getAttribute('data-email');
 
         try {
-          // Write the email to the clipboard
-          await navigator.clipboard.writeText(emailToCopy);
-          
-          // Show the success message
-          copyMessage.style.display = 'inline';
-          
-          // Hide the message again after 2 seconds
-          setTimeout(() => {
-            copyMessage.style.display = 'none';
-          }, 2000);
-          
+            // B. Write to clipboard
+            await navigator.clipboard.writeText(emailToCopy);
+            
+            // C. Trigger Confetti Burst from the button's position
+            triggerConfetti(copyBtn);
+
+            // D. Trigger GSAP "1up" Animation
+            trigger1UpAnimation(copyWrapper);
+            
         } catch (err) {
-          // Fallback if the browser blocks the clipboard API
-          console.error('Failed to copy email: ', err);
-          alert('Failed to copy email to clipboard.');
+            console.error('Failed to copy: ', err);
+            alert('Failed to copy email.');
         }
-      });
+    });
+
+    // --- Helper Functions ---
+
+    function triggerConfetti(element) {
+        // Calculate coordinates relative to the screen for origin
+        const rect = element.getBoundingClientRect();
+        const xOrigin = (rect.left + rect.width / 2) / window.innerWidth;
+        const yOrigin = (rect.top + rect.height / 2) / window.innerHeight;
+
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { x: xOrigin, y: yOrigin },
+            disableForReducedMotion: true // Respect user accessibility settings
+        });
+    }
+
+    function trigger1UpAnimation(wrapperElement) {
+        // 1. Create the element dynamically so multiple clicks create multiple animations
+        const oneUp = document.createElement('span');
+        oneUp.classList.add('one-up-text');
+        oneUp.innerText = 'Copied!';
+        wrapperElement.appendChild(oneUp);
+
+        // 2. Set initial position (just above the button)
+        gsap.set(oneUp, { y: -10, opacity: 0 });
+
+        // 3. Run the GSAP timeline (floats up while fading out)
+        gsap.to(oneUp, {
+            y: -60,            // Distance to float upwards
+            opacity: 1,       // Quick fade in
+            duration: 0.4,    // Animation length
+            ease: "power2.out",
+            // Chain the fade out immediately after the peak
+            onComplete: () => {
+                gsap.to(oneUp, {
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power2.in",
+                    // Remove the element from DOM after the full animation
+                    onComplete: () => {
+                        oneUp.remove();
+                    }
+                });
+            }
+        });
     }
   }
 

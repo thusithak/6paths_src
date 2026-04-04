@@ -462,3 +462,20 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
         padding-right: 2rem;
     }
 }
+
+.copy-wrapper {
+    position: relative;
+    display: inline-block;
+}
+.one-up-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); 
+    color: #15803d;
+    font-weight: bold;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 0;
+}
