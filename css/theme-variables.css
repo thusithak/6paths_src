@@ -57,6 +57,7 @@
   --switch-height: 40px;
   --handle-size: 30px;
   --hero-image-filter: none;
+  --currently-working-on-filter: none;
   --timeline-card-bg: #edf2f5;
   --tk-yellow-accent: #f5dc00;
   --image-bg-color: transparent
@@ -94,6 +95,7 @@
   --timeline-spine-color: #0c1923;
 
   --hero-image-filter: brightness(60%) contrast(120%);
+  --currently-working-on-filter: brightness(120%) contrast(100%);
   --timeline-card-bg: #111e2a;
   --tk-yellow-accent: #ffe926;
   --image-bg-color: #edf2f5

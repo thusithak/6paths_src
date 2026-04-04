@@ -14,8 +14,12 @@
     color: var(--text-primary);
 }
 
-.hero-image, .currently-working-on {
+.hero-image{
     filter: var(--hero-image-filter);
+}
+
+.currently-working-on {
+    filter: var(--currently-working-on-filter);
 }
 
 .icon-open-link {
