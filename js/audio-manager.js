@@ -17,11 +17,11 @@ export class AudioManager {
     this.config = config;
     this.library = {};
     this.isMuted = true;
-    this.backgroundVolume = this.config.AUDIO.VOLUMES.background;
+    this.darkThemeSoundVolume = this.config.AUDIO.VOLUMES.darkThemeSound;
     this.themeVolume = this.config.AUDIO.VOLUMES.theme;
     this.bgScrollFaded = false;
     this.themeActive = false;
-    this.backgroundActive = false;
+    this.darkThemeSoundActive = false;
     this.audioUnlocked = false;
     this.setupAudioLibrary();
     this.setupEventListeners();
@@ -43,9 +43,9 @@ export class AudioManager {
       });
     });
 
-    if (this.library.background) {
-      const bg = this.library.background;
-      this.backgroundVolume = this.config.AUDIO.VOLUMES.background;
+    if (this.library.darkthemesound) {
+      const bg = this.library.darkthemesound;
+      this.darkThemeSoundVolume = this.config.AUDIO.VOLUMES.darkThemeSound;
       safeCall(() => {
         bg.loop(true);
       });
@@ -53,7 +53,7 @@ export class AudioManager {
         bg.play();
       });
       safeCall(() => {
-        bg.volume(this.isMuted ? 0 : this.backgroundVolume);
+        bg.volume(this.isMuted ? 0 : this.darkThemeSoundVolume);
       });
     }
 
@@ -80,7 +80,7 @@ export class AudioManager {
   }
 
   handleScroll() {
-    const bg = this.library.background;
+    const bg = this.library.darkthemesound;
     const theme = this.library.theme;
     if (!bg) return;
     if (this.isMuted) return;
@@ -91,7 +91,7 @@ export class AudioManager {
     const { threshold, fadeTarget, fadeDuration } = this.config.AUDIO.SCROLL;
 
     if (scrollRatio >= threshold && !this.bgScrollFaded) {
-      const current = getAudioVolume(bg, this.backgroundVolume);
+      const current = getAudioVolume(bg, this.darkThemeSoundVolume);
       fadeAudio(bg, current, fadeTarget, fadeDuration);
 
       if (theme && this.themeActive) {
@@ -102,7 +102,7 @@ export class AudioManager {
       this.bgScrollFaded = true;
     } else if (scrollRatio < threshold && this.bgScrollFaded) {
       const current = getAudioVolume(bg, fadeTarget);
-      fadeAudio(bg, current, this.backgroundVolume, fadeDuration);
+      fadeAudio(bg, current, this.darkThemeSoundVolume, fadeDuration);
 
       if (theme && this.themeActive) {
         const current = getAudioVolume(theme, fadeTarget);
@@ -117,19 +117,19 @@ export class AudioManager {
     attachEventListeners(selector, eventType, () => this.play(soundName));
   }
 
-  setBackgroundActive(isActive) {
-    this.backgroundActive = Boolean(isActive);
+  setDarkThemeSoundActive(isActive) {
+    this.darkThemeSoundActive = Boolean(isActive);
     if (!window.Howler) return;
 
-    const bg = this.library.background;
+    const bg = this.library.darkthemesound;
     if (!bg) return;
 
     playAudio(bg);
 
-    const target = !this.isMuted && this.backgroundActive
-      ? this.backgroundVolume || 1.0
+    const target = !this.isMuted && this.darkThemeSoundActive
+      ? this.darkThemeSoundVolume || 1.0
       : 0;
-    const currentVol = getAudioVolume(bg, this.backgroundActive ? this.backgroundVolume : 0);
+    const currentVol = getAudioVolume(bg, this.darkThemeSoundActive ? this.darkThemeSoundVolume : 0);
     fadeAudio(bg, currentVol, target, this.config.AUDIO.MUTE.fadeDuration);
   }
 
@@ -143,13 +143,13 @@ export class AudioManager {
       setAudioMute(sound, isMuted);
     });
 
-    const bg = this.library.background;
+    const bg = this.library.darkthemesound;
     const { fadeDuration } = this.config.AUDIO.MUTE;
     if (bg) {
       playAudio(bg);
 
-      const target = !isMuted && this.backgroundActive
-        ? this.backgroundVolume || 1.0
+      const target = !isMuted && this.darkThemeSoundActive
+        ? this.darkThemeSoundVolume || 1.0
         : 0;
       const currentVol = getAudioVolume(bg, 0);
       fadeAudio(bg, currentVol, target, fadeDuration);
@@ -220,8 +220,8 @@ export class AudioManager {
     if (this.audioUnlocked) return;
 
     safeCall(() => {
-      if (this.library.background) {
-        this.library.background.play();
+      if (this.library.darkthemesound) {
+        this.library.darkthemesound.play();
       }
       if (this.library.theme) {
         this.library.theme.play();

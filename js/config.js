@@ -21,8 +21,8 @@ export const CONFIG = {
         name: "switch",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6943e874813e23b235b00634_btn_switch.mp3",
       },
-      background: {
-        name: "background",
+      darkthemesound: {
+        name: "darkthemesound",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6986e4704028b0a7490363fe_wind-blowing.mp3",
         //src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/698774558bef78c27921d312_crickets.mp3",
         loop: true,
@@ -38,7 +38,7 @@ export const CONFIG = {
       },
     },
     VOLUMES: {
-      background: 0.15,
+      darkThemeSound: 0.15,
       theme: 0.1,
     },
     SCROLL: {
