@@ -47,6 +47,35 @@ class Application {
       },
       { once: true },
     );
+
+    // Setup copy email functionality
+    const copyBtn = document.getElementById('copy_email_btn');
+    const copyMessage = document.getElementById('copyMessage');
+
+    if (copyBtn && copyMessage) {
+      copyBtn.addEventListener('click', async () => {
+        // Grab the email address from the data attribute
+        const emailToCopy = copyBtn.getAttribute('data-email');
+
+        try {
+          // Write the email to the clipboard
+          await navigator.clipboard.writeText(emailToCopy);
+          
+          // Show the success message
+          copyMessage.style.display = 'inline';
+          
+          // Hide the message again after 2 seconds
+          setTimeout(() => {
+            copyMessage.style.display = 'none';
+          }, 2000);
+          
+        } catch (err) {
+          // Fallback if the browser blocks the clipboard API
+          console.error('Failed to copy email: ', err);
+          alert('Failed to copy email to clipboard.');
+        }
+      });
+    }
   }
 
   async loadScene() {
