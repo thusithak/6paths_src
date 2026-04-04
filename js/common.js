@@ -155,22 +155,15 @@ function runAdhocIntegrations() {
   
       if (copyBtn) {
         copyBtn.addEventListener('click', async () => {
-            // A. Grab the email address
             const emailToCopy = copyBtn.getAttribute('data-email');
     
             try {
-                // B. Write to clipboard
                 await navigator.clipboard.writeText(emailToCopy);
-                
-                // C. Trigger Confetti Burst from the button's position
                 triggerConfetti(copyBtn);
-    
-                // D. Trigger GSAP "1up" Animation
                 trigger1UpAnimation(copyWrapper);
                 
             } catch (err) {
               console.error('Failed to copy: ', err);
-              alert('Failed to copy email.');
           }
       });
       }
@@ -188,21 +181,19 @@ function runAdhocIntegrations() {
           const yOrigin = (rect.top + rect.height / 2) / window.innerHeight;
   
           window.confetti({
-              particleCount: 100,
-              spread: 70,
+              particleCount: 20,
+              spread: 30,
               origin: { x: xOrigin, y: yOrigin },
               disableForReducedMotion: true // Respect user accessibility settings
           });
       }
   
       function trigger1UpAnimation(wrapperElement) {
-          // 1. Create the element dynamically so multiple clicks create multiple animations
           const oneUp = document.createElement('span');
           oneUp.classList.add('one-up-text');
-          oneUp.innerText = 'Copied!';
+          oneUp.innerText = 'Email Copied!';
           wrapperElement.appendChild(oneUp);
   
-          // 2. Set initial position (just above the button)
           gsap.set(oneUp, { y: -10, opacity: 0 });
   
           // 3. Run the GSAP timeline (floats up while fading out)
