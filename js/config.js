@@ -20,7 +20,7 @@ export const CONFIG = {
         name: "switch",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6943e874813e23b235b00634_btn_switch.mp3",
         volume: 1.0,
-        rate:0.5,
+        rate:1.0,
       },
       darkthemesound: {
         name: "darkthemesound",
