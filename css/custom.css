@@ -236,7 +236,9 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 .bento-grid-heading {
     color: var(--text-primary);
 }
-
+.currently-working-h4, .currently-working-p{
+    color: var(--text-doesnt-change-light);
+}
 
 
 /* --- Layout & Containers --- */
