@@ -14,12 +14,14 @@ export const CONFIG = {
       click: {
         name: "click",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6944045763acbfc93eba703d_menu_item_hover.mp3",
-        volume: 0.5,
+        volume: 1.0,
         rate: 2.0,
       },
       switch: {
         name: "switch",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6943e874813e23b235b00634_btn_switch.mp3",
+        volume: 1.0,
+        rate: 2.0,
       },
       darkthemesound: {
         name: "darkthemesound",
@@ -35,11 +37,11 @@ export const CONFIG = {
         loop: true,
         autoplay: false,
         preload: true,
+        volume: 1.0,
       },
     },
     VOLUMES: {
       darkThemeSound: 0.1,
-      theme: 0.3,
     },
     SCROLL: {
       threshold: 0.3,
@@ -51,7 +53,7 @@ export const CONFIG = {
     },
     THEME_SOUND: {
       fadeDuration: 1000,
-      rateRange: [0.8, 1.2],
+      //rateRange: [0.8, 1.2],
     },
   },
   ANIMATION: {
@@ -62,8 +64,8 @@ export const CONFIG = {
       handlePadding: 0,
       travelDistance: 38,
       toggle: {
-        duration: 0.2,
-        ease: "power1.out",
+        duration: 0.1,
+        ease: "power3.out",
       },
       icon: {
         duration: 0.2,
