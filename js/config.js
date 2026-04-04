@@ -38,12 +38,12 @@ export const CONFIG = {
       },
     },
     VOLUMES: {
-      darkThemeSound: 0.15,
-      theme: 0.1,
+      darkThemeSound: 0.1,
+      theme: 0.3,
     },
     SCROLL: {
-      threshold: 0.2,
-      fadeTarget: 0.0,
+      threshold: 0.3,
+      fadeTarget: 0.2,
       fadeDuration: 2000,
     },
     MUTE: {
