@@ -178,12 +178,16 @@ function runAdhocIntegrations() {
       // --- Helper Functions ---
   
       function triggerConfetti(element) {
+          if (typeof window.confetti !== "function") {
+            return;
+          }
+
           // Calculate coordinates relative to the screen for origin
           const rect = element.getBoundingClientRect();
           const xOrigin = (rect.left + rect.width / 2) / window.innerWidth;
           const yOrigin = (rect.top + rect.height / 2) / window.innerHeight;
   
-          confetti({
+          window.confetti({
               particleCount: 100,
               spread: 70,
               origin: { x: xOrigin, y: yOrigin },

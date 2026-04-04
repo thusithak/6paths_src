@@ -19,8 +19,17 @@ navLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const targetId = link.getAttribute("href");
-    const targetElement = document.querySelector(targetId);
+    const targetId = link.getAttribute("href") || "";
+
+    if (targetId === "#") {
+      smoother.scrollTo(0, true);
+      if (history.pushState) {
+        history.pushState(null, null, targetId);
+      }
+      return;
+    }
+
+    const targetElement = targetId ? document.querySelector(targetId) : null;
     if (targetElement) {
       const offset = smoother.offset(targetElement, "top top");
       smoother.scrollTo(offset, true);
