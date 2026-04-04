@@ -14,14 +14,13 @@ export const CONFIG = {
       click: {
         name: "click",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6944045763acbfc93eba703d_menu_item_hover.mp3",
-        volume: 1.0,
-        rate: 2.0,
+        volume: 0.8,
       },
       switch: {
         name: "switch",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6943e874813e23b235b00634_btn_switch.mp3",
         volume: 1.0,
-        rate: 2.0,
+        rate:0.5,
       },
       darkthemesound: {
         name: "darkthemesound",
@@ -37,7 +36,7 @@ export const CONFIG = {
         loop: true,
         autoplay: false,
         preload: true,
-        volume: 1.0,
+        volume: 0.4,
       },
     },
     VOLUMES: {
