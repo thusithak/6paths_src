@@ -25,14 +25,13 @@ export const CONFIG = {
       darkthemesound: {
         name: "darkthemesound",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6986e4704028b0a7490363fe_wind-blowing.mp3",
-        //src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/698774558bef78c27921d312_crickets.mp3",
         loop: true,
         autoplay: false,
         preload: true,
       },
       theme: {
         name: "theme",
-        src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/69cb526a79b012110cc1f7a2_6paths_v3_theme.mp3",
+        src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/69cb526a79b012110cc1f7a2_fbcda54216c588893ccbd6dbf562d29f_6paths_v3_theme.mp3",
         loop: true,
         autoplay: false,
         preload: true,
