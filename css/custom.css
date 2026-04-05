@@ -488,5 +488,11 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 
 .w-slider-dot{
     width: 4em;
-    background-color: #393f4e66;
+    background-color: #ffffff1f;
+}
+.w-slider-dot:hover{
+    background-color: #ffffff44;
+}
+.w-slider-dot:focus{
+    box-shadow: 0 0 0 2px #fff;
 }
