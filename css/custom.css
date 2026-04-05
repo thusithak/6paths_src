@@ -485,3 +485,8 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     white-space: nowrap;
     transition: background 0.2s ease, color 0.2s ease;
 }
+
+.w-slider-dot{
+    width: 4em;
+    background-color: #393f4e66;
+}
