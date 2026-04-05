@@ -470,11 +470,22 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     position: absolute;
     left: 50%;
     transform: translateX(-50%); 
-    color: #1fbb58;
-    font-weight: bold;
-    font-size: 1rem;
-    white-space: nowrap;
     pointer-events: none;
+    background: var(--tk-yellow-accent);
+    color: var(--text-secondary);
+    padding: 8px 24px;
+    border-radius: 0px;
+    box-shadow: 10px 6px 4px #1a233231;
+    border: 2px solid var(--bg-primary);
+    font-weight: 800;
+    font-style: italic;
+    text-transform: uppercase;
+    font-size: 1rem;
+    z-index: 1001;
     opacity: 0;
-    z-index: 0;
+    transform: scale(0) perspective(2000px) rotateX(15deg) rotateY(-15deg) skew(-10deg, 2deg);
+    transform-style: preserve-3d;
+    transform-origin: bottom left;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease;
 }
