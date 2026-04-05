@@ -191,7 +191,7 @@ function runAdhocIntegrations() {
       function trigger1UpAnimation(wrapperElement) {
           const oneUp = document.createElement('span');
           oneUp.classList.add('one-up-text');
-          oneUp.innerText = 'Email Copied!';
+          oneUp.innerText = 'Copied!';
           wrapperElement.appendChild(oneUp);
   
           gsap.set(oneUp, { y: -10, opacity: 0 });
