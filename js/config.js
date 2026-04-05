@@ -9,7 +9,7 @@ export const CONFIG = {
       hover: {
         name: "hover",
         src: "https://cdn.prod.website-files.com/692c70d38a895bed7a284c58/6943e874ff9f50d638a6cd33_7a01168271dbc7b91c0ee8c4ba7bdd70_btn_hover.mp3",
-        volume: 1.0,
+        volume: 2.0,
       },
       click: {
         name: "click",
