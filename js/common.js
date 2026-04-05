@@ -156,7 +156,7 @@ function runAdhocIntegrations() {
       if (copyBtn) {
         copyBtn.addEventListener('click', async () => {
             const emailToCopy = copyBtn.getAttribute('data-email');
-    
+            copyBtn.event.preventDefault(); 
             try {
                 await navigator.clipboard.writeText(emailToCopy);
                 triggerConfetti(copyBtn);
