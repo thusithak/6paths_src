@@ -471,12 +471,12 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
     left: 50%;
     transform: translateX(-50%); 
     pointer-events: none;
-    background: var(--tk-yellow-accent);
+    background: var(--success);
     color: var(--text-secondary);
     padding: 8px 24px;
     border-radius: 0px;
     box-shadow: 10px 6px 4px #1a233231;
-    border: 2px solid var(--bg-primary);
+    border: 2px solid var(--bg-secondary);
     font-weight: 800;
     font-style: italic;
     text-transform: uppercase;
