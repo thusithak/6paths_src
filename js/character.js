@@ -5,7 +5,7 @@ const CONFIG = {
   shakeThreshold: 30,
   shakeCountTrigger: 4,
   spamClickLimit: 3,
-  messingDuration: 6000,
+  messingDuration: 10000,
   shadowMaxBlur: 8,
   shadowMinBlur: 2,
 };

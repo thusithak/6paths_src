@@ -15,7 +15,7 @@ body.cursor-hidden {
     bottom: 100%;
     left: 50%;
     width: max-content;
-    max-width: 250px;
+    max-width: 400px;
     transform-origin: bottom left;
     margin-bottom: 10px;
     margin-left: 10px;
@@ -26,7 +26,7 @@ body.cursor-hidden {
     text-align: center;
     color: var(--text-primary);
     padding: 12px 18px;
-    border-radius: 18px;
+    border-radius: 4px;
     border-bottom-left-radius: 2px;
     background: var(--bg-primary);
     backdrop-filter: blur(12px);
@@ -45,6 +45,6 @@ body.cursor-hidden {
     height: 80px;
     pointer-events: none;
     transform: scale(0);
-    z-index: 15;
+    z-index: 1500;
     object-fit: contain;
 }
