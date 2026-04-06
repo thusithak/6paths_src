@@ -104,7 +104,7 @@ export const CONFIG = {
     SCENE_LOADED_KEY: "splineSceneLoaded",
   },
   SPLINE: {
-    SCENE_URL: "https://prod.spline.design/VBsRnSOvEXQEgAhk/scene.splinecode", 
+    SCENE_URL: "https://prod.spline.design/tRN4n5b6B7PyRG2E/scene.splinecode",
     THEME_STATE_VAR: "ThemeState",
     RUNTIME_URL: "https://unpkg.com/@splinetool/runtime",
   },
