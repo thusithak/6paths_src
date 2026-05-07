@@ -39,7 +39,7 @@ export const CONFIG = {
       },
     },
     VOLUMES: {
-      darkThemeSound: 0.1,
+      darkThemeSound: 0.0,
     },
     SCROLL: {
       threshold: 0.3,
