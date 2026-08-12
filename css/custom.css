@@ -496,3 +496,7 @@ body[data-theme="dark"] .navbar-container .main-nav .menu-item-btn:hover {
 .w-slider-dot:focus{
     box-shadow: 0 0 0 2px #fff;
 }
+
+.polaroid-frame:hover {
+cursor: url(https://uploads-ssl.webflow.com/6231cc6b435c67c6940041c9/6231d72210646d06e83e5e8a_cursor.svg) 16 0, auto !important;
+}
